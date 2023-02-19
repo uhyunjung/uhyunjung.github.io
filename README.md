@@ -1,3 +1,4 @@
+<!--
 <div align="center">
 
   # Chirpy Jekyll Theme
@@ -96,11 +97,17 @@ If you like this theme or find it helpful, please consider sponsoring me, becaus
 [![Wechat Pay](https://img.shields.io/badge/-Tip%20Me%20on%20WeChat-brightgreen?logo=wechat&logoColor=white)][cn-donation]
 [![Alipay](https://img.shields.io/badge/-Tip%20Me%20on%20Alipay-blue?logo=alipay&logoColor=white)][cn-donation]
 
-## License
-
-This work is published under [MIT](https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/LICENSE) License.
-
-<!-- ReadMe links -->
+<!-- ReadMe links 
 
 [jb]: https://www.jetbrains.com/?from=jekyll-theme-chirpy
 [cn-donation]: https://sponsor.cotes.page/
+-->
+
+## Running Local Server
+
+```console
+$ bundle exec jekyll s
+```
+## License
+
+This work is published under [MIT](https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/LICENSE) License.
