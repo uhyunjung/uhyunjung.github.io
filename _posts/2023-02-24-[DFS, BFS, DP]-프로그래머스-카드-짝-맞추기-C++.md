@@ -116,7 +116,7 @@ int solution(vector<vector<int>> board, int r, int c) {
 
 ## BFS
 ```c++
-
+{% raw %}
 #include <string>
 #include <vector>
 #include <queue>
@@ -224,6 +224,7 @@ int solution(vector<vector<int>> board, int r, int c) {
     
     return answer;
 }
+{% endraw %}
 ```
 
 ## 참고
