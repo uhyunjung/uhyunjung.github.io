@@ -1,6 +1,5 @@
 ---
 title: '[Union-Find] 프로그래머스 표 병합 C++'
-author: HJ
 date: 2023-04-04 22:10:00 +0900
 categories: [코딩테스트, Union-Find]
 tags: [Union-Find]

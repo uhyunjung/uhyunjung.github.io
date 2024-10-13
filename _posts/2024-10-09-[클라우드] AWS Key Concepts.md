@@ -1,6 +1,5 @@
 ---
 title: '[클라우드] AWS Key Concepts'
-author: HJ
 date: 2024-10-09 18:10:00 +0900
 categories: [클라우드, AWS]
 tags: [클라우드]

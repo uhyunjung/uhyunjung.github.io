@@ -1,6 +1,5 @@
 ---
 title: '[다익스트라, DFS, BFS, DP] 프로그래머스 경주로 건설 C++'
-author: HJ
 date: 2023-03-03 15:40:00 +0900
 categories: [코딩테스트, 그래프|트리]
 tags: [다익스트라, DFS, BFS, DP]
