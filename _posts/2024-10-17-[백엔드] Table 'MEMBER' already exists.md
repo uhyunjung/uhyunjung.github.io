@@ -1,6 +1,6 @@
 ---
 title: '[백엔드] Table ''MEMBER'' already exists'
-date: 2024-10-13 08:10:00 +0900
+date: 2024-10-17 06:10:00 +0900
 categories: [오늘의 에러, Backend]
 tags: [백엔드]
 math: true
