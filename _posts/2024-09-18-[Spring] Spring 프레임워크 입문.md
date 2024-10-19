@@ -1,5 +1,5 @@
 ---
-title: '[백엔드] Spring 프레임워크 입문'
+title: '[Spring] Spring 프레임워크 입문'
 date: 2024-09-18 20:10:00 +0900
 categories: [백엔드, Spring]
 tags: [Spring]
@@ -9,6 +9,24 @@ mermaid: true
 
 # Spring 프레임워크 입문
 > 예제 코드 [**Spring PetClinic**](https://github.com/spring-projects/spring-petclinic)
+
+## Dependency
+> spring-boot-devtools<br/>
+spring-boot-starter-web<br/>
+spring-boot-starter-jdbc<br/>
+spring-boot-starter-jpa<br/>
+spring-boot-starter-data-jpa<br/>
+spring-boot-starter-log4j2<br/>
+slf4j-api<br/>
+spring-boot-starter-test<br/>
+springdoc-openapi-starter-webmvc-ui<br/>
+lombok<br/>
+mybatis-spring-boot-starter<br/>
+mybatis-spring-boot-starter-test<br/>
+mysql-connector-java<br/>
+mariadb-java-client<br/>
+h2<br/>
+swagger-annotations
 
 ## IoC
   - 의존성에 대한 컨트롤이 바뀜
@@ -21,18 +39,18 @@ mermaid: true
       - Bean의 의존성 관리
       - Bean Factory 및 여러 개 인터페이스 상속 받음
       - Servlet 3.5부터 Java 지원, XML X → 직접 사용X
-      - @Autowired ApplicationContext 생성 → applicationContext.getBean(repository.class)로 사용
+      - `@Autowired` ApplicationContext 생성 → applicationContext.getBean(repository.class)로 사용
       - Spring Data JPA 인터페이스가 빈을 생성해 Application Context에 등록하는 라이프사이클 콜백 있음
 
 ## Bean
   - IoC 컨테이너가 관리하는 객체(Model은 Bean 아님)
   - 이름 또는 ID, 타입, 스코프
   - 등록 방법
-      - Conponent Scanning : 생성자에 주입 @SpringBootApplication에서 같은 패키지 컴포넌트들 처리
-          - @Component 포함하는 Annotation
-              - @Repository @Service @Controller
+      - Conponent Scanning : 생성자에 주입 `@SpringBootApplication`에서 같은 패키지 컴포넌트들 처리
+          - `@Component` 포함하는 Annotation
+              - `@Repository` `@Service` `@Controller`
       - 직접 등록
-          - @Configuration 클래스 안에 @Bean으로 return
+          - `@Configuration` 클래스 안에 `@Bean`으로 return
   - 사용 방법
       - `@Autowired` or `@Inject` or ApplicationContext에서 getBean()
   - Annotation : 주석, 프로세서 따로 존재
@@ -40,7 +58,7 @@ mermaid: true
 
 ## DI(의존성 주입)
   - **Autowired 없어도** 생성자가 하나만 있고 생성자의 매개변수가 빈으로 등록되어 있다면 자동 주입
-  - @Autowired or @Inject 사용 방법
+  - `@Autowired` or `@Inject` 사용 방법
       - **생성자**
       - 필드
       - Setter

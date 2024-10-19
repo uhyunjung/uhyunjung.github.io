@@ -1,8 +1,8 @@
 ---
-title: '[백엔드] Table ''MEMBER'' already exists'
+title: '[Backend] Table ''MEMBER'' already exists'
 date: 2024-10-13 08:10:00 +0900
 categories: [오늘의 에러, Backend]
-tags: [백엔드]
+tags: [Backend]
 math: true
 mermaid: true
 ---
@@ -10,11 +10,9 @@ mermaid: true
 ## 문제
 > Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEMBER" already exists; SQL statement:
 
-
 ## 개념
 - [**DDL auto 옵션 정리**](https://colabear754.tistory.com/136)
 -> DDL auto를 update로 설정한 상태
-
 
 ## 해결 과정
 ### 1. DATABASE_TO_UPPER=false 삭제 -> 해당 없음
@@ -49,7 +47,6 @@ spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults = true
 `spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults`의 기본값은 `true`이기 때문에 생략해도 된다.
 
 schema.sql이 없으면 true이든 false이든 테이블을 schema로 새로 생성하지 않기 때문에 에러가 발생하지 않는다.
-
 
 ### 결과
 `Spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults = false`를 `true`로 변경한다.
