@@ -1,6 +1,6 @@
 ---
 title: '[Backend] Table ''MEMBER'' already exists'
-date: 2024-10-13 08:10:00 +0900
+date: 2024-10-17 06:10:00 +0900
 categories: [오늘의 에러, Backend]
 tags: [Backend]
 math: true
@@ -48,7 +48,7 @@ spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults = true
 
 schema.sql이 없으면 true이든 false이든 테이블을 schema로 새로 생성하지 않기 때문에 에러가 발생하지 않는다.
 
-### 결과
+## 결과
 `Spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults = false`를 `true`로 변경한다.
 **ddl auto가 update일 때, entity의 column명을 변경하면 기존의 column은 그대로 존재하고 새로운 column이 DB에 생성된다.
 ddl auto가 update일 때, entity의 column명을 삭제해도 DB에는 그대로 column이 존재한다.**

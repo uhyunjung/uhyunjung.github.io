@@ -1,7 +1,7 @@
 ---
 title: '[AWS] AWS Key Concepts'
 date: 2024-10-09 18:10:00 +0900
-categories: [클라우드, AWS]
+categories: [인프라/클라우드, AWS]
 tags: [AWS]
 math: true
 mermaid: true
