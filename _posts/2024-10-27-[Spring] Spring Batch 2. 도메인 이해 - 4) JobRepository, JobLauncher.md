@@ -1,7 +1,7 @@
 ---
 title: '[Spring] Spring Batch 2. 도메인 이해 - 4) JobRepository, JobLauncher'
 date: 2024-10-27 20:10:00 +0900
-categories: [백엔드, Spring]
+categories: [백엔드, Spring Batch]
 tags: [Spring]
 math: true
 mermaid: true

@@ -1,7 +1,7 @@
 ---
 title: '[Spring] Spring Batch 3. 실행 - 2) Job'
 date: 2024-10-30 20:30:00 +0900
-categories: [백엔드, Spring]
+categories: [백엔드, Spring Batch]
 tags: [Spring]
 math: true
 mermaid: true

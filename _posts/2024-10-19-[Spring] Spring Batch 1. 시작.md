@@ -1,7 +1,7 @@
 ---
 title: '[Spring] Spring Batch 1. 시작'
 date: 2024-10-19 20:10:00 +0900
-categories: [백엔드, Spring]
+categories: [백엔드, Spring Batch]
 tags: [Spring]
 math: true
 mermaid: true
