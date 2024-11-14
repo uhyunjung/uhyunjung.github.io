@@ -1,6 +1,6 @@
 ---
 title: '[Spring] Spring Batch 4. 청크 프로세스 - 2) ItemWriter'
-date: 2024-11-10 17:30:00 +0900
+date: 2024-11-08 17:30:00 +0900
 categories: [백엔드, Spring Batch]
 tags: [Spring]
 math: true

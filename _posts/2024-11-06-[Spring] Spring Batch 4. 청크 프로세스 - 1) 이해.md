@@ -1,6 +1,6 @@
 ---
 title: '[Spring] Spring Batch 4. 청크 프로세스 - 1) 이해'
-date: 2024-11-09 19:30:00 +0900
+date: 2024-11-06 19:30:00 +0900
 categories: [백엔드, Spring Batch]
 tags: [Spring]
 math: true
