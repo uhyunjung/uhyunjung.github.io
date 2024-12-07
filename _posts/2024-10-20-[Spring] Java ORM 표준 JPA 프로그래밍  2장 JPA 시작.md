@@ -9,6 +9,7 @@ mermaid: true
 
 ## 자바 ORM 표준 JPA 프로그래밍 도서
 > [**자바 ORM 표준 JPA 프로그래밍**](https://product.kyobobook.co.kr/detail/S000000935744)
+> [**Github**](https://github.com/holyeye/jpabook)
 
 ## 2.1 이클립스 설치와 프로젝트 불러오기
 - JDK 1.6 이상
@@ -134,6 +135,67 @@ public class JpaMain {
       em.remove(member); // 삭제
     }
 }
+```
+```java
+package jpabook.start;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="MEMBER")
+public class Member {
+
+    @Id
+    @Column(name = "ID")
+    private String id;
+
+    @Column(name = "NAME")
+    private String username;
+
+    private Integer age;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+}
+```
+```sql
+-- member.sql
+CREATE TABLE MEMBER (
+    ID VARCHAR(255) NOT NULL, --아이디(기본 키)
+    NAME VARCHAR(255),        --이름
+    AGE INTEGER NOT NULL,     --나이
+    PRIMARY KEY (ID)
+)
+```
+```bash
+# clean.sh
+cd ${0%/*} 2>/dev/null
+echo $PWD/${0##*/}
+rm .settings
+rm -rf bin
+mvn clean
+mvn eclipse:clean
 ```
 
 - 검색 쿼리에서 데이터베이스의 모든 데이터를 애플리케이션으로 불러와서 엔티티 객첼 변경한 다음 검색해야 하는데, 사실상 불가능하다.
