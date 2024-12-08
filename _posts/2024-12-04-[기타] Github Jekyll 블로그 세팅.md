@@ -1,6 +1,6 @@
 ---
 title: '[기타] Github Jekyll 블로그 세팅'
-date: 2024-12-03 08:10:00 +0900
+date: 2024-03-03 08:10:00 +0900
 categories: [기타, Github]
 tags: [Github]
 math: true
@@ -11,7 +11,7 @@ mermaid: true
 - <https://github.com/cotes2020/jekyll-theme-chirpy>
 
 ## Github Settings
-- General > Default branchbranch > main 선택
+- General > Default branch > main 선택
 - Pages > GitHub Pages > Build and deployment Source > Github Actions 선택
 
 ## Source Code 수정
@@ -60,6 +60,11 @@ Sitemap: https://uhyunjung.github.io/sitemap.xml
 ```
 - sitemap.xml 추가
     - Google Sitemap 설정 : <https://www.google.com/webmasters/tools/sitemap-list>
+
+## Google Adsense 추가
+- ads.txt 추가
+    - Google Adsense 설정 : <https://adsense.google.com/intl/ko_kr/start/>
+    - 승인 필요
 
 ## 구조
 - _tabs : 사이드바
