@@ -1,7 +1,7 @@
 ---
 title: '[Backend] Table ''MEMBER'' already exists'
 date: 2024-10-17 06:10:00 +0900
-categories: [오늘의 에러, Backend]
+categories: [백엔드, Backend]
 tags: [Backend]
 math: true
 mermaid: true

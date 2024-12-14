@@ -1,7 +1,7 @@
 ---
-title: '[기타] Github Jekyll 블로그 세팅'
+title: '[Github] Github Jekyll 블로그 세팅'
 date: 2024-03-03 08:10:00 +0900
-categories: [기타, Github]
+categories: [정리, Github]
 tags: [Github]
 math: true
 mermaid: true
@@ -71,6 +71,12 @@ Sitemap: https://uhyunjung.github.io/sitemap.xml
 - _site : Build 결과
 - _layout : home.html, post.html 등
 - _includes : head.html, footer.html
+
+## 비공개 포스트
+- 해당 포스트 페이지 상단에 추가
+```
+published: false
+```
 
 ## 참고) Jekyll CSS 적용 안 될 때
 ```
