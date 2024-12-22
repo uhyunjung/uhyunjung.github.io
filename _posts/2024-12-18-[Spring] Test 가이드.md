@@ -29,9 +29,9 @@ mermaid: true
 - **AssertJ** : 단정문(assert) 지원의 라이브러리
 - **Mockito** : 자바 Mock 객체 지원의 프레임워크
 
+### 어노테이션
 - `@Test`
 - `@SpringBootTest` : Spring Boot, IntegrationTest
-- `@MockBean` : Spring Boot
 
 ## 단위 테스트
 - 서버를 시작하지 않고 아래 계층들 테스트
@@ -41,8 +41,9 @@ mermaid: true
 - MVC 테스트
 - 테스트 우선순위 낮음
 - `@WebMvcTest` : MockApiTest
-- `@MockMvc`: SpringTest, mockMvc.perform()
 - `@AutoConfigureMockMvc` : `@Autowired`로 MockMvc 주입
+- `@MockBean` : Spring Boot
+- `@MockMvc`: SpringTest, mockMvc.perform()
 
 ### Service Test
 - Mock 테스트
