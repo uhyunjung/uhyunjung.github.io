@@ -1,8 +1,8 @@
 ---
 title: '[Spring] Java ORM 표준 JPA 프로그래밍 3장 영속성 관리'
 date: 2024-10-20 20:10:00 +0900
-categories: [백엔드, Spring]
-tags: [Spring]
+categories: [백엔드, ORM]
+tags: [ORM]
 math: true
 mermaid: true
 ---
