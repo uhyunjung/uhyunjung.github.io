@@ -36,7 +36,7 @@ npm config set strict-ssl false
 yarn config set "strict-ssl" false
 
 set NODE_TLS_REJECT_UNAUTHORIZED=0
-set NODE_EXTRA_CA_CERTS=C:\Users\GLOVIS\sw\PALO_HYUNDAI-GLOVIS_COM.pem
+set NODE_EXTRA_CA_CERTS=pem 키 경로
 ```
 
 ## Yarn 설치
