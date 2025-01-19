@@ -44,7 +44,12 @@ jobs:
 - <https://rubyinstaller.org/downloads/>
 
 ## Terminal Command
+- Root Repository 경로
+
 ```bash
+npm install && npm run build
+
+bundle
 bundle install
 bundle exec jekyll serve
 ```
@@ -74,8 +79,17 @@ Sitemap: https://uhyunjung.github.io/sitemap.xml
 
 ## 비공개 포스트
 - 해당 포스트 페이지 상단에 추가
+
 ```
 published: false
+```
+
+## Fork Repository Update
+```bash
+git remote add upstream https://github.com/cotes2020/jekyll-theme-chirpy
+git remote -v
+git fetch upstream
+git merge upstream/master
 ```
 
 ## 참고) Jekyll CSS 적용 안 될 때
