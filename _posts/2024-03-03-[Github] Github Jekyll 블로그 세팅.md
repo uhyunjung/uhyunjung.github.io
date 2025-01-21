@@ -92,6 +92,15 @@ git fetch upstream
 git merge upstream/master
 ```
 
+## WorkFlow 파일 수정
+```bash
+Error: The current runner (ubuntu-24.04-x64) was detected as self-hosted because the platform does not match a GitHub-hosted runner image (or that image is deprecated and no longer supported).
+```
+```
+- name: Setup Ruby
+  uses: ruby/setup-ruby@v1
+```
+
 ## 참고) Jekyll CSS 적용 안 될 때
 ```
 --- layout: home # Index page ---

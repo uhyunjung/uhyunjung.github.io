@@ -117,6 +117,15 @@ import static org.mockito.Mockito.when;
 - `@InjectMocks` : Mockito.mock(ServiceClass)
 - `Mockito.when().thenReturn()` : given 해당
 
+- when 절 : 객체 대신 `any(클래스명.class)`, `anyString()` 등 사용 가능
+
+```
+when(함수(객체)).thenReturn(반환값);
+when(함수(객체)).thenAnswer(객체);
+when(함수(객체)).thenAnswer(invocation -> invocation.getArgument(0));
+when(함수(객체)).thenAnswer(invocation -> 함수(객체));
+```
+
 - 주의사항
 
 ```
