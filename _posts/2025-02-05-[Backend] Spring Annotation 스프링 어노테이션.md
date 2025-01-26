@@ -1,6 +1,6 @@
 ---
 title: '[Backend] Spring Annotation 스프링 어노테이션'
-date: 2025-02-03 08:10:00 +0900
+date: 2025-02-05 08:10:00 +0900
 categories: [백엔드, Backend]
 tags: [Backend]
 math: true

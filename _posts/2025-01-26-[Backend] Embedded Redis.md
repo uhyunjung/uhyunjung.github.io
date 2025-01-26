@@ -58,7 +58,7 @@ public class EmbeddedRedisConfig {
     @PostConstruct
     private void start() throws IOException {
         int port = isRedisRunning() ? getRandomPort() : redisPort;
-        redisServer = new RedisServer(port);
+        redisServer = new RedisServer(port);// x86, ARM
         redisServer.start();
     }
 
