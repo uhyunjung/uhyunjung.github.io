@@ -5,7 +5,6 @@ categories: [정리, 데이터베이스]
 tags: [데이터베이스]
 math: true
 mermaid: true
-published: false
 ---
 
 ## 원티드 프리온보딩 백엔드 챌린지 2월
