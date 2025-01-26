@@ -137,9 +137,9 @@ mermaid: true
 
 ■ ELB
   - Options
-    - Application(ALB)
-    - Network(NLB)
-    - Classic(CLB)
+    - Application(ALB) L7
+    - Network(NLB) L4
+    - Classic(CLB) L4, L7
 
 ■ High Availability
   - ELB

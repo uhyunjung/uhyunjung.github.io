@@ -354,14 +354,15 @@ class VisitRepositoryTest {
     - JUnit Jupiter
     - JUnit Vintage
 - assertJ
-    - `assertThat(actual, expected)`
+    - `assertThat(actual).isEqualTo(expected)`
+    - `assertEquals(expected, actual)`
 
 ## CRUD
 - Read는 다른 CUD 테스트에 포함되어 있을 수 있음
 
 ## Jacoco 테스트 커버리지
 
-### 참고
+## 참고
 - <https://medium.com/simform-engineering/testing-spring-boot-applications-best-practices-and-frameworks-6294e1068516>
 - <https://spring.io/guides/gs/testing-web>
 - <https://github.com/spring-guides/gs-testing-web>

@@ -1,6 +1,6 @@
 ---
 title: '[Backend] Spring Annotation 스프링 어노테이션'
-date: 2024-12-03 08:10:00 +0900
+date: 2025-02-03 08:10:00 +0900
 categories: [백엔드, Backend]
 tags: [Backend]
 math: true
@@ -16,6 +16,7 @@ mermaid: true
 ## Entity
 - `@Entity`
 - `@NoArgsConstructor`
+- `@NoArgsConstructor(access = AccessLevel.PROTECTED)`
 - `@RequiredArgs`
 
 ## DTO 
@@ -51,13 +52,22 @@ mermaid: true
 
 ## 기타
 - `@MappedSuperclass`
+- `@EventListener`
 - `@EntityListeners(AuditingEntityListener.class)`
+- `@JsonIgnore`
 - `@JsonIgnoreProperties(value = { "modifiedAt" }, allowGetters = true)`
 - `@PostLoad`
 - `@PrePersist`
 - `@PreUpdate`
 - `@Transient`
 - `@Builder.Default`
-- `@JsonIgnore`
 - `@EnableJdbcHttpSession(cleanupCron = "0 */10 * * * *")` : 매 10분마다 clean
 - `@CacheConfig`
+- `@Value("${server.servlet.session.gtimeout:120m}")`
+- `@QueryHint`
+- `@Aspect`
+- `@Around("within() && execution(public * *(..))")`
+- `@Qualifier("jasyptSupportEncryptor")`
+- `@Bean`
+- `@Order`
+- `@Profile`
