@@ -267,6 +267,6 @@ public interface TokenRepository extends CrudRepository<Token, String> {
 ```
 
 ## 참고
-- https://green-bin.tistory.com/77
-- https://jojoldu.tistory.com/297
-- https://github.com/ku-kim/springboot-redis-example/
+- <https://green-bin.tistory.com/77>
+- <https://jojoldu.tistory.com/297>
+- <https://github.com/ku-kim/springboot-redis-example/>
