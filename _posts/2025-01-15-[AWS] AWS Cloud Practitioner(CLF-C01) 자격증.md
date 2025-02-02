@@ -21,12 +21,12 @@ mermaid: true
     - 1개 이상의 개별 데이터 센터(보통 3개 ~ 6개)
   - Region
     - 물리적 위치
-    - Compliance, LAtency, AZ, Costs 고려
+    - Compliance, Latency, AZ, Costs 고려
     - Region 종속 Service : EC2, Elastic Beanstalk, Lambda, Rekognition
     - Global Service : IAM, Route53, CloudFront, WAF
   - **Edge Location** : 서비스별 작업 수행하는 데이터 센터 ex) CloudFront, Global Accelerator
 
-■ Six advantages of Cloud Computing
+■ Six Advantages of Cloud Computing
   - Trade capital expense (CAPEX) for operational expense(OPEX) : 선행 비용(고정 비용)을 가변 비용으로 대체
   - Benefit from massive economies of scale : 거대한 규모의 경제로 얻는 이점
   - Stop guessing capacity : 용량 추정 불필요
@@ -149,6 +149,7 @@ mermaid: true
 ■ **Lambda** : Serverless(코드가 서버에서 실행되지만, 프로비저닝하거나 관리 필요 없음)
   - 비용 청구 기준 : 실행시간, 요청 수
   - 회사의 책임 : 코드 내부의 보안, 코드 작성 및 업데이트
+
 ■ **Fargate** : Conainer(ECS, EKS)를 위한 Serverless 컴퓨팅 엔진
 
 ■ Batch
@@ -158,10 +159,14 @@ mermaid: true
   - 관리형 데이터베이스 서비스
   - DB 이중화 : Multi AZ 사용
   - OLTP(Online Transactional Processing) 용도
-  - Amazon Aurora : MySQL, PostgreSQL과 호환되는 관계형 DB 엔진
-  - MSSQL
-  - Maria DB
-  - Oracle
+  - 종류
+    - Amazon Aurora : MySQL, PostgreSQL과 호환되는 관계형 DB 엔진
+    - MSSQL
+    - Maria DB
+    - Oracle
+  - Scaling DB
+    - Read Replica
+    - Sharding
 
 ■ DynamoDB
   - 관리형 데이터베이스 서비스
@@ -172,6 +177,9 @@ mermaid: true
   - Consistency Option
     - Eventually
     - Strongly
+  - Scaling DB
+      - Auto Scaling/On Demand
+      - Adaptive Capacity
 
 ■ DAX(DynamoDB Accelerator) : DynamoDB 전용 Cache
 
@@ -268,8 +276,7 @@ mermaid: true
     - Health Checks and Monitoring
     - DNS Failover
     - Weighted Round Robin(WRR)
-    - DDoS 방지
-
+  
 ## Module 7 (IAM)
 ■ Account Root User
   - Root User Privileges
@@ -289,7 +296,7 @@ mermaid: true
     - Amazon EC2 인스턴스에서 실행되는 애플리케이션이 다른 AWS 서비스에 액세스해야 하는 경우
     - 회사가 AWS에 요청하는 휴대폰에서 실행되는 애플리케이션을 생성하는 경우
 
-■ Cognito(mobile/app User Pool Federated Identities)
+■ **Cognito**(mobile/app User Pool Federated Identities)
   - 사용자 인증, 직접 로그인, 임시 권한
   - 웹 및 모바일 어플리케이션 사용자에 대한 자격 증명 제공
   - User Pool
@@ -315,7 +322,7 @@ mermaid: true
   - **Session Manager**
   - Inventory
 
-■ Service Catalog
+■ **Service Catalog**
   - 액세스 제한
 
 ■ Management Console
@@ -323,6 +330,8 @@ mermaid: true
 ■ CLI
 
 ■ SDK : 프로그래밍 방식
+
+■ Directory Service : AD(Active Directory)를 위한 서비스
 
 ■ Managed Microsoft AD : MFA
 
@@ -374,8 +383,6 @@ mermaid: true
   - Hardware Security Module
   - 사용자가 직접 암호화 키 관리
 
-■ Directory Service
-
 ■ **KMS**
   - Encrypt EBS 제공
   - 암호와 키에 관한 액세스 권한 -> 데이터 액세스 권한
@@ -387,6 +394,7 @@ mermaid: true
 
 ■ **Shield**
   - DDoS 방지
+    ex) Auto Scaling, CloudFront, Route53
   - Standard, Advanced
 
 ■ **WAF**
@@ -410,7 +418,7 @@ mermaid: true
   - **CloudTrail** : 계정 활동 추척, 이벤트 및 API 호출 기록 x-ray등
   - VPC Flow Logs : 수신 및 발신 트래픽 정보
   - Service Health Dashboard
-  - **Personal Health Dashboard** : 모든 플랜 제공
+  - **Personal Health Dashboard**
 
 ■ Costs
   - **Cost Explorer** : 과거 데이터로 비용 탐색기
@@ -426,6 +434,7 @@ mermaid: true
 
 ■ **Support Plan**
   - Basic
+    - Personal Health Dashboard 제공
   - Developer
   - Business
     - Trusted Advisor 제공
@@ -443,15 +452,6 @@ mermaid: true
   - Scheduled/Dynamic/Predictive
   - Auto Scaling Group
     - Min/Max/Desired
-  - DDoS 방지
-
-■ Scaling Database
-  - RDS
-    - Read Replica
-    - Sharding
-  - DynamoDB
-    - Auto Scaling/On Demand
-    - Adaptive Capacity
 
 ## Module 10 (Automation)
 ■ **CloudFormation**
@@ -463,14 +463,14 @@ mermaid: true
 ■ OpsWorks
 
 ## Module 11 (Caching)
-■ **CloudFront** : CDN, DDoS 방어
+■ **CloudFront** : CDN
   - Expire contents
     - TTL
     - Change object name
     - Invalidate Object
 
 ## Module 12 (Decoupled Architecture)
-■ SQS(Simple Queue Service)
+■ **SQS**(Simple Queue Service)
   - Serverless, 완전 관리형, 분리(Decouple), 송신 비용만 존재
   - Type
     - Standard vs FIFO
@@ -479,7 +479,7 @@ mermaid: true
     - Visibility timeout
     - Long polling(vs Short polling)
 
-■ SNS(Simple Notification Service)
+■ **SNS**(Simple Notification Service)
   - 완전 관리형 Pub/Sub 메세징
   - Lambda
   - SQS
@@ -519,25 +519,31 @@ mermaid: true
     - Custom Container Image
   - Networking
     - Route53(Load Balancing, Failover)
-    - ELB(Load Balancing, FailoveR)
+    - ELB(Load Balancing, Failover)
     - VPC
     - Direct Connect(Backup Replication)
 
 ## Module 15 (Migration)
 ■ Application Discovery Service
+
 ■ Data Migration Service(DMS)
-  - Snowball : PetaByte(60TB)
+  - **Snowball** : PetaByte(60TB)
   - Snowball Edge : 100TB(80TB)
     - 인터넷 연결이 간헐적이거나 없는 위치에서 데이터 수집
-  - Snowmobile : ExaByte
+  - **Snowmobile** : ExaByte
   - Schema Conversion Toll (SCT)
+
 ■ Server Migration Service
+
 ■ Storage Gateway
   - On-Premise Data Storage -> AWS Cloud 연결
+
 ■ **Consulting Partner** : Migration 전문가
+
 ■ **Outposts**
   - AWS Cloud Service -> On-Premise 삽입 및 하이브리드 아키텍처 확장
   - 낮은 대기 시간 또는 로컬 시스템 상호 종속성이 필요한 애플리케이션에 유용
+
 ■ **Local Zones** : 대기 시간 최소화, 연결 중단 X
 
 ## Module 16 (Developer Tools)
@@ -549,65 +555,104 @@ mermaid: true
 
 ## Module 17 (Business Productivity)
 ■ WorkDocs
+
 ■ WorkMail
-■ **Chime**
+
+■ **Chime** : 오디오와 비디오를 송수신하고 콘텐츠 공유를 허용하는 실시간 미디어 애플리케이션 구축
+
 ■ WorkSpaces
+
 ■ AppStream : 원격 작업 액세스를 지원하는 완전관리형의 비영구 데스크톱 및 애플리케이션 서비스
+
 ■ Marketplace
 
 ## Module 18 (Application)
-■ API Gateway
+■ API Gateway : 규모와 관계없이 REST 및 WebSocket API를 생성, 게시, 유지, 모니터링 및 보호하기 위한 서비스
+
 ■ SWF
+
 ■ Elastic Transcoder
+
 ■ Step Functions
+
 ■ Cloud Search
 
 ## Module 19 (Analytics)
 ■ EMR : Elastic MapReduce, Hadoop Framework
+
 ■ Kinesis : Realtime Video & Data Stream Service 수집, 처리, 분석
+
 ■ Elastic Search
+
 ■ QuickSight : Serverless, 시각적 보고서 생성, BI 서비스
+
 ■ Data Pipeline : 서로 다른 사용자의 수백 건 요청 동시 처리
-■ RedShift
+
+■ **RedShift**
   - Data Warehouse
   - Column 형식
   - OLAP(Online Analyticla Processing) 용도
+
 ■ Glue : Serverless 관리형 ETL(Extract, Transform, Load)
+
 ■ Managed Blcokchain
 
 ## Module 20 (AI)
 ■ Machine Learning
-■ Rekognition : Vision
+
+■ **Rekognition** : Vision
+
 ■ **Polly** : TTS
+
 ■ Lex : ChatBot, 자동 음성 인식, 자연어 이해 기능
+
 ■ Transcribe : STT, 자동 음성 인식, ASR 딥러닝 처리 사용
+
 ■ Translate : 번역
+
 ■ **Comprehend** : NLP, 이메일 메세지 감정분석 등 사용
+
 ■ SageMaker : 머신 러닝 모델 구축, 훈련, 배포
+
 ■ ForeCast
+
 ■ Code Guru
+
 ■ Kendra : 문서 검색 서비스
+
 ■ Personalize : 개인화 추천
+
 ■ Textract : 텍스트 추출
+
 ■ DeepRacer : 자율 주행 경주용 자동차
+
 ■ Augmented AI(A2I) : 전문 인력 없이 모델 빌드
+
 ■ Ground Station : 인공위성 빌림
+
 ■ Fraud Detector : 잠재적인 온라인 사기 행위 식별
 
 ## Module 21 (Mobile)
 ■ Mobile Hub
+
 ■ Mobile SDK
+
 ■ Mobile Analytics
+
 ■ PinPoint : 마케팅 커뮤니케이션 서비스
+
 ■ Device Farm
 
 ## Module 22 (IOT)
 ■ IoT Platform
+
 ■ Greengrass
+
 ■ IoT Button
 
 ## Mobuld 23 (Game)
 ■ GameLift
+
 ■ Lumberyard
 
 ## 문제
