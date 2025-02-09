@@ -19,6 +19,8 @@ mermaid: true
 - `@NoArgsConstructor(access = AccessLevel.PROTECTED)`
 - `@RequiredArgs`
 
+- toDto 함수
+
 ## DTO 
 - `@Builder`
 - `@SuperBuilder(builderMethodName = "of")`
@@ -44,9 +46,12 @@ mermaid: true
 	- DTO 전달
 	- `@RequestBody` : Swagger 불편, JSON.Stringify
 	- `@PameterObject` : Swagger 편의, URLSearchParams, null 문자열로 DB에 저장
-	- `@RequestParam(required = false)`
+	- `@RequestParam(required = false)` : URLSearchParams
+	- `@PathVariable("id")` : 필수
 
 ## Service
+- Controller <-> Service : DTO 전달
+- Service <-> Repository : Entity 전달
 - `@Autowired`
 - `@Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)` identity support
 
@@ -71,3 +76,5 @@ mermaid: true
 - `@Bean`
 - `@Order`
 - `@Profile`
+- `@Import`
+- `@Primary`

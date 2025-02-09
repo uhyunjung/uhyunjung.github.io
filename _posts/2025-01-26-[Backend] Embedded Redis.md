@@ -270,3 +270,8 @@ public interface TokenRepository extends CrudRepository<Token, String> {
 - <https://green-bin.tistory.com/77>
 - <https://jojoldu.tistory.com/297>
 - <https://github.com/ku-kim/springboot-redis-example/>
+
+- <https://github.com/Kugaaa/embedded-redis-resoved-macOS14>
+- <https://kyeong8139.tistory.com/70>
+- <https://soobindeveloper8.tistory.com/1006>
+- <https://velog.io/@kimsei1124/<Spring-Data-Redis-%EB%A1%9C%EC%BB%AC%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0>
