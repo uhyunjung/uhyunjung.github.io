@@ -11,6 +11,8 @@ mermaid: true
 ■ Cloud Computing Deploy Model
   - Cloud
     - No Infrastructure Operating Costs
+    - The ability to use the pay-as-you-go model
+    - No longer having to guess what capacity will be required
   - On-Premise(Private Cloud)
   - Hybrid
 
@@ -43,9 +45,12 @@ mermaid: true
 ■ 클라우드로 해결한 문제점
   - Flexibility
   - Cost-Effectiveness
+    - AWS enables capacity to be adjusted on demand
+    - AWS eliminates many of the costs of building and maintaining on-premises data centers
   - Scalability
   - Elasticity
   - High-availability and fault-tolerance
+    - An architecture's ability to withstand failures with minimal downtime
   - Agility
     - The speed at which AWS resources are implemented
     - The ability to experiment quickly
@@ -58,6 +63,7 @@ mermaid: true
     - ex) A company wants to protect its AWS Cloud information, system,s and assets while performing risk assessment and migration tasks.
   - **Reliability(안정성/신뢰성)** : 기능 수행, 복구
     - ex) 비정상 애플리케이션을 자동으로 복구, 가용성(High Availability) 유지, 가동 중지 시간 최소화, 장애로부터 신속하게 복구
+    - ex) Learn to improve from operational failures
   - **Performance Efficiency(성능 효율성)** : Serverless, 고급 기술
     - ex) 워크 로드 및 메모리 요구 사항에 따라 적합한 Amazon EC2 유형을 사용해 정보에 기반한 의사 결정을 수립하고 비즈니스 요구가 진화함에 따라 효율성 유지
   - **Cost Efficiency(비용 최적화)**
@@ -76,13 +82,21 @@ mermaid: true
     - Confirming that the hardware is working in the data center
     - Patching the operating system
     - Shutting down Lambda functions when they are no longer in use
+    - Provision hosts
+    - Secure the operating system
+    - Maintain the security of the AWS Cloud
+    - Implement physical and environmental controls
+    - Operating system installations
+    - Maintenance of physical and environmental controls
     - ex) A company wants to run a NoSQL database on Amazon EC2 instances. -> Patch the physical infrastructure that hosts the EC2 instances
   - Customer Responsibility
     - Manage connections to the database
     - Access to DynamoDB tables
     - Configure the AWS provided security group firewall
     - Classify company assets in the AWS Cloud
-    - MAnaging the code within the Lambda function
+    - Managing the code within the Lambda function
+    - Manage database access permissions
+    - Configure firewalls and networks
 
 ■ **Cloud Adoption Framework(CAF)**
   - Migration 조언
@@ -109,6 +123,7 @@ mermaid: true
   - Athena : Serverless 대화형 쿼리 서비스
     - ex) A company has 5 TB of data stored in Amazon S3. The company plans to occasionally run queries on the data for analysis. Amazon Athena should the company use to run these queries in the most cost-effective manner.
   - Data Encryption 제공
+  - Provides highly durable object storage
 
 ■ Glacier  
   - Vault, Archive
@@ -155,6 +170,8 @@ mermaid: true
       - ex) A company wants to make an upfront commitment for continued use of its production Amazon EC2 instances in exchange for a reduced overall cost. Reserved Instances and Savings Plans meet these requirements with the lowest cost.
     - Spot Instance : 공급/수요에 따라 조정
       - ex) A company runs thousands of simultaneous simulations using AWS Batch. Each simulation is stateless, is fault tolerant, and runs for up to 3 hours. Spot Instances enables the company to optimize costs and meet these requirements.
+      - ex) A company has a test AWS environment. A company is planning on testing an application within AWS. The application testing can be interrupted and does not need to run continuously. Spot instances will meet these requirements most cost-effectively.
+      - ex) A company is deploying a machine learning (ML) research project that will require a lot of compute power over several months. The ML processing jobs do not need to run at specific times. Spot instances will meet these requirements at the lowest cost.
     - Dedicated Instance
     - Dedicated Hosts : 코어당 소프트웨어 라이선스
     - **Savings Plan** : 1년 또는 3년 기간 동안 일정한 컴퓨팅 사용량 약정
@@ -184,6 +201,7 @@ mermaid: true
   - 회사의 책임 : 코드 내부의 보안, 코드 작성 및 업데이트
 
 ■ **Fargate** : Conainer(ECS, EKS)를 위한 Serverless 컴퓨팅 엔진
+  - A serverless compute engine for containers
   - ex) A company is running and managing its own Docker environment on Amazon EC2 instances. The company wants an alternative to help manage cluster size, scheduling, and environment maintenance.
 
 ■ Batch
@@ -195,6 +213,7 @@ mermaid: true
   - OLTP(Online Transactional Processing) 용도
   - 종류
     - Amazon Aurora : MySQL, PostgreSQL과 호환되는 관계형 DB 엔진
+      - fully managed MySQL-compatible database
     - MSSQL
     - Maria DB
     - Oracle
@@ -203,6 +222,7 @@ mermaid: true
     - Sharding
 
 ■ DynamoDB
+  - A key-value database that provides sub-milliseconed latency on a large scale
   - 관리형 데이터베이스 서비스
   - NoSQL DB
   - 초저지연시간
@@ -255,13 +275,15 @@ mermaid: true
 ■ EIP(Elastic IP)
 
 ■ Security
-  - **Security Group**
-    - 가상 Stateful 방화벽, 허용 규칙만 포함, 인스턴스(EC2, RDS) 수준
-    - Security Group Chaining
-  - **Network ACL(NACL)**
-    - Stateless, IP주소만 포함, Subnet 수준
-    - 트래픽 허용 여부를 결정할 때 가장 낮은 번호의 규칙부터 순서대로 규칙을 처리
-    - ex) S3 객체 액세스 제한
+  - Can be used to block network traffic to an instance
+    - **Security Group**
+      - 가상 Stateful 방화벽, 허용 규칙만 포함, 인스턴스(EC2, RDS) 수준
+      - Security Group Chaining
+    - **Network ACL(NACL)**
+      - Stateless, IP주소만 포함, Subnet 수준
+      - 트래픽 허용 여부를 결정할 때 가장 낮은 번호의 규칙부터 순서대로 규칙을 처리
+      - Can be used to set up a firewall to control traffic going into and coming out of an Amazon VPC subnet
+      - ex) S3 객체 액세스 제한
 
 ## Module 6 (Networking - Part II)
 ■ CGW(Customer Gateway)
@@ -272,8 +294,10 @@ mermaid: true
     - **Site-to-Site VPN** : IPSec 통신, AWS VPC(**Virtual Private Gateway**) -> On-Premise(**Customer Gateway**) 네트워크 연결
   - **Direct Connect**(DX) : On-Premise -> AWS Cloud 네트워크 연결
     - ex) Allows a user to establish a dedicated network connection between a comopany's on-premises data center and the AWS Cloud.
+    - ex) Can be used to create a private connection between an on-premises workload and an AWS Cloud workload
 
 ■ **Transit Gateway** : 여러 개 VPC 간 연결 -> On-Premise 네트워크 연결, Hub and Spoke 형태, 중앙 관리
+  - ex) A network engineer needs to build a hybrid cloud architecture connecting on-premises networks to the AWS Cloud using AWS Direct Connect. The company has a few VPCs in a single AWS Region and expects to increase the number of VPCs to hundreds over time. Transit Gateway should the engineer use to simplify and scale this connectivity as the VPCs increase in number.
 
 ■ Managed VPN
 
@@ -318,6 +342,7 @@ mermaid: true
   - Root User Privileges
 
 ■ **IAM**
+- Always provied at no charge
   - User / Federated User(AD, LDAP)
     - 회사가 개인의 AWS 접근 자격 증명 생성하는 경우
     - 회사에서 IAM 그룹에 사용자를 추가해야 하는 경우
@@ -331,16 +356,26 @@ mermaid: true
     - SAML
     - Amazon EC2 인스턴스에서 실행되는 애플리케이션이 다른 AWS 서비스에 액세스해야 하는 경우
     - 회사가 AWS에 요청하는 휴대폰에서 실행되는 애플리케이션을 생성하는 경우
+    - ex) A company wants to grant users in one AWS account access to resources in another AWS account. The users do not currently have permission to access the resources.
+  - Access
+    - Least privilege access : Using IAM to grant access only to the resources needed to perform a task
+    - Restricted access
+    - As-needed access
+    - Token access
 
-■ **IAM Access Analyzer**
+■ **(IAM) Access Analyzer**
   - IAM 역할 or S3 버킷이 외부 엔티티와 공유되었는지 식별
   - Identifies whether an Amazon S3 bucket or an IAM role has been shared with an external entity.
   - Analyzes resource policies in your AWS environment to help you identify and address unintended access.
   - Analyzes IAM policies to identify potential issues and excessive permissions.
+  - ex) A user wants to review all Amazon S3 buckets with ACLs and S3 bucket policies in the S3 console.
 
 ■ **IAM Credential Report**
   - Provides detailed information about the rotation history of user passwords and access keys within the account. It shows dates of last password and access key rotation, along with usernames and key IDs. This aligns perfectly with the requirement of auditing password and access key rotation details for compliance purposes.
   - ex) A company has an AWS account. The company wants to audit its password and access key rotation details for compliance purposes.
+
+■ Security Token Service(STS)
+  - ex) A company is developing an application that uses multiple AWS services. The application needs to use temporary, limited-privilege credentials for authentication with other AWS APIs. STS should the company use to meet these authentication reqruiements.
 
 ■ **Audit Manager**
   - Helps you continuously audit your AWS usage to simplify how you assess risk and compliance with regulations and incustry standards.
@@ -357,6 +392,7 @@ mermaid: true
   - Cross-account access
   - **Organizations**
     - Consolidated Billing : 통합 결제 추구
+      - Benefits : Volume discounts, One bill for multiple accounts
     - Root, OU(Organizational Units), Policy
     - Can be used at no additional cost
 
@@ -378,10 +414,16 @@ mermaid: true
   - ex) A user needs programmatic access to AWS resources through the AWS Cli or the AWS API. Access keys will provide the user with the appropriate access.
 
 ■ Management Console
+  - ex) A company wants to manage its AWS Cloud resources through a web interface.
 
 ■ CLI
 
+■ Cloud Development Kit(CDK) : Use to define cloud resources as code and provision the resources through AWS CloudFormation
+
 ■ SDK : 프로그래밍 방식
+  - Should a developer use to integrate AWS service features directly into an application
+
+■ CloudShell : Provides command line access to AWS tools and resources directly from a web browser
 
 ■ Directory Service : AD(Active Directory)를 위한 서비스
 
@@ -393,6 +435,8 @@ mermaid: true
 
 ## Module 8 (Service, Security and Credentials)
 ■ **Global Accelerator** : 즉시 대응 서비스, 애플리케이션의 전반적인 가용성 및 성능 개선
+  - Helps deliver highly available applications with fast failover for multi-Region and Multi-AZ architectures
+  - Improves network performance by sending traffic through the AWS worldwide network infrastructure
 
 ■ **Control Tower** : 다중 계정 AWS 환경 자동화 및 관리
 
@@ -410,6 +454,8 @@ mermaid: true
   - Best Practice : 비용 최적화, 성능, 보안, 내결함성, 서비스 제한
   - Detecting underutilized resources to save costs
   - Improving security by proactively monitoring the AWS environment
+  - Provides recommendations for optimizing AWS resources for cost savings, performance, security, and fault tolerance
+  - ex) A company wants to monitor for misconfigured security groups that are allowing unrestricted access to specific ports
 
 ■ **Inspector**
   - **인프라**의 자동 보안 평가 서비스
@@ -421,6 +467,7 @@ mermaid: true
   - ISO 인증 문서 제공
   - Provides on-demand access to AWS compliance reports and documents.
   - Primarily used for managing and tracking infrastructure as code(IaC) configurations, not directly related to credential auditing.
+  - The best resource for a user to find compliance-related information and reports about AWS
   - ex) A cloud practitioner needs to obtain AWS compliance reports before migrating an environment to the AWS Cloud.
 
 ■ **Knowledge Center**
@@ -429,6 +476,7 @@ mermaid: true
 ■ **Guard Duty**
   - 지능형 위협 탐지 서비스
   - 머신러닝 알고리즘을 통해 이상 탐지 수행
+  - A threat detection service that continuously monitors for malicious activity and unauthorized behavior in AWS accounts
 
 ■ Penetration Testing
   - 자체 인프라 공격해 보안 테스트
@@ -436,6 +484,7 @@ mermaid: true
 ■ **Macie**
   - 완전 관리형 데이터 개인 정보 보호 서비스
   - S3 버킷 내 개인 식별 정보 찾음 및 경고
+  - Gives users the ability to discover and protect sensitive data that is stored in Amazon S3 buckets
 
 ■ Certificate Manager(ACM)
   - SSL/TLS 인증서 쉽게 생성 및 관리 지원 서비스
@@ -446,12 +495,14 @@ mermaid: true
 
 ■ **KMS**
   - Encrypt EBS 제공
+  - Used to provide encryption for Amazon EBS
   - 암호와 키에 관한 액세스 권한 -> 데이터 액세스 권한
   - CMK(Customer Master Key) 생성 및 제어
 
-■ **Secret Manager**
+■ **Secrets Manager**
   - 프로그래밍 방식으로 암호 변경, 보안 정보 보호 및 관리
   - RDS에서 관리
+  - ex) A company wants to estabilish a schedule for rotating database user credentials. Secrets Manager will support this requirement with the LEAST amount of operational overhead.
 
 ■ **Shield**
   - DDoS 방지
@@ -463,6 +514,7 @@ mermaid: true
 
 ■ Security Hub
   - 중앙 집중식 보안 위치
+  - A cloud security posture management(CSPM) service that aggregates alerts from various AWS services and partner products in a standardized format
 
 ■ Detective
   - 보안 문제 및 의심스러운 활동 조사
@@ -485,6 +537,7 @@ mermaid: true
     - ex) A company wants to receive a notifiaction when a specific AWS cost threshold is reached.
   - **CloudTrail** : 계정 활동 추척, 이벤트 및 API 호출 기록 X-Ray 등
     - Enables customers to audit API calls in their AWS accounts
+    - Can identify when an Amazon EC2 instance was terminated
   - VPC Flow Logs : 수신 및 발신 트래픽 정보
   - Service Health Dashboard
   - **Personal Health Dashboard**
@@ -499,6 +552,7 @@ mermaid: true
   - Detailed Billing Report : 상세 비용 보고서
   - Simple Monthly Caculator : AWS 계정 없어도 예상 비용 확인
   - **Pricing Caculator** : On-Premise를 AWS 실행할 때 예상 비용 확인
+    - ex) A company plans to migrate to AWS and wants to create cost estimates for its AWS use cases.
     - ex) A company is exploring the use of the AWS Cloud, and needs to create a cost estimate for a project before the infrastructure is provisioned. AWS Pricing Calculator can be used to estimate costs before deployment.
   - **TCO Caculator** : On-Premise -> AWS Cloud 이전 비용 확인
   - **Cost Anomaly Detection** : 기계 학습으로 비용 및 사용량 모니터링
@@ -508,9 +562,12 @@ mermaid: true
 ■ **Support Plan**
   - Basic
     - Personal Health Dashboard 제공
+    - The free plan that provides access to documentation, forums, and basic support features.
   - Developer
+    - Designed for developers running non-production workloads. It includes business hours access to Cloud Support Engineers and is suitable for development and testing environments
   - Business
     - Trusted Advisor 제공
+    - Includes 24/7 access to Cloud Support Engineers. It is suitable for businesses running production workloads
   - Enterprise
     - Trusted Advisor 제공
     - TAM, SME 지원
@@ -520,6 +577,8 @@ mermaid: true
     - Concierge Support Team 지원
       - AWS Billing 및 AWS Support 연락 창구
     - Businnes Critical System Stop < 15minutes
+    - The premium Support plan providing a wide range of benefits, including 24/7 access to Cloud Support Engineers, a Technical Account Manager(TAM), and more. It is suitable for enterprises running business-critical workloads
+    - ex) A company wants to assess its operational readiness. It also wants to identify and mitigate any operational risks ahead of a new product launch. Enterprise Support plan offers guidance and support for this kind of event at no additional charge.
 
 ■ **Auto Scaling**
   - Scheduled/Dynamic/Predictive
@@ -530,6 +589,8 @@ mermaid: true
 ■ **CloudFormation**
   - Infrastructure as Code(IaC)
   - Change set
+  - ex) A developer needs to maintain a development environment infrastructure and a production environment infrastructure in a repeatable fashion. CloudFormation should the developer use to meet these requirements.
+  - ex) A company wants to automate infrastructure deployment by using infrastructure as code (IaC). The company wants to scale production stacks so the stacks can be deployed in multiple AWS Regions.
 
 ■ Quick Start
 
@@ -537,6 +598,7 @@ mermaid: true
 
 ## Module 11 (Caching)
 ■ **CloudFront** : CDN
+  - Enables companies to deploy an application close to end users
   - ex) A company is building an application that needs to deliver images and videos globally with minimal latency. Deliver the content through Amazon CloudFront can the company use to accomplish this in a cost effective manner.
   - Expire contents
     - TTL
@@ -546,6 +608,7 @@ mermaid: true
 ## Module 12 (Decoupled Architecture)
 ■ **SQS**(Simple Queue Service)
   - Used for reliably transmitting messages between components but is not designed for sending text or email messages
+  - ex) A company has a set of ecommerce applications. The applications need to be able to send messages to each other.
   - Serverless, 완전 관리형, 분리(Decouple), 송신 비용만 존재
   - Type
     - Standard vs FIFO
@@ -613,12 +676,14 @@ mermaid: true
   - Snowball Edge : 100TB(80TB)
     - 인터넷 연결이 간헐적이거나 없는 위치에서 데이터 수집
   - **Snowmobile** : ExaByte
+    - Designed for large-scale data transfers
   - Schema Conversion Toll (SCT)
 
 ■ Server Migration Service
 
 ■ Storage Gateway
   - On-Premise Data Storage -> AWS Cloud 연결
+  - A hybrid cloud storage service that provides on-premises users access to virtually unlimited cloud storage
   - ex) A company has a centralized group of users with large file storage requirements that have exceeded the space available on premises. The company wants to extend its file storage capabilities for this group while retaining the performance benefit of sharing content locally. -> Configure and deploy an AWS Storage Gateway file gateway. Connect each user's workstation to the file gateway.
 
 ■ **Consulting Partner** : Migration 전문가
@@ -629,8 +694,11 @@ mermaid: true
 ■ **Outposts**
   - AWS Cloud Service -> On-Premise 삽입 및 하이브리드 아키텍처 확장
   - 낮은 대기 시간 또는 로컬 시스템 상호 종속성이 필요한 애플리케이션에 유용
+  - Supports a hybrid architecture that gives users the ability to extend AWS infrastructure, AWS services, APIs, and tools to data centers, co-location environments, or on-premises facilities
 
-■ **Local Zones** : 대기 시간 최소화, 연결 중단 X
+■ **Local Zones**
+  - 대기 시간 최소화, 연결 중단 X
+  - A type of AWS infrastructure deployment that places compute, storage, database, and other services closer to a specific geographic area
 
 ■ Best Practice
   - ex) An ecommerce company has migrated its IT infrastructure from an on-premises data center to the AWS Cloud. Cost of application software licenses is the company's direct responsibility.
@@ -644,6 +712,8 @@ mermaid: true
 
 ■ CodeGuru : 클라우드 기반 코드 검토 및 애플리케이션 성능 모니터링 서비스
 
+■ EventBridge : An event bus service that enables event-driven architectures
+
 ## Module 17 (Business Productivity)
 ■ WorkDocs
 
@@ -652,8 +722,10 @@ mermaid: true
 ■ **Chime** : 오디오와 비디오를 송수신하고 콘텐츠 공유를 허용하는 실시간 미디어 애플리케이션 구축
 
 ■ WorkSpaces
+  - Provide managed Windows virtual desktops and applications to its remote employees over secure network connections
 
 ■ AppStream : 원격 작업 액세스를 지원하는 완전관리형의 비영구 데스크톱 및 애플리케이션 서비스
+  - Provide managed Windows virtual desktops and applications to its remote employees over secure network connections
 
 ■ Marketplace
 
@@ -684,6 +756,7 @@ mermaid: true
   - Data Warehouse
   - Column 형식
   - OLAP(Online Analyticla Processing) 용도
+  - ex) A company wants to operate a data warehouse to analyze data without managing the data warehouse infrastructure.
 
 ■ Glue : Serverless 관리형 ETL(Extract, Transform, Load)
   - ex) A company is using a centrla data platform to manage multiple types of data for its customers. The compoany wants to use AWS services to discover, transform, and visualize the data.
