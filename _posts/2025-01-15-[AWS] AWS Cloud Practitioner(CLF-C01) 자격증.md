@@ -21,6 +21,7 @@ mermaid: true
   - Availability Zone(AZ)
     - 논리적 개념
     - 1개 이상의 개별 데이터 센터(보통 3개 ~ 6개)
+    - An environment that consists of one or more data centers
   - Region
     - 물리적 위치
     - Compliance, Latency, AZ, Costs 고려
@@ -49,7 +50,7 @@ mermaid: true
     - AWS eliminates many of the costs of building and maintaining on-premises data centers
   - Scalability
   - Elasticity
-  - High-availability and fault-tolerance
+  - High-availability and Fault-Tolerance
     - An architecture's ability to withstand failures with minimal downtime
   - Agility
     - The speed at which AWS resources are implemented
@@ -88,6 +89,8 @@ mermaid: true
     - Implement physical and environmental controls
     - Operating system installations
     - Maintenance of physical and environmental controls
+    - Patching and fixing flaws within the infrastructure
+    - Applying updates to the Nitro Hypervisor
     - ex) A company wants to run a NoSQL database on Amazon EC2 instances. -> Patch the physical infrastructure that hosts the EC2 instances
   - Customer Responsibility
     - Manage connections to the database
@@ -97,16 +100,39 @@ mermaid: true
     - Managing the code within the Lambda function
     - Manage database access permissions
     - Configure firewalls and networks
+    - Perform client-side data encryption
+    - Enabling client-side encryption for objects that are stored in Amazon S3
+    - Configure IAM credentials
+    - Configuring IAM (Identity and Access Management) security policies to comply with the principle of least privilege
+    - Patching their guest OS and applications
+    - Patching the guest operating system on an Amazon EC2 instance is a customer responsibility
+    - Application data security
+  - A shared responsibility between AWS and its customers
+    - Patch Management
+    - Configuration Management
+    - Awareness and Training
 
 ■ **Cloud Adoption Framework(CAF)**
   - Migration 조언
   - **Perspective**
-    - **Business** : Strategic partnership
-    - **People** : Cloud fluency
-    - Governance
-    - Platform : Data architecture
-    - Security
-    - Operations : Event management
+    - Business Capabilities
+      - **Business** : Strategic Partnership, Data Monetization
+      - **People** : Cloud fluency, Culture Evolution
+      - Governance : Benefits Management
+    - Techincal Capabilities
+      - Platform : Platform Architecture, **Data Architecture**, Platform Engineering, Data Engineering, Provisioning & Orchestration, Modern App Development, CI/CD
+      - Security : Security Governance, Security Assurance, Identity and Access Management, Threat Detection, Vulnerability Management, Data Protection, Application Security, **Incident Response, Infrastructure Protection**
+      - Operations : Event management
+        - Capabilities for configuration management and patch management
+  - Cloud Transformation Journey
+    - Envision phase
+      - Focuses on demonstrating how cloud will help accelerate your business outcomes. It does so by identifying and prioritizing transformation opportunities across each of the four transformation domains in line with your strategic business objectives
+    - Align phase
+      - ex) A company is planning its migration to the AWS Cloud. The company is identifying its capability gaps by using the AWS Cloud Adoption Framework (AWS CAF) perspectives. -> Align
+    - Launch phase
+      - focuses on delivering pilot initiatives in production and on demonstrating incremental business value
+    - Scale phase
+      - focuses on expanding production pilots and business value to desired scale and ensuring that the business benefits associated with your cloud investments are realized and sustained
 
 ## Module 2 (The Simiplest Architecture)
 ■ S3
@@ -119,6 +145,7 @@ mermaid: true
     - ex) A company is storing sensitive customer data in an Amazon S3 bucket. The company wants to protect the data from accidental deletion or overwriting. Versioning should the company use to meet these requirements.
   - Multipart Upload
   - Transfer Acceleration
+    - ex) A company needs to quickly and securely move files over long distances between its client and an Amazon S3 bucket.
   - Snowcone, Snowball, Snowmobile
   - Athena : Serverless 대화형 쿼리 서비스
     - ex) A company has 5 TB of data stored in Amazon S3. The company plans to occasionally run queries on the data for analysis. Amazon Athena should the company use to run these queries in the most cost-effective manner.
@@ -146,6 +173,8 @@ mermaid: true
 ## Module 3 (Adding a Compute Layer)
 ■ **EC2**
   - AMI
+  - EC2 Image Builder
+    - Assists with the creation, testing, and management of custom Amazon EC2 images
   - User Data
   - Instance Metadata
   - Storing Data
@@ -160,21 +189,30 @@ mermaid: true
           - custom - SSD DISK SIZE / IO Speed
       - EFS / FSx
         - 네트워크 파일 시스템
+        - A company wants a fully managed Windows file server for its Windows-based applications. -> FSx
   - Instance Size & Type
     - M5, C5, R5, T2 & T3, G3 & P3, I2, D2
   - **Pricing**
-    - On-Demand
+    - **On-Demand Instance**
       - ex) An e-learning platform needs to run an application for 2 months each year. The applicaton will be deployed on Amazon EC2 inastances. Any application downtime during those 2 months must be avoided. On-Demand Instances will meet these requirements most cost-effectively.
-    - Reserved Instance(RI) : 결제 할인 옵션, 일정 사용량 악정 X
+      - ex) On-Demand Instance is the MOST cost efficient for an uninterruptible workload that runs once a year for 24 hours.
+      - ex) A company needs to continuously run an experimental workload on an Amazon EC2 instance and stop the instance after 12 hours.
+    - **Reserved Instance(RI)** : 결제 할인 옵션, 일정 사용량 악정 X
       - ex) An online gaming company needs to choose a purchasing option to run its Amazon EC2 instances for 1 year. The web traffic is consistent, and any increases in traffic are predictable. The EC2 instances must be online and available without any disruption. Reserved Instances will meet these requirements most cost-effectively.
-      - ex) A company wants to make an upfront commitment for continued use of its production Amazon EC2 instances in exchange for a reduced overall cost. Reserved Instances and Savings Plans meet these requirements with the lowest cost.
-    - Spot Instance : 공급/수요에 따라 조정
+      - ex) A company wants to make an upfront commitment for continued use of its production Amazon EC2 instances in exchange for a reduced overall cost. Reserved Instances and Savings Plans meet these requirements with the lowest cost. (Uninterruptible + Years)
+      - ex) A company has a compute workload that is steady, predictable, and uninterruptible. Reserved Instances and Savings Plans meet these requirements most cost-effectively.
+    - **Spot Instance** : 공급/수요에 따라 조정
       - ex) A company runs thousands of simultaneous simulations using AWS Batch. Each simulation is stateless, is fault tolerant, and runs for up to 3 hours. Spot Instances enables the company to optimize costs and meet these requirements.
       - ex) A company has a test AWS environment. A company is planning on testing an application within AWS. The application testing can be interrupted and does not need to run continuously. Spot instances will meet these requirements most cost-effectively.
       - ex) A company is deploying a machine learning (ML) research project that will require a lot of compute power over several months. The ML processing jobs do not need to run at specific times. Spot instances will meet these requirements at the lowest cost.
-    - Dedicated Instance
+      - ex) Interrupt a running Amazon EC2 instance if capacity becomes temporarily unavailable
+    - **Dedicated Instance**
     - Dedicated Hosts : 코어당 소프트웨어 라이선스
     - **Savings Plan** : 1년 또는 3년 기간 동안 일정한 컴퓨팅 사용량 약정
+      - ex) A company wants to make an upfront commitment for continued use of its production Amazon EC2 instances in exchange for a reduced overall cost. Reserved Instances and Savings Plans meet these requirements with the lowest cost. (Uninterruptible + Years)
+      - ex) A company has a compute workload that is steady, predictable, and uninterruptible. Reserved Instances and Savings Plans meet these requirements most cost-effectively.
+      - ex) A company has an uninterruptible application that runs on Amazon EC2 instances. The application constantly processes a backlog of files in an Amazon Simple Queue Service (Amazon SQS) queue. This usage is expected to continue to grow for years. Savings Plans is the most cost-effective EC2 instance purchasing model to meet these requirements.
+      - ex) A company wants to run its workload on Amazon EC2 instances for more than 1 year. This workload will run continuously. Savings Plans offers a discounted hourly rate compared to the hourly rate of On-Demand Instances
     - **Pay-as-you-go** : 종량제 가격 측정, 인프라 선행 투자 X
   - Tag
   - Placement Group
@@ -185,7 +223,10 @@ mermaid: true
     - Default limit of 20 instances per region(Case open can be increase)
   - Connect
     - EC2 Instance Connect
-    - Systems Manager Session Manager
+    - Systems Manager
+    - Session Manager
+  - ex) A company needs to perform data processing once a week that typically takes about 5 hours to complete. -> The company should use EC2 for this workload.
+  - ex) A company plans to deploy containers on AWS. The company wants full control of the compute resources that host the containers.
 
 ■ **LightSail**
   - 가상 프라이빗 서버(Virtual Private Server)
@@ -352,16 +393,21 @@ mermaid: true
     - Manage / Inline
   - Role
     - STS(Security Token Service) : 제한된 권한의 임시 자격 증명 생성
+      - ex) A company is developing an application that uses multiple AWS services. The application needs to use temporary, limited-privilege credentials for authentication with other AWS APIs. STS should the company use to meet these authentication reqruiements.
     - Identity Broker
     - SAML
     - Amazon EC2 인스턴스에서 실행되는 애플리케이션이 다른 AWS 서비스에 액세스해야 하는 경우
     - 회사가 AWS에 요청하는 휴대폰에서 실행되는 애플리케이션을 생성하는 경우
     - ex) A company wants to grant users in one AWS account access to resources in another AWS account. The users do not currently have permission to access the resources.
+    - ex) A user wants to allow applications running on an Amazon EC2 instance to make calls to other AWS services. The access granted must be secure.
   - Access
     - Least privilege access : Using IAM to grant access only to the resources needed to perform a task
     - Restricted access
     - As-needed access
     - Token access
+- ex) A developer has been hired by a large company and needs AWS credentials.
+  - Grant the developer access to only the AWS resources needed to perform the job
+  - Ensure the account password policy requires a minimum length
 
 ■ **(IAM) Access Analyzer**
   - IAM 역할 or S3 버킷이 외부 엔티티와 공유되었는지 식별
@@ -373,9 +419,6 @@ mermaid: true
 ■ **IAM Credential Report**
   - Provides detailed information about the rotation history of user passwords and access keys within the account. It shows dates of last password and access key rotation, along with usernames and key IDs. This aligns perfectly with the requirement of auditing password and access key rotation details for compliance purposes.
   - ex) A company has an AWS account. The company wants to audit its password and access key rotation details for compliance purposes.
-
-■ Security Token Service(STS)
-  - ex) A company is developing an application that uses multiple AWS services. The application needs to use temporary, limited-privilege credentials for authentication with other AWS APIs. STS should the company use to meet these authentication reqruiements.
 
 ■ **Audit Manager**
   - Helps you continuously audit your AWS usage to simplify how you assess risk and compliance with regulations and incustry standards.
@@ -391,8 +434,12 @@ mermaid: true
 ■ Multi Accounts
   - Cross-account access
   - **Organizations**
+    - Multiple AWS accounts
     - Consolidated Billing : 통합 결제 추구
       - Benefits : Volume discounts, One bill for multiple accounts
+      - ex) A company has multiple AWS accounts that include compute workloads that cannot be interrupted. The company wants to obtain billing discounts that are based on the company's use of AWS services.
+      - ex) Allows users to create new AWS accounts, group multiple accounts to organize workflows, and apply policies to groups of accounts
+      - ex) A company wants to migrate its on-premises workloads to the AWS Cloud. The company wants to separate workloads for chargeback to different departments. -> Consolidated billing and Multiple AWS accounts will meet these requirements.
     - Root, OU(Organizational Units), Policy
     - Can be used at no additional cost
 
@@ -406,17 +453,22 @@ mermaid: true
   - **Session Manager**
   - Inventory
 
+■ Systems Manager Parameter Store
+  - A company wants to design a centralized storage system to manage the configuration data and passwords for its critical business applications.
+
 ■ **Service Catalog**
   - 액세스 제한
   - ex) A company wants to manage deployed IT services and govern its infrastructure as code (IaC) templates.
 
 ■ Access keys
-  - ex) A user needs programmatic access to AWS resources through the AWS Cli or the AWS API. Access keys will provide the user with the appropriate access.
+  - ex) A user needs programmatic access to AWS resources through the AWS CLI or the AWS API. Access keys will provide the user with the appropriate access.
+  ex) A systems administrator created a new IAM user for a developer and assigned the user an access key instead of a user name and password. -> To access the AWS account through a CLI
 
 ■ Management Console
   - ex) A company wants to manage its AWS Cloud resources through a web interface.
 
 ■ CLI
+  - ex) A company wants a unified tool to provide a consistent method to interact with AWS services.
 
 ■ Cloud Development Kit(CDK) : Use to define cloud resources as code and provision the resources through AWS CloudFormation
 
@@ -456,11 +508,13 @@ mermaid: true
   - Improving security by proactively monitoring the AWS environment
   - Provides recommendations for optimizing AWS resources for cost savings, performance, security, and fault tolerance
   - ex) A company wants to monitor for misconfigured security groups that are allowing unrestricted access to specific ports
+  - ex) A company needs to evaluate its AWS environment and provide best practice recommendations in five categories: cost, performance, service limits, fault tolerance and security.
 
 ■ **Inspector**
   - **인프라**의 자동 보안 평가 서비스
   - 보안 및 규정 준수 개선
   - Assess application vulnerabilities and must identify infrastructure deployments that do not meet best practices
+  - A company wants an automated process to continuously scan its Amazon EC2 instances for software vulnerabilities
 
 ■ **Artifact**
   - 보안 및 규정 준수 보고서 제공 서비스
@@ -531,6 +585,7 @@ mermaid: true
   - Time-Bases, Volume-Based, Predictive-Based
   - The ability to rightsize resources as demand shifts
   - How easily resources can be procured when they are needed
+  - Helps users eliminate underutilized CPU capacity
 
 ■ Monitoring
   - **CloudWatch** : Metrics, Logs, Alarm, Event, Rule, Target
@@ -538,7 +593,9 @@ mermaid: true
   - **CloudTrail** : 계정 활동 추척, 이벤트 및 API 호출 기록 X-Ray 등
     - Enables customers to audit API calls in their AWS accounts
     - Can identify when an Amazon EC2 instance was terminated
+    - ex) A company needs to track the activity in its AWS accounts, and needs to know when an API call is made against its AWS resources.
   - VPC Flow Logs : 수신 및 발신 트래픽 정보
+    - Provides log information of the inbound and outbound traffic on network interfaces in a VPC
   - Service Health Dashboard
   - **Personal Health Dashboard**
 
@@ -554,21 +611,23 @@ mermaid: true
   - **Pricing Caculator** : On-Premise를 AWS 실행할 때 예상 비용 확인
     - ex) A company plans to migrate to AWS and wants to create cost estimates for its AWS use cases.
     - ex) A company is exploring the use of the AWS Cloud, and needs to create a cost estimate for a project before the infrastructure is provisioned. AWS Pricing Calculator can be used to estimate costs before deployment.
+    - ex) Gives users the ability to plan their service usage, service costs, and instance reservations, and also allows them to set custom alerts when their costs or usage exceed established thresholds
+    - ex) Can send alerts to customers if custom spending thresholds are exceeded
   - **TCO Caculator** : On-Premise -> AWS Cloud 이전 비용 확인
   - **Cost Anomaly Detection** : 기계 학습으로 비용 및 사용량 모니터링
   - **Cost Allocation Tags** : 부서별 리소스 사용 비용
   - **Compute Optimizer** : 리소스의 구성 및 사용률 지표를 AWS 분석하여 크기 조정 권장 사항을 제공하는 서비스
 
 ■ **Support Plan**
-  - Basic
+  - Basic Support
     - Personal Health Dashboard 제공
     - The free plan that provides access to documentation, forums, and basic support features.
-  - Developer
+  - Developer Support
     - Designed for developers running non-production workloads. It includes business hours access to Cloud Support Engineers and is suitable for development and testing environments
-  - Business
+  - Business Support
     - Trusted Advisor 제공
     - Includes 24/7 access to Cloud Support Engineers. It is suitable for businesses running production workloads
-  - Enterprise
+  - Enterprise Support
     - Trusted Advisor 제공
     - TAM, SME 지원
     - IEM(Infra Event Management) : 인프라 이벤트 관리
@@ -578,6 +637,7 @@ mermaid: true
       - AWS Billing 및 AWS Support 연락 창구
     - Businnes Critical System Stop < 15minutes
     - The premium Support plan providing a wide range of benefits, including 24/7 access to Cloud Support Engineers, a Technical Account Manager(TAM), and more. It is suitable for enterprises running business-critical workloads
+    - A designated technical account manager (TAM) to assist in monitoring and optimization
     - ex) A company wants to assess its operational readiness. It also wants to identify and mitigate any operational risks ahead of a new product launch. Enterprise Support plan offers guidance and support for this kind of event at no additional charge.
 
 ■ **Auto Scaling**
@@ -609,6 +669,7 @@ mermaid: true
 ■ **SQS**(Simple Queue Service)
   - Used for reliably transmitting messages between components but is not designed for sending text or email messages
   - ex) A company has a set of ecommerce applications. The applications need to be able to send messages to each other.
+  - ex) Can a company use to achieve a loosely coupled architecture
   - Serverless, 완전 관리형, 분리(Decouple), 송신 비용만 존재
   - Type
     - Standard vs FIFO
@@ -664,6 +725,8 @@ mermaid: true
     - Route53(Load Balancing, Failover)
     - ELB(Load Balancing, Failover)
     - VPC
+    - Region
+      - ex) A company wants its Amazon EC2 instances to operate in a highly available environment, even if there is a natural disaster in a particular geographic area. -> Use EC2 instances in multiple AWS Regions
     - Direct Connect(Backup Replication)
 
 ## Module 15 (Migration)
@@ -683,8 +746,16 @@ mermaid: true
 
 ■ Storage Gateway
   - On-Premise Data Storage -> AWS Cloud 연결
-  - A hybrid cloud storage service that provides on-premises users access to virtually unlimited cloud storage
+  - **A hybrid cloud storage service** that provides on-premises users access to virtually unlimited cloud storage
   - ex) A company has a centralized group of users with large file storage requirements that have exceeded the space available on premises. The company wants to extend its file storage capabilities for this group while retaining the performance benefit of sharing content locally. -> Configure and deploy an AWS Storage Gateway file gateway. Connect each user's workstation to the file gateway.
+  - ex) A company is using a third-party service to back up 10 TB of data to a tape library. The on-premises backup server is running out of space. The company wants to use AWS services for the backups without changing its existing backup workflows.
+  - 종류
+    - Tape Gateway
+    - Volumne Gateway
+    - FSx File Gateway
+    - S3 File Gateway
+      - ex) A company wants to migrate its NFS on-premises workload to AWS.
+      - ex) A company wants to store and retrieve files in Amazon S3 for its existing on-premises applications by using industry-standard file system protocols.
 
 ■ **Consulting Partner** : Migration 전문가
 
@@ -702,6 +773,7 @@ mermaid: true
 
 ■ Best Practice
   - ex) An ecommerce company has migrated its IT infrastructure from an on-premises data center to the AWS Cloud. Cost of application software licenses is the company's direct responsibility.
+- ex) A company wants to modernize and convert a monolithic application into microservices. The company wants to move the application to AWS. -> Refactor
 
 ## Module 16 (Developer Tools)
 ■ CodeCommit : 버전 관리
@@ -737,6 +809,7 @@ mermaid: true
 ■ Elastic Transcoder
 
 ■ Step Functions
+  - ex) Can a company use to achieve a loosely coupled architecture
 
 ■ Cloud Search
 
@@ -787,6 +860,7 @@ mermaid: true
 ■ Kendra : 문서 검색 서비스
 
 ■ Personalize : 개인화 추천
+  - ex) A company wants an AWS service to provide product recommendations based on its customer data.
 
 ■ Textract : 텍스트 추출
 
