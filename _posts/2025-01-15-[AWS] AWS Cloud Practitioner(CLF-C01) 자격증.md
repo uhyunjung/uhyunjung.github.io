@@ -38,6 +38,7 @@ mermaid: true
   - Stop guessing capacity : 용량 추정 불필요
   - Increase speed and agility : 속도 및 민첩성 개선
     - ex) Migration
+    - ex) A company wants to know more about the benefits offered by cloud computing. The company wants to understand the operational advantage of agility. -> The ability to provision and deprovision resources quickly with minimal effort
   - Stop spending money running and maintaining data centers : 데이터 센터 운영 및 유지 관리에 비용 투자 불필요
     - ex) Elimination of expenses for running and maintaining data centers
   - Ability to Deploy globally in minutes : 몇 분 안에 전 세계에 배포
@@ -50,6 +51,7 @@ mermaid: true
     - AWS eliminates many of the costs of building and maintaining on-premises data centers
   - Scalability
   - Elasticity
+    - Resource Elasticity : An AWS value proposition that describes a user’s ability to scale infrastructure based on demand
   - High-availability and Fault-Tolerance
     - An architecture's ability to withstand failures with minimal downtime
   - Agility
@@ -65,6 +67,8 @@ mermaid: true
   - **Reliability(안정성/신뢰성)** : 기능 수행, 복구
     - ex) 비정상 애플리케이션을 자동으로 복구, 가용성(High Availability) 유지, 가동 중지 시간 최소화, 장애로부터 신속하게 복구
     - ex) Learn to improve from operational failures
+    - ex) A system automatically recovers from failure when a company launches its workload on the AWS Cloud services platform.
+    - ex) Pillar of the AWS Well-Architected Framework refers to the ability of a system to recover from infrastructure or service disruptions and dynamically acquire computing resources to meet demand.
   - **Performance Efficiency(성능 효율성)** : Serverless, 고급 기술
     - ex) 워크 로드 및 메모리 요구 사항에 따라 적합한 Amazon EC2 유형을 사용해 정보에 기반한 의사 결정을 수립하고 비즈니스 요구가 진화함에 따라 효율성 유지
   - **Cost Efficiency(비용 최적화)**
@@ -72,6 +76,7 @@ mermaid: true
   - **Sustainability(지속 가능성)**
   <br/>
   - ex) A company is running a monolitic on-premises application that does not scale and is difficult to maintain. The company has a plan to migrate the application to AWS and divide the application into microservices. -> Implement loosely coupled dependencies.
+  - ex) Avoid monolithic architecture by segmenting workloads
 
 ■ **Shared Responsibility Model**
   - AWS Responsibility
@@ -107,10 +112,12 @@ mermaid: true
     - Patching their guest OS and applications
     - Patching the guest operating system on an Amazon EC2 instance is a customer responsibility
     - Application data security
+    - Management of the guest operating systems
   - A shared responsibility between AWS and its customers
     - Patch Management
     - Configuration Management
     - Awareness and Training
+    - ex) A company needs to transfer data between an Amazon S3 bucket and an on-premises application. The company is responsible for the security of this data, according to the AWS shared responsibility model.
 
 ■ **Cloud Adoption Framework(CAF)**
   - Migration 조언
@@ -151,6 +158,7 @@ mermaid: true
     - ex) A company has 5 TB of data stored in Amazon S3. The company plans to occasionally run queries on the data for analysis. Amazon Athena should the company use to run these queries in the most cost-effective manner.
   - Data Encryption 제공
   - Provides highly durable object storage
+  - ex) A company wants to query its server logs to gain insights about its customers’ experiences. S3 will store this data most cost-effectively.
 
 ■ Glacier  
   - Vault, Archive
@@ -197,10 +205,12 @@ mermaid: true
       - ex) An e-learning platform needs to run an application for 2 months each year. The applicaton will be deployed on Amazon EC2 inastances. Any application downtime during those 2 months must be avoided. On-Demand Instances will meet these requirements most cost-effectively.
       - ex) On-Demand Instance is the MOST cost efficient for an uninterruptible workload that runs once a year for 24 hours.
       - ex) A company needs to continuously run an experimental workload on an Amazon EC2 instance and stop the instance after 12 hours.
+      - ex) A company needs to run an application on Amazon EC2 instances. The instances cannot be interrupted at any time. The company needs an instance purchasing option that requires no long-term commitment or upfront payment. On-Demand Instances will meet these requirements most cost-effectively. (Cannot be interrupted(Spot Instances), No long-term commitment(Reserved Instances), or upfront payment(Dedicated Hosts))
     - **Reserved Instance(RI)** : 결제 할인 옵션, 일정 사용량 악정 X
       - ex) An online gaming company needs to choose a purchasing option to run its Amazon EC2 instances for 1 year. The web traffic is consistent, and any increases in traffic are predictable. The EC2 instances must be online and available without any disruption. Reserved Instances will meet these requirements most cost-effectively.
       - ex) A company wants to make an upfront commitment for continued use of its production Amazon EC2 instances in exchange for a reduced overall cost. Reserved Instances and Savings Plans meet these requirements with the lowest cost. (Uninterruptible + Years)
       - ex) A company has a compute workload that is steady, predictable, and uninterruptible. Reserved Instances and Savings Plans meet these requirements most cost-effectively.
+      - ex) A company plans to migrate its application to AWS and run the application on Amazon EC2 instances. The application will have continuous usage for 1 year. Reserved Instances will meet these requirements most cost-effectively.
     - **Spot Instance** : 공급/수요에 따라 조정
       - ex) A company runs thousands of simultaneous simulations using AWS Batch. Each simulation is stateless, is fault tolerant, and runs for up to 3 hours. Spot Instances enables the company to optimize costs and meet these requirements.
       - ex) A company has a test AWS environment. A company is planning on testing an application within AWS. The application testing can be interrupted and does not need to run continuously. Spot instances will meet these requirements most cost-effectively.
@@ -381,6 +391,9 @@ mermaid: true
 ## Module 7 (IAM)
 ■ Account Root User
   - Root User Privileges
+  - Best Practice
+    - Enable multi-factor authentication (MFA) on the root user
+    - Create an IAM user with administrator privileges for daily administrative tasks, instead of using the root user
 
 ■ **IAM**
 - Always provied at no charge
@@ -400,6 +413,7 @@ mermaid: true
     - 회사가 AWS에 요청하는 휴대폰에서 실행되는 애플리케이션을 생성하는 경우
     - ex) A company wants to grant users in one AWS account access to resources in another AWS account. The users do not currently have permission to access the resources.
     - ex) A user wants to allow applications running on an Amazon EC2 instance to make calls to other AWS services. The access granted must be secure.
+    - ex) A security best practice for access to sensitive data that is stored in an Amazon S3 bucket. -> Use IAM roles for applications that require access to the S3 bucket.
   - Access
     - Least privilege access : Using IAM to grant access only to the resources needed to perform a task
     - Restricted access
@@ -414,7 +428,9 @@ mermaid: true
   - Identifies whether an Amazon S3 bucket or an IAM role has been shared with an external entity.
   - Analyzes resource policies in your AWS environment to help you identify and address unintended access.
   - Analyzes IAM policies to identify potential issues and excessive permissions.
+  - Grant permissions to applications that run on Amazon EC2 instances.
   - ex) A user wants to review all Amazon S3 buckets with ACLs and S3 bucket policies in the S3 console.
+  - ex) A company wants to identify Amazon S3 buckets that are shared with another AWS account.
 
 ■ **IAM Credential Report**
   - Provides detailed information about the rotation history of user passwords and access keys within the account. It shows dates of last password and access key rotation, along with usernames and key IDs. This aligns perfectly with the requirement of auditing password and access key rotation details for compliance purposes.
@@ -428,6 +444,7 @@ mermaid: true
   - 사용자 인증, 직접 로그인, 임시 권한
   - 웹 및 모바일 어플리케이션 사용자에 대한 자격 증명 제공
   - User Pool
+  - ex) A company needs a central user portal so that users can log in to third-party business applications that support Security Assertion Markup Language (SAML) 2.0.
 
 ■ Landing Zone
 
@@ -442,6 +459,7 @@ mermaid: true
       - ex) A company wants to migrate its on-premises workloads to the AWS Cloud. The company wants to separate workloads for chargeback to different departments. -> Consolidated billing and Multiple AWS accounts will meet these requirements.
     - Root, OU(Organizational Units), Policy
     - Can be used at no additional cost
+    - Share pre-purchased Amazon EC2 resources across accounts
 
 ■ Systems Manager
   - 애플리케이션 및 리소스를 위한 운영 허브
@@ -466,9 +484,11 @@ mermaid: true
 
 ■ Management Console
   - ex) A company wants to manage its AWS Cloud resources through a web interface.
+  - ex) A user has been granted permission to change their own IAM user password. CLI and Management Console can the user use to change the password.
 
 ■ CLI
   - ex) A company wants a unified tool to provide a consistent method to interact with AWS services.
+  - ex) A user has been granted permission to change their own IAM user password. CLI and Management Console can the user use to change the password.
 
 ■ Cloud Development Kit(CDK) : Use to define cloud resources as code and provision the resources through AWS CloudFormation
 
@@ -539,6 +559,7 @@ mermaid: true
   - 완전 관리형 데이터 개인 정보 보호 서비스
   - S3 버킷 내 개인 식별 정보 찾음 및 경고
   - Gives users the ability to discover and protect sensitive data that is stored in Amazon S3 buckets
+  - Automatically recognizes and classifies sensitive data or intellectual property on AWS
 
 ■ Certificate Manager(ACM)
   - SSL/TLS 인증서 쉽게 생성 및 관리 지원 서비스
@@ -557,6 +578,8 @@ mermaid: true
   - 프로그래밍 방식으로 암호 변경, 보안 정보 보호 및 관리
   - RDS에서 관리
   - ex) A company wants to estabilish a schedule for rotating database user credentials. Secrets Manager will support this requirement with the LEAST amount of operational overhead.
+  - ex) A user wants to securely automate the management and rotation of credentials that are shared between applications, while spending the least amount of time on managing tasks. Secrets Manager can be used to accomplish this.
+
 
 ■ **Shield**
   - DDoS 방지
@@ -590,10 +613,12 @@ mermaid: true
 ■ Monitoring
   - **CloudWatch** : Metrics, Logs, Alarm, Event, Rule, Target
     - ex) A company wants to receive a notifiaction when a specific AWS cost threshold is reached.
+    - ex) Monitors CPU utilization on Amazon EC2 instances
   - **CloudTrail** : 계정 활동 추척, 이벤트 및 API 호출 기록 X-Ray 등
     - Enables customers to audit API calls in their AWS accounts
     - Can identify when an Amazon EC2 instance was terminated
     - ex) A company needs to track the activity in its AWS accounts, and needs to know when an API call is made against its AWS resources.
+    - ex) Helps users audit API activity across their AWS account
   - VPC Flow Logs : 수신 및 발신 트래픽 정보
     - Provides log information of the inbound and outbound traffic on network interfaces in a VPC
   - Service Health Dashboard
@@ -602,8 +627,10 @@ mermaid: true
 ■ Costs
   - **Cost Explorer** : 과거 데이터로 비용 탐색기
     - Cost Allocation Tags
+      - ex) A company needs to label its AWS resources so that the company can categorize and track costs.
     - Consolidated Billing
     - Helps users visualize, understand, and manage spending and usage over time
+    - ex) A company uses Amazon EC2 instances to run its web application. The company uses On-Demand Instances and Spot Instances. The company needs to visualize its monthly spending on both types of instances. Cost Explorer will meet this requirement.
   - Budgets : 예산 설정
     - ex) A company wants to receive a notifiaction when a specific AWS cost threshold is reached.
   - Detailed Billing Report : 상세 비용 보고서
@@ -644,6 +671,7 @@ mermaid: true
   - Scheduled/Dynamic/Predictive
   - Auto Scaling Group
     - Min/Max/Desired
+  - ex) A company wants to automatically add and remove Amazon EC2 instances. The company wants the EC2 instances to adjust to varying workloads dynamically. EC2 Auto Scaling will meet these requirements.
 
 ## Module 10 (Automation)
 ■ **CloudFormation**
@@ -729,6 +757,9 @@ mermaid: true
       - ex) A company wants its Amazon EC2 instances to operate in a highly available environment, even if there is a natural disaster in a particular geographic area. -> Use EC2 instances in multiple AWS Regions
     - Direct Connect(Backup Replication)
 
+■ Best Practice
+  - ex) A company is running a critical workload on an Amazon RDS DB instance. The company needs the DB instance to be highly available with a recovery time of less than 5 minutes. Modify the DB instance to be a Multi-AZ deployment will meet these requirements.
+
 ## Module 15 (Migration)
 ■ Application Discovery Service
 
@@ -740,6 +771,7 @@ mermaid: true
     - 인터넷 연결이 간헐적이거나 없는 위치에서 데이터 수집
   - **Snowmobile** : ExaByte
     - Designed for large-scale data transfers
+    - ex) A company is moving an on-premises data center to the AWS Cloud. The company must migrate 50 petabytes of file storage data to AWS with the least possible operational overhead.
   - Schema Conversion Toll (SCT)
 
 ■ Server Migration Service
@@ -795,9 +827,13 @@ mermaid: true
 
 ■ WorkSpaces
   - Provide managed Windows virtual desktops and applications to its remote employees over secure network connections
+  - Creates virtual desktops that can be used to create entire working environments for you and your team
+  - ex) A company wants its employees to have access to virtual desktop infrastructure to securely access company-provided desktops through the employees' personal devices.
 
 ■ AppStream : 원격 작업 액세스를 지원하는 완전관리형의 비영구 데스크톱 및 애플리케이션 서비스
   - Provide managed Windows virtual desktops and applications to its remote employees over secure network connections
+  - Focused on hosting individual applications on AWS
+  - ex) A company has an application with robust hardware requirements. The application must be accessed by students who are using lightweight, low-cost laptops. AppStream 2.0 will help the company deploy the application without investing in backend infrastructure or high-end client hardware
 
 ■ Marketplace
 
@@ -822,14 +858,16 @@ mermaid: true
 
 ■ QuickSight : Serverless, 시각적 보고서 생성, BI 서비스
   - ex) A company is using a centrla data platform to manage multiple types of data for its customers. The compoany wants to use AWS services to discover, transform, and visualize the data.
+  - ex) Gives users the ability to build interactive business intelligence dashboards that include machine learning insights
 
 ■ Data Pipeline : 서로 다른 사용자의 수백 건 요청 동시 처리
 
 ■ **RedShift**
   - Data Warehouse
   - Column 형식
-  - OLAP(Online Analyticla Processing) 용도
+  - OLAP(Online Analytical Processing) 용도
   - ex) A company wants to operate a data warehouse to analyze data without managing the data warehouse infrastructure.
+  - ex) A company needs to generate reports for business intelligence and operational analytics on petabytes of semistructured and structured data. These reports are produced from standard SQL queries on data that is in an Amazon S3 data lake. Redshift provides the ability to analyze this data.
 
 ■ Glue : Serverless 관리형 ETL(Extract, Transform, Load)
   - ex) A company is using a centrla data platform to manage multiple types of data for its customers. The compoany wants to use AWS services to discover, transform, and visualize the data.
@@ -898,6 +936,10 @@ mermaid: true
 ## 문제
 - <https://kananinirav.com/practice-exam/exams.html>
 - <https://www.examtopics.com/exams/amazon/aws-certified-cloud-practitioner/view/>
+  - ~24 까지 무료
+- <https://www.examtopics.com/exams/amazon/aws-certified-cloud-practitioner-clf-c02/view/>
+  - ~17 까지 무료
+- <https://www.exam-answer.com/aws-service-infrastructure-security-optimization-recommendations>
 
 ## 참고
 - <https://docs.aws.amazon.com/>
@@ -910,3 +952,6 @@ mermaid: true
 - <https://maplambda.tistory.com/m/7>
 - <https://hahahohot.tistory.com/m/10>
 - <https://jiny-dev.tistory.com/category/Study/AWS>
+- <https://hyunsangwon93.tistory.com/m/31>
+- <https://maplambda.tistory.com/m/23>
+- <https://jiny-dev.tistory.com/117>
