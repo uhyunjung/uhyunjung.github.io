@@ -1,6 +1,6 @@
 ---
-title: '[AWS] AWS Solutions Architect Associate(SAA-C03) 자격증'
-date: 2025-01-17 18:10:00 +0900
+title: '[AWS] AWS Cloud Practitioner(CLF-C02) 자격증'
+date: 2025-01-15 18:10:00 +0900
 categories: [인프라/클라우드, AWS]
 tags: [AWS]
 math: true
@@ -1195,15 +1195,35 @@ AWS accounts, apply service control policies (SCPs), and simplify billing proces
 
 ■ Lumberyard
 
+## 참고
+- Serverless 서버리스 서비스 : Lambda, DynamoDB, Kinesis, Fargate, S3
+- 내장 방화벽이 갖춰진 서비스 : WAF, CloudFront, ELB, Route53, VPC/보안그룹
+- 고가용성 서비스 : Route53, CloudWatch, ELB, EIP, AutoScale
+- PaaS : BeanStalk, CloudFormation, OpsWorks
+- AWS랑 하이브리드 환경이랑 같이 사용할 수 있는 서비스
+
 ## 문제
-- <https://www.examtopics.com/exams/amazon/aws-certified-solutions-architect-associate-saa-c03/view/>
-- <https://www.examtopics.com/exams/amazon/aws-certified-solutions-architect-associate-saa-c02/view/>
-- <https://www.koreadumps.com/SAA-C03-KR-practice-test.html>
-- <https://newbt.kr/%EC%8B%9C%ED%97%98/AWS%20Solutions%20Architect%20Associate>
+- 65문항 100분
+- 25.2.15(토) **`출제내용`**로 표시함
+<br/>
+- <https://kananinirav.com/practice-exam/exams.html>
+- <https://www.examtopics.com/exams/amazon/aws-certified-cloud-practitioner/view/>
+  - ~24 까지 무료
+- <https://www.examtopics.com/exams/amazon/aws-certified-cloud-practitioner-clf-c02/view/>
+  - ~17 까지 무료
+- <https://www.exam-answer.com/aws-service-infrastructure-security-optimization-recommendations>
 
 ## 참고
-- <https://www.examtopics.com/discussions/amazon/>
-- <https://github.com/serithemage/AWSCertifiedSolutionsArchitectUnofficialStudyGuide>
-- <https://blog.naver.com/PostView.naver?blogId=gam_jaong&logNo=222909260062&parentCategoryNo=&categoryNo=18&viewDate=&isShowPopularPosts=false&from=postList>
-- <https://wbluke.tistory.com/53>
-- <https://onborders.tistory.com/>
+- <https://docs.aws.amazon.com/>
+- <https://tbvjrornfl.tistory.com/188>
+- <https://jeongchul.tistory.com/681>
+- <https://aws.amazon.com/ko/training/classroom/aws-cloud-practitioner-essentials/>
+- <https://aws.amazon.com/ko/whitepapers/>
+- <https://drive.google.com/file/d/1RyD96KoTByLR0UzJIAe2CvFQqtvE20k3/view?pli=1>
+- <https://m.blog.naver.com/PostView.naver?blogId=thdud9943&logNo=222892401058&proxyReferer=https:%2F%2Fm.blog.naver.com%2FPostView.naver%3FblogId%3Dthdud9943%26logNo%3D222892236969%26proxyReferer%3D%26noTrackingCode%3Dtrue&trackingCode=blog_postview>
+- <https://maplambda.tistory.com/m/7>
+- <https://hahahohot.tistory.com/m/10>
+- <https://jiny-dev.tistory.com/category/Study/AWS>
+- <https://hyunsangwon93.tistory.com/m/31>
+- <https://maplambda.tistory.com/m/23>
+- <https://jiny-dev.tistory.com/117>

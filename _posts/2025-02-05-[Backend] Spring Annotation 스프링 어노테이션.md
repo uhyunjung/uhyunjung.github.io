@@ -78,3 +78,4 @@ mermaid: true
 - `@Profile`
 - `@Import`
 - `@Primary`
+- `@ConditionalOnMissingBean`
