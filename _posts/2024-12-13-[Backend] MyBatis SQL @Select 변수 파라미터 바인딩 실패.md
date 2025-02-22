@@ -1,7 +1,7 @@
 ---
 title: '[Backend] MyBatis SQL @Select 변수 파라미터 바인딩 실패'
 date: 2024-12-13 15:30:00 +0900
-categories: [오늘의 에러, Backend]
+categories: [백엔드, 오늘의 에러]
 tags: [Backend]
 math: true
 mermaid: true

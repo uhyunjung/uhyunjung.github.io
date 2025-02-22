@@ -7,4 +7,6 @@ User-agent: *
 
 Disallow: /norobots/
 
-Sitemap: {{ '/sitemap.xml' | absolute_url }}
+Allow: /
+
+Sitemap: {{ 'https://uhyunjung.github.io/sitemap.xml' | absolute_url }}

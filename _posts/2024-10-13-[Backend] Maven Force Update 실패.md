@@ -1,7 +1,7 @@
 ---
 title: '[Backend] Maven Force Update 실패'
 date: 2024-10-13 11:10:00 +0900
-categories: [백엔드, Backend]
+categories: [백엔드, 오늘의 에러]
 tags: [Backend]
 math: true
 mermaid: true

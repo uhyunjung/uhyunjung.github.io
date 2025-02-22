@@ -1,7 +1,7 @@
 ---
 title: '[Backend] Error creating bean with name ''entityManagerFactory'' defined in class path resource'
 date: 2024-10-13 09:10:00 +0900
-categories: [백엔드, Backend]
+categories: [백엔드, 오늘의 에러]
 tags: [Backend]
 math: true
 mermaid: true

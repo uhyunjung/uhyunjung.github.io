@@ -1,7 +1,7 @@
 ---
 title: '[Backend] Could not write JSON Not implemented yet'
 date: 2024-10-21 18:10:00 +0900
-categories: [백엔드, Backend]
+categories: [백엔드, 오늘의 에러]
 tags: [Backend]
 math: true
 mermaid: true

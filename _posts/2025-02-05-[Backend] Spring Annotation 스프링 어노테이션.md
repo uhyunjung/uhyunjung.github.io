@@ -8,6 +8,12 @@ mermaid: true
 ---
 
 ## Annotation
+## Main
+- `@SpringBootApplication(exclude = Configuration.class)`
+- `@EnableWebSecurity(debug = false)`
+- `@EnableMethodSecurity(securedEnabled = true, prePostEnabled = true, jsr250Enabled = true)`
+- `@ComponentScan(basePackages = { "net.demo", "io.demo" })`
+
 ## Mapper
 - """ 엔터 포함
 - `@Param`
