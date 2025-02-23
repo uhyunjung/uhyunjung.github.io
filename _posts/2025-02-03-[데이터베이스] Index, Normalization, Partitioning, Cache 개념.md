@@ -1,5 +1,5 @@
 ---
-title: '[Backend] Index, Normalization, Partitioning, Cache 개념'
+title: '[데이터베이스] Index, Normalization, Partitioning, Cache 개념'
 date: 2025-02-03 15:30:00 +0900
 categories: [정리, 데이터베이스]
 tags: [데이터베이스]
