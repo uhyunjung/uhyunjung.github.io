@@ -40,6 +40,7 @@ spring.datasource.url=jdbc:h2:mem:test
 spring.datasource.url=jdbc:h2:~/test
 spring.datasource.url=jdbc:h2:file:~/test;AUTO_SERVER=TRUE
 spring.datasource.url=jdbc:h2:tcp://localhost/~/test
+spring.datasource.url=jdbc:h2:mem:spring_assignments;MODE=MYSQL;DB_CLOSE_DELAY=-1
 spring.datasource.driver-class-name=org.h2.Driver
 spring.datasource.username=sa
 spring.datasource.username=root

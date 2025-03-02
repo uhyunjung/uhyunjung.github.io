@@ -466,6 +466,8 @@ public class RedisService<T> {
 ```
 
 ## ConcurrentHashMap
+- IntelliJ에서 RedisServer가 실행되지 않고 ClassNotFoundException 발생 -> 로컬에서 ConcurrentHashMap을 대신 Redis처럼 사용하기로 결정
+
 ### RedisService.java
 ```java
 public interface RedisService {
@@ -552,6 +554,25 @@ public class DevRedisService implements RedisService {
 }
 ```
 
+### RedisController.java
+```java
+@Slf4j
+@RestController
+@RequestMapping("home")
+public class RedisController {
+
+    @Autowired
+    private RedisService redisService;
+
+    @GetMapping("")
+    public void getRedis() {
+        this.redisService.set("key", "value", Duration.ofMinutes(5L));
+        log.info("redis={} {}", this.redisService.getClass(), this.redisService.get("key"));
+    }
+
+}
+```
+
 ## Spring Data Redis
 ### Token.java
 ```java
@@ -586,6 +607,9 @@ public class RedisCRUDTest {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
+
+    @Autowired
+    private RedisService redisService;
 
     @Autowired
     private TokenRepository tokenRepository;

@@ -1,6 +1,6 @@
 ---
 title: '[Backend] variable not initialized in the default constructor'
-date: 2024-10-13 09:10:00 +0900
+date: 2025-03-01 09:10:00 +0900
 categories: [백엔드, 오늘의 에러]
 tags: [Backend]
 math: true
