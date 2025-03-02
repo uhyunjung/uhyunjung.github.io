@@ -40,10 +40,11 @@ mermaid: true
 - null 체크
 
 ## Controller
-- `@RestController`
-- `@Controller`
+- `@RestController` : JSON/XML 데이터를 반환하는 REST API, 자동으로 @ResponseBody 적용됨
+- `@Controller` : HTML 뷰를 반환하는 전통적인 MVC 처리, @ResponseBody를 사용해야 응답 본문 반환, 서버에서 렌더링된 페이지를 반환해야 할 때
 - `@Tag`
-- `@PreAuthorize`
+- `@PreAuthorize(hasRole="adminx" & hasPermistion="/abc")`
+- `@Request("/abc.")`
 
 - Get
 	- `@Operation`
@@ -83,5 +84,16 @@ mermaid: true
 - `@Order`
 - `@Profile`
 - `@Import`
-- `@Primary`
-- `@ConditionalOnMissingBean`
+- `@Primary` : 의존성 주입 순서
+- `@ConditionalOnProperty(name = "spring.data.redis.host", havingValue = "localhost", matchIfMissing=true)` : matchIfMissing은 property가 설정되지 않아도 true이면 Bean 생성, false면 Bean 생성하지 않음
+- `@ConditionalOnMissingBean(RedisService.class)` : Bean이 존재하지 않을 때만 해당 Bean을 생성
+
+## 의존성 주입
+```
+List<RedisService> list;
+
+public void set() {
+	list.foreach(x -> x.isYour().set()'');
+	list.getFirst();
+}
+```

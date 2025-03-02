@@ -44,6 +44,9 @@ spring.datasource.driver-class-name=org.h2.Driver
 spring.datasource.username=sa
 spring.datasource.username=root
 spring.datasource.password=1234
+spring.datasource.hikari.minimum-idle=1
+spring.datasource.hikari.maximum-pool-size=5
+spring.datasource.hikari.pool-name=H2 DB
 
 spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console

@@ -25,7 +25,6 @@ mermaid: true
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-redis</artifactId>
-    <version>3.4.0</version>
 </dependency>
 ```
 
@@ -302,6 +301,12 @@ public class RedisConfig {
         return new LettuceConnectionFactory(this.redisHost, this.redisPort);
     }
 
+    @Bean
+    @Primary
+    public RedisService defaultService(RedisTemplate<String, Object> redisTemplate) {
+        return new DevRedisService(redisTemplate);
+    }
+
 //    @Bean
 //    @Primary
 //    @ConditionalOnMissingBean(RedisIndexedSessionRepository.class)
@@ -455,6 +460,93 @@ public class RedisService<T> {
 
     public boolean isExists(String key) {
         return Boolean.TRUE.equals(this.redisTemplate.hasKey(key));
+    }
+
+}
+```
+
+## ConcurrentHashMap
+### RedisService.java
+```java
+public interface RedisService {
+
+    void set(String key, Object value, Duration duration);
+
+    boolean setIfAbsent(String key, Object value, Duration duration);
+
+    <T> T get(String key);
+
+    boolean delete(String key);
+
+}
+```
+
+### LocalRedisService.java
+```java
+//@Profile("!dev & !prod")
+//@ConditionalOnProperty(name = "spring.data.redis.host", matchIfMissing = true)
+@Service
+@RequiredArgsConstructor
+public class LocalRedisService implements RedisService {
+
+    private final ConcurrentHashMap<String, Object> map = new ConcurrentHashMap<>();
+
+    public void set(String key, Object value, Duration duration) {
+        this.map.put(key, value);
+    }
+
+    public boolean setIfAbsent(String key, Object value, Duration duration) {
+        if (this.map.containsKey(key)) {
+            return false;
+        }
+        else {
+            this.map.putIfAbsent(key, value);
+            return true;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T get(String key) {
+        return (T) this.map.get(key);
+    }
+
+    public boolean delete(String key) {
+        if (this.map.containsKey(key)) {
+            this.map.remove(key);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+}
+```
+
+### DevRedisService.java
+```java
+//@Profile({"dev", "prod"})
+@Service
+@RequiredArgsConstructor
+public class DevRedisService implements RedisService {
+
+    private final RedisTemplate<String, Object> redisTemplate;
+
+    public void set(String key, Object value, Duration duration) {
+        this.redisTemplate.opsForValue().set(key, value, duration);
+    }
+
+    public boolean setIfAbsent(String key, Object value, Duration duration) {
+        return Boolean.TRUE.equals(this.redisTemplate.opsForValue().setIfAbsent(key, value, duration));
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T get(String key) {
+        return (T) this.redisTemplate.opsForValue().get(key);
+    }
+
+    public boolean delete(String key) {
+        return Boolean.TRUE.equals(this.redisTemplate.delete(key));
     }
 
 }
