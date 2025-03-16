@@ -7,7 +7,7 @@ math: true
 mermaid: true
 ---
 
-## NVM 설치
+## NVM 설치(NPM 자동 설치)
 <https://github.com/coreybutler/nvm-windows/releases>
 
 ## Node 설치 및 삭제
@@ -24,6 +24,7 @@ nvm uninstall v20.18.0
 nvm -version
 nvm ls
 npm -version
+npm install -g npm@11.2.0
 node -v
 
 npm cache clean --force
@@ -37,6 +38,17 @@ yarn config set "strict-ssl" false
 
 set NODE_TLS_REJECT_UNAUTHORIZED=0
 set NODE_EXTRA_CA_CERTS=pem 키 경로
+```
+
+## Vite 설치
+```bash
+npm install vite --save-dev
+npm install @vitejs/plugin-vue
+```
+
+## Vue 설치
+```bash
+npm i vue
 ```
 
 ## Yarn 설치
@@ -61,10 +73,29 @@ yarn add node-sass
 yarn remove node-sass
 ```
 
+## Axios 설치
+```bash
+npm install axios
+```
+
 ## 서버 실행
 ```bash
 npm start
 set PORT=3000 && npm start # proxy port 8080 8081
+```
+
+## 코드 포맷팅
+- EsLint, Prettier Plugin 설치
+- Prettier 규칙 우선
+```bash
+npm i -D eslint-plugin-prettier
+```
+- Eslint
+```bash
+npm install eslint --save-dev
+npm init @eslint/config
+
+npm uninstall -g eslint
 ```
 
 ## 참고
