@@ -183,8 +183,12 @@ mermaid: true
     - EFS / FSx
       - 네트워크 파일 시스템
       - A company wants a fully managed Windows file server for its Windows-based applications. -> FSx
+      - ex) A company is hosting a web application on AWS using a single Amazon EC2 instance that stores user-uploaded documents in an Amazon EBS volume. For better scalability and availability, the company duplicated the architecture and created a second EC2 instance and EBS volume in another Availability Zone, placing both behind an Application Load Balancer. After completing this change, users reported that, each time they refreshed the website, they could see one subset of their documents or the other, but never all of the documents at the same time. What should a solutions architect propose to ensure users see all of their documents at once? -> **Copy the data from both EBS volumes to Amazon EFS. Modify the application to save new documents to Amazon EFS** <-> EBS doesn't support cross az only reside in one AZ.
+      - ex) LA solutions architect is designing a high performance computing (HPC) workload on Amazon EC2. The EC2 instances need to communicate to each other frequently and require network performance with low latency and high throughput. Which EC2 configuration meets these requirements? -> **aunch the EC2 instances in a cluster placement group in one Availability Zone.**
+      - ex) A company is creating a new application that will store a large amount of data. The data will be analyzed hourly and modified by several Amazon EC2 Linux instances that are deployed across multiple Availability Zones. The application team believes the amount of space needed will continue to grow for the next 6 months. Which set of actions should a solutions architect take to support these needs? -> **Store the data in an Amazon Elastic File System (Amazon EFS) file system. Mount the file system on the application instances.**
     - EC2 instance store
       - Is ephemeral and is deleted when an Amazon EC2 instance is stopped or terminated
+      - ex) A solutions architect is deploying a distributed database on multiple Amazon EC2 instances. The database stores all data on multiple instances so it can withstand the loss of an instance. The database requires block storage with latency and throughput to support several million transactions per second per server. Which storage solution should the solutions architect use? -> **Amazon EC2 instance store**
   - Instance Size & Type
     - M5, C5, R5, T2 & T3, G3 & P3, I2, D2
   - Scale Up(수직 확장 : 인프라 추가 없이), Scale Out(수평 확장 : 인프라 추가)
@@ -226,8 +230,9 @@ mermaid: true
   - **The responsibility of a company that is using AWS Lambda**
     - Security inside of code
     - Writing and updating of code
+  - ex) A solutions architect is designing a solution to access a catalog of images and provide users with the ability to submit requests to customize images. Image customization parameters will be in any request sent to an AWS API Gateway API. The customized image will be generated on demand, and users will receive a link they can click to view or download their customized image. The solution must be highly available for viewing and customizing images. What is the MOST cost-effective solution to meet these requirements? -> **Use AWS Lambda to manipulate the original image to the requested customizations. Store the original and manipulated images in Amazon S3. Configure an Amazon CloudFront distribution with the S3 bucket as the origin.**
 
-■ **`Fargate`** : **Conainer(ECS, EKS)**를 위한 Serverless 컴퓨팅 엔진
+■ **`Fargate`** : **Container(ECS, EKS)**를 위한 Serverless 컴퓨팅 엔진
   - A **serverless** compute engine for containers
 
 ■ Batch
@@ -248,10 +253,14 @@ mermaid: true
   - Multipart Upload
   - **Transfer Acceleration**
     - ex) A company collects data for temperature, humidity, and atmospheric pressure in cities across multiple continents. The average volume of data that the company collects from each site daily is 500 GB. Each site has a high-speed Internet connection. The company wants to aggregate the data from all these global sites as quickly as possible in a single Amazon S3 bucket. The solution must minimize operational complexity. -> **Turn on S3 Transfer Acceleration on the destination S3 bucket. Use multipart uploads to directly upload site data to the destination S3 bucket.**
+    - ex) A company wants to host a scalable web application on AWS. The application will be accessed by users from different geographic regions of the world. Application users will be able to download and upload unique data up to gigabytes in size. The development team wants a cost-effective solution to minimize upload and download latency and maximize performance. -> **Use Amazon S3 with Transfer Acceleration to host the application.**
+What should a solutions architect do to accomplish this?
   - **Athena** : Serverless 대화형 쿼리 서비스
     - ex) A company needs the ability to analyze the log files of its proprietary application. The logs are stored in JSON format in an Amazon S3 bucket. Queries will be simple and will run on-demand. A solutions architect needs to perform the analysis with minimal changes to the existing architecture. What should the solutions architect do to meet these requirements with the LEAST amount of operational overhead? -> **Use Amazon Athena directly with Amazon S3 to run the queries as needed**
+    - Amazon Athena is an interactive query service that makes it easy to analyze data directly in Amazon Simple Storage Service (Amazon S3) using standard SQL. With a few actions in the AWS Management Console, you can point Athena at your data stored in Amazon S3 and begin using standard SQL to run ad-hoc queries and get results in seconds.
   - Bucket Policy
     - ex) A company uses AWS Organizations to manage multiple AWS accounts for different departments. The management account has an Amazon S3 bucket that contains project reports. The company wants to limit access to this S3 bucket to only users of accounts within the organization in AWS Organizations. Which solution meets these requirements with the LEAST amount of operational overhead? -> **Add the aws PrincipalOrgID global condition key with a reference to the organization ID to the S3 bucket policy.**
+    - PrincipalOrgID Validates if the principal accessing the resource belongs to an account in your organization.
 
 ■ **Glacier**
   - Vault, Archive
@@ -267,6 +276,7 @@ mermaid: true
   - **S3 One Zone IA(One Zone-IA)** : AZ 저장 개수 1개, 더 저렴, 덜 중요하고 자주 사용되지 않는 데이터
   - **S3 Intelligent Tiering**
   - Glacier / Deep Archive : Archiving, 장기백업, 저렴
+  - Glacier / Flexible Retrieval : Utility function is vague and there is no need for flexible storage
 
 ■ IOPS : 초당 입출력 작업 수
 
@@ -279,6 +289,10 @@ mermaid: true
     - **Amazon Aurora** : MySQL, PostgreSQL과 호환되는 관계형 DB 엔진
       - fully managed MySQL-compatible database
       - 가용성, 내구성, 성능 개선
+      - ex) A company runs an ecommerce application on Amazon EC2 instances behind an Application Load Balancer. The instances run in an Amazon EC2 Auto Scaling group across multiple Availability Zones. The Auto Scaling group scales based on CPU utilization metrics. The ecommerce application stores the transaction data in a MySQL 8.0 database that is hosted on a large EC2 instance. The database's performance degrades quickly as application load increases. The application handles more read requests than write transactions. The company wants a solution that will automatically scale the database to meet the demand of unpredictable read workloads while maintaining high availability. Which solution will meet these requirements? -> **Use Amazon Aurora with a Multi-AZ deployment. Configure Aurora Auto Scaling with Aurora Replicas.**
+      - ex) A company is migrating a three-tier application to AWS. The application requires a MySQL database. In the past, the application users reported poor application performance when creating new entries. These performance issues were caused by users generating different real-time reports from the application during working hours. Which solution will improve the performance of the application when it is moved to AWS? -> **Create an Amazon Aurora MySQL Multi-AZ DB cluster with multiple read replicas. Configure the application to use the reader endpoint for reports.**
+      - ex) A company runs a multi-tier web application that hosts news content. The application runs on Amazon EC2 instances behind an Application Load Balancer. The instances run in an EC2 Auto Scaling group across multiple Availability Zones and use an Amazon Aurora database. A solutions architect needs to make the application more resilient to periodic increases in request rates. -> **Add Aurora Replica. / Add an Amazon CloudFront distribution in front of the Application Load Balancer.**
+      - ex) An application running on AWS uses an Amazon Aurora Multi-AZ deployment for its database. When evaluating performance metrics, a solutions architect discovered that the database reads are causing high I/O and adding latency to the write requests against the database. What should the solutions architect do to separate the read requests from the write requests? -> **Create a read replica and modify the application to use the appropriate endpoint** <-> There is no standby instance in Aurora.
     - MSSQL
     - Maria DB
     - Oracle
@@ -300,6 +314,7 @@ mermaid: true
   - Scaling DB
       - Auto Scaling/On Demand
       - Adaptive Capacity
+  - ex) A solutions architect is designing a new service behind Amazon API Gateway. The request patterns for the service will be unpredictable and can change suddenly from 0 requests to over 500 per second. The total size of the data that needs to be persisted in a backend database is currently less than 1 GB with unpredictable future growth. Data can be queried using simple key-value requests. Which combination of AWS services would meet these requirements? (Choose two.) -> **AWS Lambda / Amazon DynamoDB**
 
 ■ DAX(DynamoDB Accelerator) : DynamoDB 전용 Cache
 
@@ -364,6 +379,8 @@ mermaid: true
       - They process rules in order, starting with the lowest numbered rule, when deciding whether to allow traffic.
       - Acts as a VPC firewall at the subnet level
       - ex) S3 객체 액세스 제한
+    - **`Network Firewall`**
+      - ex) A company recently migrated to AWS and wants to implement a solution to protect the traffic that flows in and out of the production VPC. The company had an inspection server in its on-premises data center. The inspection server performed specific operations such as traffic flow inspection and traffic filtering. The company wants to have the same functionalities in the AWS Cloud. Which solution will meet these requirements? -> **Use AWS Network Firewall to create the required rules for traffic inspection and traffic filtering for the production VPC**
 
 ## Module 6 (Networking - Part II)
 ■ CGW(Customer Gateway)
@@ -389,7 +406,10 @@ mermaid: true
   - Gateway Endpoint
     - 인터넷 연결 없이 VPC와 S3 간의 프라이빗 연결
     - 인터넷 게이트웨이나 NAT 디바이스 없이
+    - ex) A company has application running on Amazon EC2 instances in a VPC. One of the applications needs to call an Amazon S3 API to store and read objects. The company's security policies restrict any internet-bound traffic from the applications. Which action will fulfill these requirements and maintain security? -> **Configure an S3 gateway endpoint.** <-> Can't be interface endpoint as there is no interface endpoint for S3 or DynamoDB. Gateway endpoint is only applicable for S3 and Dynamo DB.
   - Gateway Load Banlancer
+  - ex) An application runs on an Amazon EC2 instance in a VPC. The application processes logs that are stored in an Amazon S3 bucket. The EC2 instance needs to access the S3 bucket without connectivity to the internet. Which solution will provide private network connectivity to Amazon S3? -> **Create a gateway VPC endpoint to the S3 bucket** <-> You can set up interface VPC endpoint for CloudWatch Logs for private network from EC2 to CloudWatch. But from CloudWatch to S3 bucket: Log data can take up to 12 hours to become available for export and the requirement only need EC2 to S3. / Create an instance profile just grant access but not help EC2 connect to S3 privately. / API Gateway like the proxy which receive network from out site and it forward request to AWS Lambda, Amazon EC2, Elastic Load Balancing products such as Application Load Balancers or Classic Load Balancers, Amazon DynamoDB, Amazon Kinesis, or any publicly available HTTPS-based endpoint. But not S3.
+  - ex) A company has a three-tier web application that is deployed on AWS. The web servers are deployed in a public subnet in a VPC. The application servers and database servers are deployed in private subnets in the same VPC. The company has deployed a third-party virtual firewall appliance from AWS Marketplace in an inspection VPC. The appliance is configured with an IP interface that can accept IP packets. A solutions architect needs to integrate the web application with the appliance to inspect all traffic to the application before the traffic reaches the web server. Which solution will meet these requirements with the LEAST operational overhead? -> **Deploy a Gateway Load Balancer in the inspection VPC. Create a Gateway Load Balancer endpoint to receive the incoming packets and forward the packets to the appliance.** (Gateway Load Balancer is a new type of load balancer that operates at layer 3 of the OSI model and is built on Hyperplane, which is capable of handling several thousands of connections per second. Gateway Load Balancer endpoints are configured in spoke VPCs originating or receiving traffic from the Internet. This architecture allows you to perform inline inspection of traffic from multiple spoke VPCs in a simplified and scalable fashion while still centralizing your virtual appliances.)
 
 ■ **Transit Gateway** : **여러 개 VPC 간 연결 <-> On-Premise 네트워크 연결**, Hub and Spoke 형태, 중앙 관리
 
@@ -457,6 +477,7 @@ mermaid: true
     - SAML
     - Amazon EC2 인스턴스에서 실행되는 애플리케이션이 다른 AWS 서비스에 액세스해야 하는 경우
     - 회사가 AWS에 요청하는 휴대폰에서 실행되는 애플리케이션을 생성하는 경우
+    - ex) A company is implementing a new business application. The application runs on two Amazon EC2 instances and uses an Amazon S3 bucket for document storage. A solutions architect needs to ensure that the EC2 instances can access the S3 bucket. -> **Create an IAM role that grants access to the S3 bucket. Attach the role to the EC2 instances.**
   - Access
     - Least privilege access : Using IAM to grant access only to the resources needed to perform a task
     - Restricted access
@@ -588,6 +609,7 @@ mermaid: true
 ■ **`Global Accelerator`** : 즉시 대응 서비스, 애플리케이션의 전반적인 가용성 및 성능 개선
   - Helps deliver highly available applications with fast failover for multi-Region and Multi-AZ architectures
   - Improves network performance by sending traffic through the AWS worldwide network infrastructure
+  - ex) A start-up company has a web application based in the us-east-1 Region with multiple Amazon EC2 instances running behind an Application Load Balancer across multiple Availability Zones. As the company's user base grows in the us-west-1 Region, it needs a solution with low latency and high availability. -> **Provision EC2 instances and configure an Application Load Balancer in us-west-1. Create an accelerator in AWS Global Accelerator that uses an endpoint group that includes the load balancer endpoints in both Regions.**
 
 ■ **`Config`**
   - 리소스 변경 사항 기록
@@ -668,6 +690,9 @@ mermaid: true
 ■ **`Secrets Manager`**
   - **프로그래밍 방식**으로 암호 변경, 보안 정보 보호 및 관리
   - RDS에서 관리
+  - ex) A company has an application that runs on Amazon EC2 instances and uses an Amazon Aurora database. The EC2 instances connect to the database by using user names and passwords that are stored locally in a file. The company wants to minimize the operational overhead of credential management. What should a solutions architect do to accomplish this goal? -> **Use AWS Secrets Manager. Turn on automatic rotation**
+  - Parameter Store : Does not support auto rotation, unless the customer writes it themselves. Secure string parameter only apply for Parameter Store. All the data in AWS Secrets Manager is encrypted.
+  - ex) A company performs monthly maintenance on its AWS infrastructure. During these maintenance activities, the company needs to rotate the credentials for its Amazon RDS for MySQL databases across multiple AWS Regions. Which solution will meet these requirements with the LEAST operational overhead? -> **Store the credentials as secrets in AWS Secrets Manager. Use multi-Region secret replication for the required Regions. Configure Secrets Manager to rotate the secrets on a schedule.** (Rotate the credentials for its Amazon RDS for MySQL databases across multiple AWS Regions. LEAST operational overhead)
 
 ■ **Shield**
   - DDoS 방지
@@ -698,6 +723,7 @@ mermaid: true
     - Min/Max/Desired
     - Improved health and availability of applications
     - Optimized performance and costs
+  - ex) A company's application runs on Amazon EC2 instances behind an Application Load Balancer (ALB). The instances run in an Amazon EC2 Auto Scaling group across multiple Availability Zones. On the first day of every month at midnight, the application becomes much slower when the month-end financial calculation batch executes. This causes the CPU utilization of the EC2 instances to immediately peak to 100%, which disrupts the application. What should a solutions architect recommend to ensure the application is able to handle the workload and avoid downtime? -> **Configure an EC2 Auto Scaling scheduled scaling policy based on the monthly schedule.**
 
 ■ **`CloudWatch`** : Metrics, Logs, Alarm, Event, Rule, Target
 
@@ -720,7 +746,24 @@ mermaid: true
 
 ## Module 11 (Caching)
 ■ **CloudFront** : CDN
+  - ex) A global company hosts its web application on Amazon EC2 instances behind an Application Load Balancer (ALB). The web application has static data and dynamic data. The company stores its static data in an Amazon S3 bucket. The company wants to improve performance and reduce latency for the static data and dynamic data. The company is using its own domain name registered with Amazon Route 53. What should a solutions architect do to meet these requirements? -> **Create an Amazon CloudFront distribution that has the S3 bucket and the ALB as origins. Configure Route 53 to route traffic to the CloudFront distribution.**
+  - AWS Global Accelerator vs CloudFront
+    • They both use the AWS global network and its edge locations around the world
+    • Both services integrate with AWS Shield for DDoS protection.
+  - CloudFront
+    • Improves performance for both cacheable content (such as images and videos)
+    • Dynamic content (such as API acceleration and dynamic site delivery)
+    • Content is served at the edge
+  - Global Accelerator
+    • Improves performance for a wide range of applications over TCP or UDP
+    • Proxying packets at the edge to applications running in one or more AWS Regions.
+    • Good fit for non-HTTP use cases, such as gaming (UDP), IoT (MQTT), or Voice over IP
+    • Good for HTTP use cases that require static IP addresses
+    • Good for HTTP use cases that required deterministic, fast
   - Enables companies to deploy an application close to end users
+  - ex) A solutions architect is designing a solution where users will be directed to a backup static error page if the primary website is unavailable. The primary website's DNS records are hosted in Amazon Route 53 where their domain is pointing to an Application Load Balancer (ALB). Which configuration should the solutions architect use to meet the company's needs while minimizing changes and infrastructure overhead? -> **Set up a Route 53 active-passive failover configuration. Direct traffic to a static error page hosted within an Amazon S3 bucket when Route 53 health checks determine that the ALB endpoint is unhealthy.** (Set up a Route 53 active-passive failover configuration. Direct traffic to a static error page hosted within an Amazon S3 bucket when Route 53 health checks determine that the ALB endpoint is unhealthy. The Solutions Architect can have both the primary website and the backup static error page in a single S3 bucket. All the Solutions Architect needs to do is set up a Route 53 active-passive failover configuration which will direct the traffic to the static error page when Route 53 health check detects that the ALB endpoint is unhealthy. This configuration meets the company's needs while minimizing changes and infrastructure overhead.)
+  - ex) A company serves content to its subscribers across the world using an application running on AWS. The application has several Amazon EC2 instances in a private subnet behind an Application Load Balancer (ALB). Due to a recent change in copyright restrictions, the chief information officer (CIO) wants **to block access for certain countries.** Which action will meet these requirements? -> **Use Amazon CloudFront to serve the application and deny access to blocked countries.**
+  - ex) Organizers for a global event want to put daily reports online as static HTML pages. The pages are expected to generate millions of views from users around the world. The files are stored in an Amazon S3 bucket. A solutions architect has been asked to design an efficient and effective solution. Which action should the solutions architect take to accomplish this? -> **Use Amazon CloudFront with the S3 bucket as its origin.** (Static content on S3 and hence Cloudfront is the best way.)
   - Expire contents
     - TTL
     - Change object name
@@ -742,12 +785,17 @@ mermaid: true
 
 ■ **SNS(Simple Notification Service)**
   - **Send both text and email messages from distributed applications**
+    - ex) A company has an application that ingests incoming messages. Dozens of other applications and microservices then quickly consume these messages. The number of messages varies drastically and sometimes increases suddenly to 100,000 each second. The company wants to decouple the solution and increase scalability. Which solution meets these requirements? -> **Publish the messages to an Amazon Simple Notification Service (Amazon SNS) topic with multiple Amazon Simple Queue Service (Amazon SOS) subscriptions. Configure the consumer applications to process the messages from the queues** The number of messages varies drastically. Sometimes increases suddenly to 100,000 each second. <-> Kinesis Data Streams can handle this case but we should increase the more shards but not single shard. / Auto Scaling group not scale well because it need time to check the CPU metric and need time to start up the EC2 and the messages varies drastically. Example: we have to scale from 10 to 100 EC2. Our servers may be down a while when it was scaling. / Kinesis Data Streams can handle this case but we should increase the more shards but not single shard.
+    - ex) An application development team is designing a microservice that will convert large images to smaller, compressed images. When a user uploads an image through the web interface, the microservice should store the image in an Amazon S3 bucket, process and compress the image with an AWS Lambda function, and store the image in its compressed form in a different S3 bucket. A solutions architect needs to design a solution that uses durable, stateless components to process the images automatically. Which combination of actions will meet these requirements? (Choose two.)
+      - **Create an Amazon Simple Queue Service (Amazon SQS) queue. Configure the S3 bucket to send a notification to the SQS queue when an image is uploaded to the S3 bucket.**
+      - **Configure the Lambda function to use the Amazon Simple Queue Service (Amazon SQS) queue as the invocation source. When the SQS message is successfully processed, delete the message in the queue.**
   - Sends notifications two ways, A2A and A2P
     - A2A provides high-throughput, push-based, many-to-many messaging between distributed systems, microservices, and event-driven serverless applications. These applications include Amazon Simple Queue Service(SQS), Amazon Kinesis Data Firehose, AWS Lambda, and other TTPS endpoints.
     - A2P functionality lets you send messages to your customers with SMS texts, push notifications, and email.
   - 완전 관리형 Pub/Sub 메세징
   - Lambda
   - SQS
+    - ex) A company is migrating a distributed application to AWS. The application serves variable workloads. The legacy platform consists of a primary server that coordinates jobs across multiple compute nodes. The company wants to modernize the application with a solution that maximizes resiliency and scalability. How should a solutions architect design the architecture to meet these requirements? -> **Configure an Amazon Simple Queue Service (Amazon SQS) queue as a destination for the jobs.** Implement the compute nodes with Amazon EC2 instances that are managed in an Auto Scaling group. Configure EC2 Auto Scaling based **on the size of the queue** <-> Schedule scaling policy doesn't make sense to schedule auto-scaling. / CloudTrail would be helpful in this case, at all. Primary server should not be in same Auto Scaling group with compute nodes. / EventBridge is not really used for this purpose, wouldn't be very reliable
   - HTTP / HTTPS
   - Email
   - SMS
@@ -764,6 +812,8 @@ mermaid: true
       - Can a company use to store and manage Docker images
     - **`ECS(Elastic Container Service)`**
       - Auto Scaling : 워크로드 변형
+      - ex) A company has a legacy application that processes data in two parts. The second part of the process takes longer than the first, so the company has decided to rewrite the application as two microservices running on Amazon ECS that can scale independently. How should a solutions architect integrate the microservices? -> **Implement code in microservice 1 to send data to an Amazon SQS queue. Implement code in microservice 2 to process messages from the queue.**
+How should a solutions architect integrate the microservices?
     - EKS(Elastic Kubernetes Service)
 
 ## Module 14 (RTO/RPO and Backup Recovery)
@@ -778,8 +828,12 @@ mermaid: true
 ■ AWS Services for DR
   - Storage
     - S3(Cross-region Replication)
+      - ex) A company is planning to migrate a business-critical dataset to Amazon S3. The current solution design uses a single S3 bucket in the us-east-1 Region with versioning enabled to store the dataset. The company's disaster recovery policy states that all data multiple AWS Regions. How should a solutions architect design the S3 solution? -> **Create an additional S3 bucket with versioning in another Region and configure cross-Region replication.**
     - **EBS(Snapshot, Copy)**
+      - ex) A company wants to improve its ability to clone large amounts of production data into a test environment in the same AWS Region. The data is stored in Amazon EC2 instances on Amazon Elastic Block Store (Amazon EBS) volumes. Modifications to the cloned data must not affect the production environment. The software that accesses this data requires consistently high I/O performance. A solutions architect needs to minimize the time that is required to clone the production data into the test environment. Which solution will meet these requirements? -> **Take EBS snapshots of the production EBS volumes. Turn on the EBS fast snapshot restore feature on the EBS snapshots. Restore the snapshots into new EBS volumes. Attach the new EBS volumes to EC2 instances in the test environment.** (Amazon EBS fast snapshot restore (FSR) enables you to create a volume from a snapshot that is fully initialized at creation. This eliminates the latency of I/O operations on a block when it is accessed for the first time. Volumes that are created using fast snapshot restore instantly deliver all of their provisioned performance.)
     - Snowball
+      - ex) A company uses NFS to store large video files in on-premises network attached storage. Each video file ranges in size from 1 MB to 500 GB. The total storage is 70 TB and is no longer growing. The company decides to migrate the video files to Amazon S3. The company must migrate the video files as soon as possible while using **the least possible network bandwidth**. Which solution will meet these requirements? -> **Create an AWS Snowball Edge job. Receive a Snowball Edge device on premises. Use the Snowball Edge client to transfer data to the device. Return the device so that AWS can import the data into Amazon S3** <-> File Gateway uses the Internet, so maximum speed will be at most 1Gbps, so it'll take a minimum of 6.5 days and you use 70TB of Internet bandwidth. / You can achieve speeds of up to 10Gbps with Direct Connect. Total time 15.5 hours and you will use 70TB of bandwidth. Direct Connect does not use your Internet bandwidth, as you will have a dedicate peer to peer connectivity between your on-prem and the AWS Cloud, so technically, you're not using your "public" bandwidth.
+      - Snowball can copy with speed and doesn't require internet. On a Snowball Edge device you can copy files with a speed of up to 100Gbps. 70TB will take around 5600 seconds, so very quickly, less than 2 hours. The downside is that it'll take between 4-6 working days to receive the device and then another 2-3 working days to send it back and for AWS to move the data onto S3 once it reaches them. Total time: 6-9 working days. Bandwidth used: 0.
     - DataSync : Migration, 감사, 파일 권한 보존
     - CloudEndure
   - Compute
@@ -801,6 +855,7 @@ mermaid: true
   - **Snowball**
     - PetaByte(60TB)
     - The transfer of data from the Snowball Edge appliance into Amazon S3 at **No Cost**
+    - ex) A recently acquired company is required to build its own infrastructure on AWS and migrate multiple applications to the cloud within a month. Each application has approximately 50 TB of data to be transferred. After the migration is complete, this company and its parent company will both require secure network connectivity with consistent throughput from their data centers to the applications. A solutions architect must ensure one-time data migration and ongoing network connectivity. Which solution will meet these requirements? -> **AWS Snowball for the initial transfer and AWS Direct Connect for ongoing connectivity.** (Definitely snowball for data transfer. As per the connectivity, 4 requirements here: Complete WITHIN a month, secure, consistent and BOTH companies need access. DirectConnect provides consistency, but it's not secure (it's private, that's different), it's a 1-to-1 direct connection and then you have up to 90 days to set it up (on average it takes more than 1 month, or at least that's what they said at the course). Site-to-Site VPN is secure and can be setup immediately in multiple sites. It's not consistent, but it can achieve consistency with Accelerated Site-to-Site VPN ("Accelerated Site-to-Site VPN makes user experience more consistent by using the highly available and congestion-free AWS global network.") So I'd go for Snowball and VPN (possibly Accelerated)))
   - **`Snowball Edge`** : 100TB(80TB)
     - 인터넷 연결이 간헐적이거나 없는 위치에서 데이터 수집
   - **Snowmobile** : ExaByte
@@ -815,7 +870,9 @@ mermaid: true
     - Tape Gateway
     - Volumne Gateway
     - FSx File Gateway
+      - ex) A company is migrating from an on-premises infrastructure to the AWS Cloud. One of the company's applications stores files on a Windows file server farm that uses Distributed File System Replication (DFSR) to keep data in sync. A solutions architect needs to replace the file server farm. -> **Amazon FSx**
     - **S3 File Gateway**
+      - ex) A company is running an SMB file server in its data center. The file server stores large files that are accessed frequently for the first few days after the files are created. After 7 days the files are rarely accessed. The total data size is increasing and is close to the company's total storage capacity. A solutions architect must increase the company's available storage space without losing low-latency access to the most recently accessed files. The solutions architect must also provide file lifecycle management to avoid future storage issues. Which solution will meet these requirements? -> **Create an Amazon S3 File Gateway to extend the company's storage space. Create an S3 Lifecycle policy to transition the data to S3 Glacier Deep Archive after 7 days**
 
 ■ **Consulting Partner** : Migration 전문가
 
@@ -867,6 +924,7 @@ mermaid: true
 ## Module 18 (Application)
 ■ API Gateway : 규모와 관계없이 REST 및 WebSocket API를 생성, 게시, 유지, 모니터링 및 보호하기 위한 서비스
   - A development team wants to publish and manage web services that provide REST APIs.
+  - ex) A company is building an ecommerce web application on AWS. The application sends information about new orders to an Amazon API Gateway REST API to process. The company wants to ensure that orders are processed in the order that they are received. Which solution will meet these requirements? -> Use an API Gateway integration to send a message to an Amazon Simple Queue Service (Amazon SQS) FIFO queue when the application receives an order. **Configure the SQS FIFO queue to invoke an AWS Lambda function for processing**
 
 ■ SWF
 
@@ -880,10 +938,15 @@ mermaid: true
 ■ EMR : Elastic MapReduce, Hadoop Framework
 
 ■ Kinesis : Realtime Video & Data Stream Service 수집, 처리, 분석
+  - ex) A company captures clickstream data from multiple websites and analyzes it using batch processing. The data is loaded nightly into Amazon Redshift and is consumed by business analysts. The company wants to move towards near-real-time data processing for timely insights. The solution should process the streaming data with minimal effort and operational overhead. Which combination of AWS services are MOST cost-effective for this solution? (Choose two.) -> **Amazon Kinesis Data Streams, Amazon Kinesis Data Analytics**
 
 ■ Elastic Search
 
 ■ **QuickSight** : Serverless, 시각적 보고서 생성, BI 서비스
+  - ex) A company hosts a data lake on AWS. The data lake consists of data in Amazon S3 and Amazon RDS for PostgreSQL. The company needs a reporting solution that provides data visualization and includes all the data sources within the data lake. Only the company's management team should have full access to all the visualizations. The rest of the company should have only limited access. Which solution will meet these requirements? -> **Create an analysis in Amazon QuickSight. Connect all the data sources and create new datasets. Publish dashboards to visualize the data. Share the dashboards with the appropriate users and groups.**
+    - Data lake on AWS.
+    - Consists of data in Amazon S3 and Amazon RDS for PostgreSQL.
+    - The company needs a reporting solution that provides data VISUALIZATION and includes ALL the data sources within the data lake.
 
 ■ Data Pipeline : 서로 다른 사용자의 수백 건 요청 동시 처리
 
@@ -959,7 +1022,7 @@ mermaid: true
 
 ## 문제
 - <https://www.examtopics.com/exams/amazon/aws-certified-solutions-architect-associate-saa-c03/view/>
-   - ~25까지 무료
+   - ~20까지 무료
 - <https://www.examtopics.com/exams/amazon/aws-certified-solutions-architect-associate-saa-c02/view/>
 - <https://www.koreadumps.com/SAA-C03-KR-practice-test.html>
 - <https://newbt.kr/%EC%8B%9C%ED%97%98/AWS%20Solutions%20Architect%20Associate>
