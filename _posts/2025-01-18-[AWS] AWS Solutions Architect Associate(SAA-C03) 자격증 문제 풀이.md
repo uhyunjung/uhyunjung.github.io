@@ -12,7 +12,7 @@ mermaid: true
 ① A. Host your entire website in multiple S3 buckets using Amazon S3. Add an Amazon CloudFront distribution. Set the S3 bucket as the distribution's origin. Store order data in Amazon S3.
 ② B. Deploy your entire website on Amazon EC2 instances running in an Auto Scaling group across multiple Availability Zones. Add an Application Load Balancer (ALB) to distribute website traffic. Add another ALB for your backend API. Store your data in Amazon RDS for MySQL.
 ③ C. Migrate the entire application to run in containers. Host the containers on Amazon Elastic Kubernetes Service (Amazon EKS). Use Kubernetes Cluster Autoscaler to increase or decrease the number of pods to handle traffic bursts. Store data in Amazon RDS for MySQL.
-**④ D. Host your website's static content using an Amazon S3 bucket. Deploy an Amazon CloudFront distribution. Set the S3 bucket as the origin. Use Amazon API Gateway and AWS Lambda functions for the backend API. Store data in Amazon DynamoDB.**
+**④ D. Host your website's static content using an Amazon S3 bucket. Deploy an Amazon CloudFront distribution. Set the S3 bucket as the origin. Use Amazon API Gateway and AWS Lambda functions for the backend API. Store data in Amazon DynamoDB.**<br/>
   최소한의 운영 오버헤드로 하루에 수백만 건의 요청을 처리할 수 있는 솔루션은 AWS의 서버리스 아키텍처를 사용하는 것이다. 정적 콘텐츠는 Amazon S3 버킷에 호스팅되고, Amazon CloudFront 배포를 사용하여 콘텐츠를 캐시하고 전달한다. 백엔드 API에는 Amazon API Gateway와 AWS Lambda 함수를 사용하여 서버리스로 구축하고, 데이터는 Amazon DynamoDB에 저장한다.这样하면 피크 시간에도 밀리초의 대기 시간으로 요청을 처리할 수 있고, 운영 오버헤드도 최소화할 수 있다.
   1번 (S3 + CloudFront): 정적 콘텐츠에 적합하지만, 실시간 주문 처리와 같은 동적 기능을 지원하기에는 부족합니다.
   2번 (EC2 + RDS): 높은 성능을 위해 EC2와 RDS를 사용할 수 있지만, Auto Scaling 설정 및 관리에 오버헤드가 발생합니다.
@@ -28,7 +28,7 @@ Which storage option meets these requirements?
 ② B. S3 Intelligent-Tiering
 ③ C. S3 Standard-Infrequent Access (S3 Standard-IA)
 ④ D. S3 One Zone-Infrequent Access(S3 One Zone-IA)
-  주어진 요구 사항을 충족하는 최적의 옵션은 B. S3 지능형 계층화(S3 Intelligent-Tiering)입니다.
+  주어진 요구 사항을 충족하는 최적의 옵션은 B. S3 지능형 계층화(S3 Intelligent-Tiering)입니다.<br/>
   복원력: S3 Intelligent-Tiering은 기본적으로 다중 가용 영역에 데이터를 저장할 수 있도록 설정되어 있어, 일부 가용 영역의 손실에도 데이터를 보호합니다. 단, 이는 가용 영역 복제를 명시적으로 활성화해야 완전히 보장되지만, 기본적으로 높은 가용성을 제공합니다.
   액세스 패턴 다양성: 이 옵션은 자동으로 자주 액세스되는 데이터와 그렇지 않은 데이터를 감지하여 비용 효율적인 스토리지 티어로 자동 이동시킵니다. 자주 액세스되는 파일은 더 빠른 액세스 성능을 유지하면서, 거의 액세스되지 않는 파일은 비용 절감을 위해 저렴한 티어로 자동 이동됩니다.
   비용 최적화: 자동화된 계층화 기능 덕분에 자주 사용되는 파일과 그렇지 않은 파일에 대해 각각 최적의 비용 구조를 적용할 수 있습니다. 이는 예측 불가능한 액세스 패턴을 가진 파일들에 대해 특히 유리합니다.
@@ -41,16 +41,11 @@ Which storage option meets these requirements?
 ① A. Configure S3 Intelligent-Tiering to automatically migrate objects.
 ② B. Create an S3 lifecycle configuration to transition objects from S3 Standard to S3 Glacier Deep Archive after one month.
 ③ C. Create an S3 lifecycle configuration to transition objects from S3 Standard to S3 Standard-Infrequent Access (S3 Standard-IA) after one month.
-④ D. Create an S3 lifecycle configuration to transition objects from S3 Standard to S3 One Zone-Infrequent Access (S3 One Zone-IA) after one month.
-
+④ D. Create an S3 lifecycle configuration to transition objects from S3 Standard to S3 One Zone-Infrequent Access (S3 One Zone-IA) after one month.<br/>
   Amazon S3에는 다양한 스토리지 클래스가 있으며, 클래스는 비용과 데이터 접근 빈도수에 따라 달라집니다. 会社에서 1ヶ月間 자주 접속되는 파일을 저장하고, 그 이후에는 접근할 수 없지만 무기한 보관해야 하는 경우, 비용을 효율적으로 절약하면서 요구 사항을 충족하는 스토리지 솔루션을 찾는 것입니다. 이러한 경우, 초기에는 자주 접근되는 파일을 위한 S3 Standard 스토리지를 사용한 후, 1개월 후에 접근 빈도가 낮아지는 파일을 위한 저렴한 스토리지 클래스로 전환하는 것이 좋습니다.S3 Glacier Deep Archive는 매우 저렴한 비용으로 장기간에 걸쳐 데이터를 보관할 수 있는 스토리지 클래스로, 1개월 후에 접근할 수 없는 파일을 S3 Standard에서 S3 Glacier Deep Archive로 전환하기 위한 S3 수명 주기 구성을 생성하는 것이 가장 비용 효율적으로 요구 사항을 충족하는 방법입니다.
-
   회사의 요구 사항은 1개월 동안 빈번한 접근 후 무기한 저렴한 비용으로 보관하는 것이다.
-
   1번 옵션의 S3 Intelligent-Tiering은 사용량에 따라 자동으로 데이터를 재배치하지만, 장기 보관 비용을 최적화하는 데는 적합하지 않다.
-
   3번과 4번 옵션의 S3 Standard-IA 및 S3 One Zone-IA는 액세스 빈도가 낮은 데이터에 더 적합하며, 여전히 비교적 높은 비용이 들 수 있다.
-
   정답인 2번 옵션은 S3 수명 주기 정책을 활용해 1개월 후 S3 Standard에서 S3 Glacier Deep Archive로 자동 전환하는 방법을 제시한다. S3 Glacier Deep Archive는 장기 보관에 최적화되어 있으며, 매우 저렴한 비용으로 데이터를 무기한 보관할 수 있다. 따라서 비용 효율성과 장기 보관 요구 사항을 동시에 충족하는 최적의 선택이다.
 
 24. A company has noticed an increase in Amazon EC2 costs in their most recent bill. The billing team has discovered unwanted vertical scaling of several EC2 instances. A solutions architect needs to create a graph comparing EC2 costs over the past two months and conduct in-depth analysis to identify the root cause of the vertical scaling.
@@ -58,17 +53,13 @@ How can the solutions architect generate this information while minimizing opera
 ① A. Use AWS Budgets to generate budget reports and compare EC2 costs across instance types.
 ② B. Use Cost Explorer's granular filtering capabilities to perform in-depth analysis of your EC2 costs based on instance type.
 ③ C. Use the graphs on the AWS Billing and Cost Management dashboard to compare your EC2 costs by instance type over the past two months.
-④ D. Generate a report using the AWS Cost and Usage Report and send it to an Amazon S3 bucket. Use Amazon QuickSight as a source with Amazon S3 to create interactive graphs based on instance type.
-
+④ D. Generate a report using the AWS Cost and Usage Report and send it to an Amazon S3 bucket. Use Amazon QuickSight as a source with Amazon S3 to create interactive graphs based on instance type.<br/>
   INTRROAR (운영 오버헤드 최소화) _cost Explorer의 세분화된 필터링 기능을 사용하면 인스턴스 유형별 EC2 비용에 대한 심층 분석을 쉽게 수행할 수 있습니다. 이는 가장 효율적인 방법입니다. AWS 예산, AWS Billing and Cost Management 대시보드, AWS 비용 및 사용 보고서를 사용하면 정보를 생성할 수 있지만, 이들보다 Cost Explorer가 더 간단하고 효율적입니다. 따라서 Cost Explorer의 세분화된 필터링 기능을 사용하는 것이 가장 좋습니다.
-
   Cost Explorer는 고급 필터링과 세분화된 분석 기능을 제공하여 특정 기간과 인스턴스 유형별 비용 변화를 쉽게 파악할 수 있게 합니다. 이 방법은 다음과 같은 이유로 가장 적합합니다:
-
   즉시성: 실시간 데이터 분석이 가능해, 최근 2개월간의 비용 변동을 빠르게 비교 분석할 수 있습니다.
   깊이 있는 분석: 인스턴스 유형별로 비용을 세분화해 분석할 수 있어, 수직 확장의 정확한 원인을 쉽게 식별할 수 있습니다.
   간편성: 복잡한 설정 없이도 필요한 데이터를 쉽게 추출하고 시각화할 수 있어 운영 오버헤드를 최소화합니다.
   다른 옵션들도 유용하지만,
-
   1번과 3번은 기본적인 예산 및 대시보드 기능으로 심층 분석에 한계가 있습니다.
   4번은 데이터 추출과 시각화에 더 많은 수동적인 설정과 시간이 필요하며, 즉각적인 분석에는 적합하지 않습니다.
 
@@ -78,23 +69,16 @@ What solution meets these requirements?
 ① A. Refactor your Lambda function code to Apache Tomcat code running on an Amazon EC2 instance. Connect to the database using the native Java Database Connectivity (JDBC) driver.
 ② B. Change the platform from Aurora to an Amazon DynamoDProvision DynamoDB Accelerator (DAX) cluster. Use the DAX client SDK to point existing DynamoDB API calls to the DAX cluster.
 ③ C. Set up two Lambda functions. Configure one function to receive the information. Configure the other function to load the information into a database. Integrate the Lambda functions using Amazon Simple Notification Service (Amazon SNS).
-④ D. Set up two Lambda functions. Configure one function to receive information. Configure the other function to load the information into a database. Integrate the Lambda functions using an Amazon Simple Queue Service (Amazon SQS) queue.
-
+④ D. Set up two Lambda functions. Configure one function to receive information. Configure the other function to load the information into a database. Integrate the Lambda functions using an Amazon Simple Queue Service (Amazon SQS) queue.<br/>
   해당 문제는 AWS Lambda 함수의 확장성과 구성 노력을 최소화하는 방법을 묻는 것입니다. 이 문제를 해결하기 위해 두 개의 Lambda 함수를 설정하여 정보를 수신하고 데이터베이스에 로드하는 과정으로 나누어 처리하는 방법이 제시됩니다.
-
   이 경우 Amazon Simple Queue Service(Amazon SQS) 대기열을 사용하여 Lambda 함수를 통합하는 것이 적절한 해결책입니다. Lambda 함수를 두 개로 분리하여 정보를 수신하는 함수와 데이터베이스에 로드하는 함수로 나누면 각 함수의 역할을 분명하게 정의할 수 있습니다. Amazon SQS 대기열을 사용하면 정보를 수신하는 Lambda 함수가 큐에 메시지를 전송하고, 데이터베이스에 로드하는 Lambda 함수가 큐에서 메시지를 가져와 처리할 수 있습니다.
-
   이러한 설계는 확장성을 향상시키고, 구성 노력을 최소화하며, 대량의 데이터를 처리할 수 있는 능력을 제공합니다. 또한, Amazon SQS를 사용하여 Lambda 함수를 통합하면 함수 사이의 결합도를 낮추고, 오류 처리와 재시도를 쉽게 할 수 있습니다. 결론적으로, 두 개의 Lambda 함수를 설정하고 Amazon SQS 대기열을 사용하여 함수를 통합하는 방법이 이 문제의 해법입니다.
-
   대량의 데이터 처리를 위해 확장성과 구성의 간소화를 추구하는 상황에서, Amazon SQS를 활용하는 접근법이 가장 적합합니다.
-
   두 개의 Lambda 함수를 사용하는 방식은 작업을 분리하여 효율성을 높입니다:
-
   첫 번째 Lambda 함수는 API Gateway로부터 데이터를 수신합니다.
   수신된 데이터는 Amazon SQS 대기열에 적재됩니다. 이는 데이터 처리의 부하를 분산시키고, Lambda 함수가 직접적으로 부하 변동에 노출되는 것을 방지합니다.
   두 번째 Lambda 함수는 SQS에서 데이터를 가져와 Amazon Aurora PostgreSQL 데이터베이스에 안정적으로 로드합니다.
   이러한 구조는 다음과 같은 이점을 제공합니다:
-
   확장성: SQS는 자동으로 확장되므로, 데이터 수신량의 변동에 유연하게 대응할 수 있습니다.
   고가 Observatory: 대기열을 통해 데이터 처리의 병목 현상을 완화하고, 각 Lambda 함수가 독립적으로 확장될 수 있도록 합니다.
   안정성: 데이터 손실 위험을 줄이고, 메시지가 안전하게 처리될 때까지 대기열에 보관됩니다.
@@ -104,16 +88,11 @@ What solution meets these requirements?
 ① A. Enable AWS Config using the appropriate rules.
 ② B. Enable AWS Trusted Advisor by performing appropriate checks.
 ③ C. Enable Amazon Inspector using the appropriate assessment template.
-④ D. Enable Amazon S3 server access logging. Configure Amazon EventBridge (Amazon CloudWatch events).
-
+④ D. Enable Amazon S3 server access logging. Configure Amazon EventBridge (Amazon CloudWatch events).<br/>
   Amazon S3 버킷에 무단 구성 변경이 없는지 확인하기 위해 AWS 클라우드 배포를 검토해야 합니다. 이 목표를 달성하려면 솔루션 아키텍트가 AWS Config를 활성화해야 합니다. AWS Config는 AWS 리소스의 구성과 컴플라이언스를 모니터링하고 기록하는 데 사용됩니다. 적절한 규칙을 사용하여 AWS Config를 활성화하면 Amazon S3 버킷의 구성 변경을 검토하고 무단 변경을 обнаруж할 수 있습니다. 따라서 솔루션 아키텍트는 적절한 규칙을 사용하여 AWS Config를 활성화해야 합니다.
-
   회사가 Amazon S3 버킷의 무단 구성 변경을 감지하려면 AWS Config가 가장 적합한 솔루션입니다.
-
   AWS Config는 리소스의 상태를 기록하고 변경 사항을 추적합니다. 적절한 규칙을 설정하면 S3 버킷 구성 변경을 감지하고 알림을 받거나, 규정 준수를 위한 보고서를 생성할 수 있습니다.
-
   다른 옵션들은 이 목표에 적합하지 않습니다.
-
   AWS Trusted Advisor는 성능, 보안, 비용 최적화 등 다양한 측면에서 권장 사항을 제공하지만, 실시간으로 구성 변경을 감지하는 기능은 없습니다.
   Amazon Inspector는 취약점 스캐닝에 초점을 맞추고 있으며, 구성 변경 감지에는 적합하지 않습니다.
   S3 서버 액세스 로깅과 EventBridge는 활동을 모니터링하고 분석하는 데 유용하지만, 구성 변경 자체를 직접적으로 감지하기에는 제한적입니다.
@@ -123,18 +102,12 @@ Which solution meets this requirement?
 ① A. Share the dashboard in the CloudWatch console. Enter the product manager's email address and complete the sharing steps. Provide the product manager with a shareable link to the dashboard.
 ② B. Create an IAM user specifically for the product manager. Attach the CloudWatchReadOnlyAccess AWS managed policy to the user. Share the new login credentials with the product manager. Share the browser URL for the appropriate dashboard with the product manager.
 ③ C. Create an IAM user for your company's employees. Attach the ViewOnlyAccess AWS managed policy to the IAM user. Share the new login credentials with your product manager. Ask your product manager to go to the CloudWatch console and find the dashboard by name in the Dashboards section.
-④ D. Deploy a bastion server in the public subnet. If product managers need access to the dashboard, start the server and share the RDP credentials. Ensure that their browsers are configured to open the dashboard URL using cached AWS credentials that have the appropriate permissions to view the dashboard on the bastion server.
-
+④ D. Deploy a bastion server in the public subnet. If product managers need access to the dashboard, start the server and share the RDP credentials. Ensure that their browsers are configured to open the dashboard URL using cached AWS credentials that have the appropriate permissions to view the dashboard on the bastion server.<br/>
   PRODUCTS 관리자에게 AWS 계정이 없기 때문에 새로운 AWS 계정을 생성할 필요는 없습니다. 또한 대시보드에 대한 액세스만 필요한 상황이므로, 최소 권한 원칙에 따라 제품 관리자에게 필요한 권한만 부여하면 됩니다.
-
   CloudWatch 대시보드를 공유하는 것은 다른 사용자와 대시보드를 공유할 수 있는 간단한 방법입니다. 대시보드를 공유하면 제품 관리자는 대시보드에 대한 읽기 전용 액세스 권한을 갖게 되며, 별도의 AWS 계정이 필요하지 않습니다. 따라서 PRODUCTS 관리자에게는 CloudWatch 콘솔에서 대시보드를 공유하고 공유 가능한 링크를 제공하는 것이 가장 적절한 솔루션입니다.
-
   정답은 1번입니다.
-
   최소 권한 원칙에 따라 제품 관리자에게 필요 최소한의 접근 권한만 부여해야 합니다. 1번 옵션은 CloudWatch 대시보드를 공유 링크를 통해 접근할 수 있게 하는 방법을 제시합니다. 이 접근법은 제품 관리자에게 직접 AWS 계정이나 복잡한 IAM 설정 없이도 필요한 정보에 쉽게 접근할 수 있는 링크를 제공합니다.
-
   다른 옵션들은 다음과 같은 이유로 적절하지 않습니다:
-
   2번과 3번은 제품 관리자에게 IAM 사용자 계정을 생성하고 관리하는 과정이 필요합니다. 이는 관리의 복잡성을 증가시키고 최소 권한 원칙을 완벽하게 준수하지 못하게 할 수 있습니다.
   4번은 배스천 서버를 사용하는 방법으로, 보안 위험을 증가시키며 복잡한 인프라 관리가 필요하게 됩니다. 이는 단순성과 보안 측면에서 비효율적입니다.
 
@@ -143,20 +116,14 @@ What solution meets these requirements?
 ① A. Activate AWS Single Sign-On (AWS SSO) in the AWS SSO console. Connect your company's self-managed Microsoft Active Directory to AWS SSO by creating a one-way forest trust or one-way domain trust using AWS Directory Service for Microsoft Active Directory.
 ② B. Enable AWS Single Sign-On (AWS SSO) in the AWS SSO console. Create a two-way forest trust using AWS Directory Service for Microsoft Active Directory to connect your company's self-managed Microsoft Active Directory to AWS SSO.
 ③ C. Use AWS Directory Service. Establish a two-way trust relationship with your company's self-managed Microsoft Active Directory.
-④ D. Deploy an identity provider (IdP) on-premises. Enable AWS Single Sign-On (AWS SSO) in the AWS SSO console.
-
+④ D. Deploy an identity provider (IdP) on-premises. Enable AWS Single Sign-On (AWS SSO) in the AWS SSO console.<br/>
   한 회사에서 AWS로 애플리케이션을 마이그레이션하고 AWS Organizations를 사용해 계정을 중앙에서 관리할 때, 회사 보안 팀은 모든 계정에 대한 SSO 솔루션이 필요합니다. 이때 회사는 온프레미스 자체 관리형 Microsoft Active Directory에서 사용자 및 그룹을 계속 관리해야 합니다.
-
   AWS SSO를 활성화하고 Microsoft Active Directory용 AWS Directory Service를 사용해 양방향 포리스트 신뢰를 생성하면 회사 내 모든 계정에 대해 SSO를 제공할 수 있습니다. 이 설정은 회사의 자체 관리형 Microsoft Active Directory와 AWS SSO를 연결해 사용자 및 그룹을 계속 관리할 수 있게 해줍니다.
-
   따라서 suchen 요구 사항을 충족하는 올바른 솔루션은 AWS SSO를 활성화하고 Microsoft Active Directory용 AWS Directory Service를 사용해 양방향 포리스트 신뢰를 생성하는 것입니다. 이 방법은 회사의 온프레미스 자체 관리형 Microsoft Active Directory와 AWS 계정들 간의 신뢰 관계를 구축할 때 가장 효과적이고 유연한 솔루션입니다.
-
   회사의 요구 사항을 충족시키기 위해서는 AWS SSO를 통해 중앙화된 인증을 구축하면서, 동시에 기존의 온프레미스 Microsoft Active Directory를 유지하고 통합해야 합니다.
-
   옵션 1과 3은 단방향 트러스트를 제안하지만, 이는 온프레미스 AD와 AWS SSO 간의 양방향 인증 및 권한 관리를 완벽하게 지원하지 못합니다. 특히 회사가 온프레미스 AD에서 계속 사용자 및 그룹 관리를 필요로 하는 상황에서는 제한적입니다.
   옵션 4는 별도의 온프레미스 IdP를 배포하는 방식으로, 이미 잘 구축된 Active Directory를 활용하지 않는다는 점에서 비효율적입니다.
   정답인 옵션 2는 AWS SSO를 활성화하고, Microsoft Active Directory용 AWS Directory Service를 통해 양방향 포리스트 트러스트를 설정합니다. 이 방식은 다음과 같은 이점을 제공합니다:
-
   양방향 트러스트: 온프레미스 AD와 AWS SSO 간에 양방향 인증이 가능해져, 사용자가 온프레미스 또는 AWS 리소스에 원활하게 접근할 수 있습니다.
   통합 관리: 기존의 온프레미스 AD에서 사용자 및 그룹 관리를 계속 유지하면서, AWS 내 여러 계정에 대한 중앙화된 SSO 접근을 보장합니다.
   따라서, 회사의 모든 계정에 대한 보안과 관리 효율성을 동시에 충족시키는 최적의 솔루션은 옵션 2입니다.
@@ -167,18 +134,13 @@ What solution meets these requirements?
 ① A. Deploy a Network Load Balancer (NLB) and associated target group. Associate the target group with an Auto Scaling group. Use the NLB as an AWS Global Accelerator endpoint in each region.
 ② B. Deploy an Application Load Balancer (ALB) and associated target group. Associate the target group with an Auto Scaling group. Use the ALB as an AWS Global Accelerator endpoint in each region.
 ③ C. Deploy a Network Load Balancer (NLB) and associated target groups. Associate the target groups with an Auto Scaling group. Create an Amazon Route 53 latency record pointing to the alias of each NLB. Create an Amazon CloudFront distribution that uses the latency record as the origin.
-④ D. Deploy an Application Load Balancer (ALB) and associated target groups. Associate the target groups with an Auto Scaling group. Create an Amazon Route 53 weighted record pointing to the alias of each ALB. Deploy an Amazon CloudFront distribution using the weighted record as the origin.
-
+④ D. Deploy an Application Load Balancer (ALB) and associated target groups. Associate the target groups with an Auto Scaling group. Create an Amazon Route 53 weighted record pointing to the alias of each ALB. Deploy an Amazon CloudFront distribution using the weighted record as the origin.<br/>
   이 lluminate 회사의 요구 사항을 만족하는 솔루션은 1번입니다. NLB는 udp 프로토콜을 지원하고 네트워크 구성이 복잡하지 않기 때문에 회사의 VoIP 서비스에 적합합니다. 각 리전에서 NLB를 AWS Global Accelerator 엔드포인트로 사용하면 사용자를 지연 시간이 가장 짧은 지역으로 라우팅할 수 있습니다. 또한 Global Accelerator는 자동 장애 조치 기능을 제공하므로 지역 간 자동화된 장애 조치도 가능합니다. 따라서 회사의 모든 요구 사항을 충족하는 솔루션은 NLB와 Global Accelerator를 사용하는 것입니다. ALB는 HTTP와 HTTPS 프로토콜만을 지원하기 때문에 이 회사의 VoIP 서비스에는 적합하지 않습니다. Route 53는 DNS 서비스이고 CloudFront는 CDN 서비스이므로 이 경우에는 NLB와 Global Accelerator만 사용하는 것이 더 적합합니다. 따라서 정답은 1번입니다.
-
   정답은 1번인 이유는 다음과 같습니다.
-
   UDP 기반의 VoIP 서비스는 저지연이 필수적입니다. NLB(Network Load Balancer)는 TCP와 UDP 프로토콜을 지원하며, 특히 UDP 트래픽에 최적화되어 저지연 특성을 제공합니다. 이는 VoIP 서비스의 요구 사항에 잘 맞습니다.
-
   AWS Global Accelerator는 각 리전의 NLB를 엔드포인트로 사용함으로써, 전 세계 어디서든 사용자에게 가장 가까운 NLB를 통해 트래픽을 라우팅하여 지연 시간을 최소화합니다.
   장애 조치: Global Accelerator는 자동으로 대체 경로를 제공하여 지역 간 장애 시에도 서비스 지속성을 보장합니다.
   다른 옵션들은 적합하지 않은 이유는:
-
   ALB(Application Load Balancer)는 주로 HTTP/HTTPS 트래픽에 최적화되어 있어 UDP 트래픽에 대한 성능과 저지연 특성이 NLB만큼 우수하지 않습니다.
   Route 53 지연 시간 기반 레코드와 CloudFront (옵션 C, D)는 추가적인 네트워크 홉을 통해 지연 시간이 증가할 가능성이 있으며, 복잡성도 높아집니다. 특히 VoIP와 같은 저지연 서비스에서는 이러한 추가 레이어가 불필요한 지연을 초래할 수 있습니다.
   따라서, 저지연과 자동화된 장애 조치를 동시에 만족시키는 가장 효율적인 솔루션은 NLB와 AWS Global Accelerator의 조합입니다. 정답은 1번입니다.
@@ -188,32 +150,22 @@ What is the most cost-effective solution to meet these requirements?
 ① A. Stop the DB instance once testing is complete. Restart the DB instance if necessary.
 ② B. Use an Auto Scaling policy with your DB instance to automatically scale it once testing is complete.
 ③ C. Once testing is complete, create a snapshot. Terminate the DB instance and restore the snapshot if necessary.
-④ D. After testing is complete, modify the DB instance to a smaller size. If necessary, modify the DB instance again.
-
+④ D. After testing is complete, modify the DB instance to a smaller size. If necessary, modify the DB instance again.<br/>
   팀은 매월 48시간 동안 리소스 집약적인 테스트를 실행하며, 데이터베이스를 사용하는 유일한 프로세스입니다. 컴퓨팅 및 메모리 속성을 줄이지 않고 테스트 실행 비용을 줄이고 싶어합니다. 이러한 요구 사항을 가장 비용 효율적으로 충족하는 솔루션은 테스트가 완료되면 스냅샷을 생성하고 DB 인스턴스를 종료한 후 필요한 경우 스냅샷을 복원하는 것입니다. 이 방법은 DB 인스턴스를 중지하거나 수정할 필요가 없으며, 스냅샷을 사용하여 빠르게 복원할 수 있습니다. 또한 Auto Scaling 정책을 사용할 경우 인스턴스의 크기를 자동으로 조정해야 하므로 비용 효율성이 저하될 수 있습니다. 또한 DB 인스턴스를 저용량 인스턴스로 수정하는 경우에도 인스턴스의 속성이 변경되며, 이는 팀의 요구 사항과 다릅니다. 따라서 테스트가 완료되면 스냅샷을 생성하고 DB 인스턴스를 종료한 후 필요한 경우 스냅샷을 복원하는 것이 가장 비용 효율적인 솔루션입니다.
-
   테스트 기간 외에는 자원 활용이 불필요하기 때문에 비용 최적화를 위해 DB 인스턴스를 비활성화하는 것이 핵심입니다. 옵션 3은 테스트 종료 후 스냅샷을 생성하여 데이터의 안전성을 확보하고, 그 후 DB 인스턴스를 종료하는 방법을 제시합니다. 이렇게 하면 테스트 기간 외에는 요금이 부과되지 않아 가장 비용 효율적입니다.
-
   옵션 1은 인스턴스를 중지하는 방법으로 비용 절감 효과는 있지만, 중지 후 재개 시에는 인스턴스 복구 시간이 발생할 수 있으며, 일정 시간 경과 후 자동 재개되지 않을 때 추가 비용이 발생할 위험이 있습니다.
-
   옵션 2의 Auto Scaling은 테스트 기간 동안 필요한 리소스를 동적으로 조절하는 데 유용하지만, 테스트 외에도 일정한 비용이 지속적으로 발생하므로 전체적인 비용 절감 효과는 제한적입니다.
-
   옵션 4는 인스턴스 크기 조정을 제안하지만, 크기 조정 자체에도 비용이 들고, 테스트 기간 동안 필요한 성능을 확보하기 위해 원래의 인스턴스 크기로 다시 조정해야 하므로 효율적이지 않습니다.
-
   따라서, 데이터 보호와 함께 비용을 최소화하는 가장 효과적인 방법은 3번 옵션이 됩니다.
 
 31. A company hosting a web application on AWS wants to ensure that all Amazon EC2 instances, Amazon RDS DB instances, and Amazon Redshift clusters are tagged. The company wants to minimize the effort required to configure and operate these checks. What should a solutions architect do to achieve this?
 ① A. Use AWS Config rules to define and detect resources that are not appropriately tagged.
 ② B. Use the Cost Explorer to identify resources that are not properly tagged. Manually tag these resources.
 ③ C. Write an API call that checks all resources for appropriate tag assignment. Run the code periodically on your EC2 instance.
-④ D. Write an API call that checks all resources for appropriate tag assignment. Schedule an AWS Lambda function through Amazon CloudWatch to run the code periodically.
-
+④ D. Write an API call that checks all resources for appropriate tag assignment. Schedule an AWS Lambda function through Amazon CloudWatch to run the code periodically.<br/>
   AWS Config 규칙을 사용하여 적절하게 태그가 지정되지 않은 리소스를 정의하고 감지하면 회사의 노력과 비용을 줄일 수 있습니다. AWS Config는 AWS 리소스의 인벤토리 및 구성 추적, 리소스 구성의 감사 및 평가를 자동화하는 서비스입니다. AWS Config 규칙을 사용하면 태그가 제대로 지정되지 않은 리소스를 자동으로 감지하고 보고할 수 있습니다. 이를 통해 회사에서는 태그가 제대로 지정되지 않은 리소스를 쉽게 식별하고 제대로 태그를 지정할 수 있습니다. 또한 AWS Config는 자동으로 리소스를 감사하고 평가하여 태그가 제대로 지정되지 않은 리소스를 실시간으로 감지할 수 있습니다. 이를 통해 회사는 태그 지정과 관련한 수동적인 작업을 줄일 수 있고, 태그가 제대로 지정되지 않은 리소스를 자동으로 감지하고 수정할 수 있습니다.
-
   정답은 1번입니다. AWS Config는 리소스의 구성을 지속적으로 모니터링하고 규정 준수 여부를 확인하는 데 이상적입니다. 적절한 태그가 지정되지 않은 Amazon EC2 인스턴스, Amazon RDS DB 인스턴스, Amazon Redshift 클러스터 등을 자동으로 감지하고 알림을 제공할 수 있습니다. 이를 통해 수동 개입을 최소화하고 자동화된 방식으로 규정 준수를 유지할 수 있습니다.
-
   다른 옵션들은 다음과 같은 이유로 적합하지 않습니다:
-
   2번은 비용 탐색기는 주로 비용 분석에 초점을 맞추며, 태그 관리에 특화되어 있지 않습니다. 또한 수동 개입이 필요해 효율성이 떨어집니다.
   3번은 주기적인 API 호출과 코드 실행을 통해 가능하지만, 이는 수동 관리와 비슷한 수준의 노력이 필요하며 자동화 수준이 낮습니다.
   4번은 자동화 측면에서 개선된 접근이지만, AWS Config만큼 직접적이고 통합된 규정 준수 모니터링 및 알림 기능을 제공하지 않습니다. 따라서 가장 효율적이고 자동화된 해결책은 AWS Config 규칙을 활용하는 1번입니다.
@@ -222,24 +174,15 @@ What is the most cost-effective solution to meet these requirements?
 ① A. Containerize your website and host it on AWS Fargate.
 ② B. Create an Amazon S3 bucket and host your website there.
 ③ C. Host your website by deploying a web server on an Amazon EC2 instance.
-④ D. Configure an Application Load Balancer as an AWS Lambda target using the Express.js framework.
-
+④ D. Configure an Application Load Balancer as an AWS Lambda target using the Express.js framework.<br/>
   웹사이트 호스팅의 가장 비용 효과적인 방법을 결정하기 위해 각 선택지를 비교해 볼 수 있다.
-
   첫 번째 선택지는 컨테이너화된 웹사이트를 AWS Fargate에서 호스팅하는 것인데, 이 방법은 컨테이너화된 애플리케이션을 관리하고 확장하는 데 편리하지만, 단순한 정적 웹사이트 호스팅에는 비교적 복잡하고 비용이 높을 수 있다.
-
   두 번째 선택지는 Amazon S3 버킷을 생성하고 거기에서 웹사이트를 호스팅하는 것으로, 정적 웹사이트를 호스팅하는 데 적합하며 비용 효율적이다. S3는 정적 콘텐츠를 저장하고 제공하는 데 최적화되어おり,HttpServletRequest와 같은 동적 요청이 없，因此 비용이 낮다.
-
   세 번째 선택지는 Amazon EC2 인스턴스에 웹 서버를 배포하여 웹 사이트를 호스팅하는 것으로, 정적 웹사이트 호스팅에는 과도한 자원과 비용을 필요로 할 수 있다. EC2 인스턴스는 동적 콘텐츠나 복잡한 애플리케이션을 호스팅하는 데 적합하지만, 단순한 정적 웹사이트에는 불필요한 비용을 초래할 수 있다.
-
   네 번째 선택지는 Express.js 프레임워크를 사용하는 AWS Lambda 대상으로 Application Load Balancer를 구성하는 것으로, 동적 콘텐츠나 서버리스 아키텍처를 구축하는 데 적합하지만, 정적 웹사이트 호스팅에는 비교적 복잡하고 비용이 높을 수 있다.
-
   따라서 정적 웹사이트 콘텐츠를 호스팅하는 데에는 두 번째 선택지인 Amazon S3 버킷을 생성하고 거기에서 웹사이트를 호스팅하는 것이 가장 비용 효과적인 방법이다.
-
   정답은 2번입니다. Amazon S3 버킷을 사용한 웹사이트 호스팅이 가장 비용 효율적입니다.
-
-  이유는 다음과 같습니다:
-
+  이유는 다음과 같습니다
   Amazon S3는 정적 콘텐츠(HTML, CSS, 클라이언트측 JavaScript, 이미지 등)를 저장하고 제공하는 데 특화되어 있습니다.
   정적 웹사이트 호스팅 시 S3는 기본적으로 무료로 대역폭과 요청을 제공하며, 데이터 저장 비용만 청구됩니다.
   AWS Fargate (1번)와 EC2 인스턴스 (3번)는 컨테이너나 가상 서버를 필요로 하므로 지속적인 인스턴스 유지 비용과 함께 컴퓨팅 리소스 사용 비용이 발생합니다. 이는 정적 콘텐츠 호스팅에 비해 과도한 비용이 될 수 있습니다.
@@ -251,16 +194,11 @@ What should a solution architect recommend to meet these requirements?
 ① A. Store transaction data in Amazon DynamoDB. Set up rules in DynamoDB to remove sensitive data from all transactions upon write. Share transaction data with other applications using DynamoDB Streams.
 ② B. Stream transaction data to Amazon Kinesis Data Firehose and store it in Amazon DynamoDB and Amazon S3. Use Kinesis Data Firehose integration with AWS Lambda to remove sensitive data. Other applications can use the data stored in Amazon S3.
 ③ C. Stream transaction data to Amazon Kinesis Data Streams. Use AWS Lambda integration to remove sensitive data from all transactions and then store the transaction data in Amazon DynamoDB. Other applications can then consume the transaction data from the Kinesis data stream.
-④ D. Store the batched transaction data as files in Amazon S3. Before updating the files in Amazon S3, use AWS Lambda to process all files and remove sensitive data. The Lambda function then stores the data in Amazon DynamoDB. Other applications can use the transaction files stored in Amazon S3.
-
+④ D. Store the batched transaction data as files in Amazon S3. Before updating the files in Amazon S3, use AWS Lambda to process all files and remove sensitive data. The Lambda function then stores the data in Amazon DynamoDB. Other applications can use the transaction files stored in Amazon S3.<br/>
   거래 데이터의 처리와 민감한 정보의 제거를 위해 실시간에 가까운 솔루션이 필요합니다. 또한 짧은 지연 시간의 검색을 위해 문서 데이터베이스에 저장되기 전에 민감한 데이터를 제거해야 합니다.
-
   이러한 요구 사항을 충족하기 위해, 트랜잭션 데이터를 Amazon Kinesis Data Streams로 스트리밍하고, AWS Lambda 통합을 사용하여 모든 트랜잭션에서 중요한 데이터를 제거한 다음 Amazon DynamoDB에 트랜잭션 데이터를 저장하는 것이 적절합니다. 다른 애플리케이션은 Kinesis 데이터 스트림에서 트랜잭션 데이터를 사용할 수 있습니다.
-
   이러한 설계에서는 트랜잭션 데이터가 실시간에 가까운 속도로 처리되고 민감한 정보가 제거된 후에 다른 애플리케이션과 공유되며, 짧은 지연 시간의 검색도 지원됩니다openidesát supplementollectors가.withOpacity 말이 않_coefjav(getApplicationContext)보다Better`t 데이터 처리 및 공유를 위한 확장 가능한 솔루션을 제공합니다.
-
   정답은 3번입니다.
-
   실시간 처리와 확장성: Amazon Kinesis Data Streams는 높은 스루풋과 낮은 지연 시간으로 실시간 데이터 스트리밍에 이상적입니다. 이는 수십만 명의 사용자와 수백만 건의 거래를 처리하는 데 필요한 확장성을 제공합니다.
   데이터 처리와 민감 정보 제거: AWS Lambda와의 통합을 통해 Kinesis Data Streams에서 바로 트랜잭션 데이터를 처리할 수 있습니다. 이 과정에서 민감한 데이터를 실시간으로 제거할 수 있어 보안 요구 사항을 충족합니다.
   데이터 저장과 공유: 처리된 데이터를 Amazon DynamoDB에 저장하면 빠른 검색과 접근이 가능합니다. 다른 내부 애플리케이션들은 여전히 Kinesis Data Streams를 통해 실시간 데이터에 접근할 수 있어 다양한 사용 사례를 지원합니다.
@@ -270,14 +208,11 @@ What should a solution architect recommend to meet these requirements?
 ① A. Use AWS CloudTrail to track configuration changes and AWS Config to log API calls.
 ② B. Use AWS Config to track configuration changes and AWS CloudTrail to log API calls.
 ③ C. Use AWS Config to track configuration changes and Amazon CloudWatch to log API calls.
-④ D. Use AWS CloudTrail to track configuration changes and Amazon CloudWatch to log API calls.
-
+④ D. Use AWS CloudTrail to track configuration changes and Amazon CloudWatch to log API calls.<br/>
   회사는 AWS 리소스의 구성 변경 사항과 API 호출 기록을 모두 추적해야 합니다. 이를 위해 적합한 서비스 선택이 중요합니다.
-
   AWS Config는 리소스의 구성 상태를 시간에 따라 추적하고 변경 사항을 기록하는 데 최적화되어 있습니다. 즉, 리소스의 설정이나 구조적인 변경 사항을 모니터링하는 데 이상적입니다.
   AWS CloudTrail은 AWS 계정 내에서 이루어진 API 호출을 기록합니다. 이는 사용자 활동, 권한 변경, 서비스 사용 패턴 등에 대한 감사 로그를 제공합니다.
-  따라서, 구성 변경 사항을 추적하려면 AWS Config를, API 호출 기록을 위해선 AWS CloudTrail을 사용해야 합니다. 이로 인해 정답은 2번입니다:
-
+  따라서, 구성 변경 사항을 추적하려면 AWS Config를, API 호출 기록을 위해선 AWS CloudTrail을 사용해야 합니다. 이로 인해 정답은 2번입니다
   B. AWS Config를 사용하여 구성 변경 사항을 추적하고 AWS CloudTrail을 사용하여 API 호출을 기록합니다.
 
 35. A company is preparing to launch a public web application on the AWS Cloud. The architecture consists of Amazon EC2 instances within a VPC behind an Elastic Load Balancer (ELB). A third-party DNS service is used. The company's solution architect needs to recommend a solution capable of detecting and defending against large-scale DDoS attacks.
@@ -285,20 +220,13 @@ Which solution meets these requirements?
 ① A. Enable Amazon GuardDuty in your account.
 ② B. Enable Amazon Inspector on your EC2 instance.
 ③ C. Enable AWS Shield and assign Amazon Route 53.
-④ D. Enable AWS Shield Advanced and assign an ELB to it.
-
+④ D. Enable AWS Shield Advanced and assign an ELB to it.<br/>
   DDoS 공격을 탐지하고 방어하기 위해서는 적절한 솔루션이 필요합니다. 제시된 상황에서 ELB 뒤의 VPC 내의 Amazon EC2 인스턴스와 타사 서비스의 DNS가 사용됩니다. 이 경우 DDoS 공격을 방어하기 위해 AWS Shield Advanced를 활성화하고 ELB를 할당하는 것이 적절한 솔루션입니다.
-
   AWS Shield Advanced는 DDoS 공격을 자동으로 탐지 및 방어하여 애플리케이션의 가용성과 성능을 유지하도록 지원합니다. 또한 ELB를 할당하면 로드 밸런서를 통해 트래픽이 분산되는 동안 공격이 차단되므로 애플리케이션의 보안이 강화됩니다.
-
   다른 옵션은 DDoS 공격을 탐지하고 방어하는 데 필요한ระด의 종합적이고 자동화된 보호를 제공하지 않습니다. 따라서 AWS Shield Advanced와 ELB 할당이 सबस적합한 솔루션입니다.
-
   대규모 DDoS 공격에 대비한 최적의 솔루션은 D. AWS Shield Advanced를 활성화하고 여기에 ELB를 할당하는 것입니다.
-
   AWS Shield Basic은 기본적인 보호를 제공하지만, 대규모 공격에는 한계가 있습니다. AWS Shield Advanced는 더 강력한 DDoS 방어 기능을 제공하며, 특히 프로액티브 차단 및 실시간 모니터링을 통해 공격을 효과적으로 관리할 수 있습니다. 이 서비스를 Elastic Load Balancer (ELB)에 연결하면, 트래픽의 이상 징후를 즉시 감지하고 공격 트래픽을 차단하여 애플리케이션의 가용성을 유지할 수 있습니다.
-
   다른 옵션들을 살펴보면:
-
   Amazon GuardDuty (A)는 의심스러운 활동과 보안 위협을 감지하는데 효과적이지만, 직접적인 DDoS 방어에는 적합하지 않습니다.
   Amazon Inspector (B)는 주로 인스턴스의 보안 취약성을 스캔하는 데 사용되므로 DDoS 방어와는 직접 관련이 적습니다.
   AWS Shield와 Amazon Route 53 (C) 조합은 일부 보호를 제공하지만, Route 53은 주로 DNS 관리에 초점을 맞추고 있고, 대규모 공격에 대한 프로액티브 방어 기능은 AWS Shield Advanced만큼 강력하지 않습니다.
@@ -309,12 +237,9 @@ What solution can meet these requirements with minimal operational overhead?
 ① A. Create an S3 bucket in each region. Configure the S3 bucket to use server-side encryption with Amazon S3-managed encryption keys (SSE-S3). Configure replication between the S3 buckets.
 ② B. Create a customer-managed multi-region KMS key. Create an S3 bucket in each region. Configure replication between the S3 buckets. Configure your application to use the KMS key with client-side encryption.
 ③ C. Create a customer-managed KMS key and an S3 bucket in each region. Configure the S3 bucket to use server-side encryption with Amazon S3-managed encryption keys (SSE-S3). Configure replication between the S3 buckets.
-④ D. Create a customer-managed KMS key and an S3 bucket in each region. Configure the S3 bucket to use server-side encryption with an AWS KMS key (SSE-KMS). Configure replication between the S3 buckets.
-
+④ D. Create a customer-managed KMS key and an S3 bucket in each region. Configure the S3 bucket to use server-side encryption with an AWS KMS key (SSE-KMS). Configure replication between the S3 buckets.<br/>
   최소한의 운영 오버헤드로 이러한 요구 사항을 충족하는 솔루션은 고객 관리형 다중 리전 KMS 키를 생성하는 것입니다. 각 리전에 S3 버کم을 생성하고 S3 버킷 간의 복제를 구성합니다. 클라이언트 측 암호화와 함께 KMS 키를 사용하도록 애플리케이션을 구성하면 두 리전의 S3 버킷에 저장된 모든 데이터를 동일한 KMS 키로 암호화하고 해독할 수 있습니다. 데이터와 키는 두 리전 각각에 저장되며 운영 오버헤드가 최소화됩니다.
-
   정답은 2번입니다. 이 솔루션이 주어진 요구 사항을 가장 효과적으로 충족하기 때문입니다.
-
   키 관리 및 일관성: 고객 관리형 다중 리전 KMS 키를 사용하면, 두 리전 간에 동일한 키를 공유하고 관리할 수 있어 데이터 암호화와 해독 과정에서 일관성을 유지할 수 있습니다.
   데이터 보안: 애플리케이션 측에서 KMS 키를 직접 사용하여 암호화를 수행하면, 서버 측 암호화 방식에 비해 보다 세밀한 제어와 보안 정책 적용이 가능합니다.
   지역별 키 저장: 각 리전에 KMS 키를 생성하고 관리하면, 데이터와 키의 지역 분산 저장 요구 사항을 만족합니다.
@@ -326,42 +251,27 @@ What solution meets these requirements with minimal operational overhead?
 ① A. Use the EC2 Serial Console to directly access the terminal interface of each instance for management purposes.
 ② B. Associate the appropriate IAM role with each existing and new instance. Use AWS Systems Manager Session Manager to establish a remote SSH session.
 ③ C. Generate a management SSH key pair. Load the public key onto each EC2 instance. Deploy a bastion host in the public subnet to provide a tunnel for managing each instance.
-④ D. Establish an AWS Site-to-Site VPN connection. Instruct your administrator to connect directly to the instance using a local on-premises machine using SSH keys over the VPN tunnel.
-
+④ D. Establish an AWS Site-to-Site VPN connection. Instruct your administrator to connect directly to the instance using a local on-premises machine using SSH keys over the VPN tunnel.<br/>
   회사는 다양한 워크로드를 시작한 Amazon EC2 인스턴스에 원격으로 안전하게 액세스하고 관리하기 위한 전략을 수립해야 합니다. 최소한의 운영 오버헤드로 이러한 요구 사항을 충족하는 솔루션은 기존 인스턴스와 새 인스턴스에 적절한 IAM 역할을 연결하고 AWS 시스템 관리자 세션 관리자를 사용하여 원격 SSH 세션을 설정하는 것입니다.
-
   이러한 접근 방식은 AWS Well-Architected 프레임워크와 기본 AWS 서비스와 작동하여 반복 가능한 프로세스를 구현합니다. 이를 통해 회사는 인스턴스에 안전하고 효율적으로 액세스하고 관리할 수 있습니다.
-
   이러한 방법은 인스턴스에 대한 보안 액세스를 제공하고 최소한의 운영 오버헤드를 유지하면서 관리를 단순화합니다.
-
   정답은 2번입니다.
-
   회사가 요구하는 솔루션은 원격 안전 액세스와 관리를 최소 운영 오버헤드로 수행하는 것입니다.
-
   1번은 EC2 직렬 콘솔은 비상 상황에 유용하지만 일반적인 관리에는 불편하고 보안 관리가 제한적입니다. 3번의 배스천 호스트 접근법은 추가적인 인프라 관리와 보안 위험을 수반하여 오버헤드가 증가합니다. 4번은 온프레미스를 통한 연결로 원격 관리의 편의성과 클라우드 네이티브 접근을 저하시킵니다.
-
   따라서 2번이 최적입니다. 적절한 IAM 역할을 통해 권한 관리를 정밀하게 조정하고, AWS Session Manager를 사용하면 SSH를 통해 안전하게 원격 관리가 가능합니다. 이 방법은 중앙 집중식 관리 인터페이스를 제공하여 반복 가능한 프로세스를 구축하고 AWS Well-Architected 프레임워크의 운영 효율성과 보안 원칙을 준수합니다. 별도의 하드웨어 또는 복잡한 네트워크 설정 없이 AWS 내에서 해결되므로 운영 오버헤드를 최소화합니다.
 
 38. A company hosts a static website on Amazon S3 and uses Amazon Route 53 for DNS. This website is experiencing growing demand worldwide. The company needs to reduce latency for users accessing the website. What is the most cost-effective solution to meet these requirements?
 ① A. Replicate the S3 bucket containing your website to all AWS Regions. Add a Route 53 geolocation routing entry.
 ② B. Provision an accelerator in AWS Global Accelerator. Associate the provided IP address with an S3 bucket. Edit the Route 53 entry to point to the accelerator's IP address.
 ③ C. Add an Amazon CloudFront distribution in front of the S3 bucket. Edit the Route 53 entry to point to the CloudFront distribution.
-④ D. Enable S3 Transfer Acceleration on the bucket. Edit the Route 53 entry to point to the new endpoint.
-
+④ D. Enable S3 Transfer Acceleration on the bucket. Edit the Route 53 entry to point to the new endpoint.<br/>
   이 문제는 웹사이트의 지연 시간을 줄이는 가장 비용 효율적인 솔루션을 찾는 것입니다.olleyuted 솔루션은 Amazon CloudFront를 사용하는 것입니다. CloudFront는 콘텐츠 전송 네트워크로, 사용자에게 더 가까운 에지 로케이션에 캐시된 콘텐츠를 제공하여 지연 시간을 줄입니다.
-
   S3 버킷 앞에 CloudFront 배포판을 추가하면 CloudFront가 사용자와 가장 가까운 에지 로케이션에서 콘텐츠를 제공할 수 있습니다. 이렇게 하면 지연 시간이 줄어들고 사용자 경험을 개선할 수 있습니다. 또한 CloudFront는 자동으로 콘텐츠가 변경될 때마다에지 로케이션을 업데이트 해줍니다.
-
   이 솔루션은 다른 옵션보다 비용 효율적입니다. S3 버킷을 모든 리전에 복제하는 것은 많은 데이터가 복제될 수 있으므로 비용이 많이 듭니다. AWS Global Accelerator를 사용하는 것은 지연 시간을 줄이는 데 도움이 될 수 있지만, CloudFront보다 비용이 더 많이 들 수 있습니다. S3 Transfer Acceleration을 활성화하는 것은 보다 간단한 솔루션입니다. 하지만 CloudFront만큼 지연 시간을 줄이는 데 효과적이지 않을 수 있습니다.
-
   따라서 가장 비용 효율적인 솔루션은 S3 버킷 앞에 Amazon CloudFront 배포판을 추가하는 것입니다. Route 53 항목을 편집하여 CloudFront 배포를 가리키도록 하면 사용자는 콘텐츠를 더 빠르게 로드할 수 있습니다.
-
   회사가 전 세계적인 사용자 지연 시간을 최소화하면서 비용 효율성을 추구하는 상황에서 가장 적합한 해결책은 C 옵션입니다.
-
   Amazon CloudFront를 사용하면 (옵션 C), 콘텐츠의 캐싱과 엣지 로케이션 네트워크를 통해 전 세계 어디서든 사용자에게 빠르게 콘텐츠를 제공할 수 있습니다. CloudFront는 데이터를 가장 가까운 엣지 로케이션에서 제공함으로써 지연 시간을 크게 줄입니다. 또한, 기본적으로 S3 버킷과 원활하게 통합되어 설정이 비교적 간편하며, Route 53을 통해 도메인 이름을 CloudFront 배포로 리디렉션하면 글로벌 트래픽 관리와 높은 성능을 동시에 달성할 수 있습니다.
-
   다른 옵션들에 비해:
-
   A 옵션의 리전별 S3 버킷 복제는 복잡하고 비용이 많이 들며 관리도 어려울 수 있습니다.
   B 옵션의 AWS Global Accelerator는 주로 애플리케이션 엔드포인트(예: ALB, ELB)에 더 적합하고, S3 버킷과 직접 연결하는 것은 일반적이지 않습니다.
   D 옵션의 S3 Transfer Acceleration은 주로 데이터 업로드/다운로드 속도를 개선하는데 초점을 맞추며, 전역적인 콘텐츠 제공 성능 향상에는 한계가 있습니다.
@@ -373,20 +283,13 @@ What is the solution to this performance issue?
 ① A. Change the storage type to Provisioned IOPS SSD.
 ② B. Change the DB instance to a memory-optimized instance class.
 ③ C. Change the DB instance to a performance-scalable instance class.
-④ D. Enable multi-AZ RDS read replicas with MySQL native asynchronous replication.
-
+④ D. Enable multi-AZ RDS read replicas with MySQL native asynchronous replication.<br/>
   이 문제의 정답은 1번, 스토리지 유형을 프로비저닝된 IOPS SSD로 변경하는 것입니다.
-
   회사에서 매일 수백만 개의 업데이트가 발생하고, 일부 삽입 작업이 10초 이상 걸리며, 데이터베이스 스토리지 성능이 문제라고 판단했습니다. 이러한 성능 문제를 해결하기 위해 스토리지 유형을 프로비저닝된 IOPS SSD로 변경하면, 데이터베이스의 입출력 작업에 대해 더 높은 성능을 제공할 수 있습니다.
-
   범용 SSD는 일반적인 사용 사례에 적합하지만, 고성능 입출력이 필요한 경우 프로비저닝된 IOPS SSD가 더 적합합니다. 因此, 스토리지 유형을 프로비저닝된 IOPS SSD로 변경하면 데이터베이스의 성능 문제를 해결할 수 있습니다.
-
   다른 선택지는 성능 문제를 해결하는데 직접적으로帮助하지 않습니다. DB 인스턴스를 메모리 최적화 인스턴스 클래스나 성능 확장이 가능한 인스턴스 클래스로 변경하는 것은 CPU나 메모리 성능을 개선할 수 있지만, 스토리지 관련된 성능 문제에는 직접적으로 도움이 되지 않습니다. MySQL 기본 비동기식 복제를 통해 다중 AZ RDS 읽기 전용 복제본을 활성화하는 것은 데이터베이스의 가용성과冗余성을 개선할 수 있지만, 성능 문제를 직접적으로 해결하지는 않습니다.
-
   데이터베이스 성능 저하의 주요 원인은 삽입 작업의 지연 시간 증가로, 이는 주로 스토리지 I/O 성능의 한계 때문일 가능성이 높습니다.
-
   1번 옵션인 프로비저닝된 IOPS SSD로 스토리지 유형을 변경하는 것이 가장 효과적인 해결책입니다. 프로비저닝된 IOPS SSD는 예측 가능하고 일관된 고성능 I/O를 제공하여, 특히 빈번한 업데이트와 삽입 작업이 많은 환경에서 응답 시간을 크게 개선할 수 있습니다.
-
   2번 옵션의 메모리 최적화 인스턴스는 주로 메모리 집약적인 워크로드에 유리하지만, 이 문제의 핵심은 I/O 성능에 있습니다.
   3번 옵션의 성능 확장 가능 인스턴스는 필요에 따라 스케일링이 가능하나, 기본적인 I/O 성능 향상에는 한계가 있을 수 있습니다.
   4번 옵션의 읽기 복제본 활성화는 읽기 부하 분산에 효과적이나, 삽입 작업의 성능 문제 해결에는 직접적인 영향을 미치지 않습니다.
@@ -398,25 +301,17 @@ What is the most operationally efficient solution that meets these requirements?
 ① A. Create an Amazon Kinesis Data Firehose delivery stream to collect notifications. Configure the Kinesis Data Firehose stream to deliver notifications to an Amazon S3 bucket. Set the S3 lifecycle configuration to transition data to Amazon S3 Glacier after 14 days.
 ② B. Launch Amazon EC2 instances in two Availability Zones and place them behind an Elastic Load Balancer to collect notifications. Create a script for the EC2 instances to store the notifications in an Amazon S3 bucket. Set the S3 lifecycle configuration to transition data to Amazon S3 Glacier after 14 days.
 ③ C. Create an Amazon Kinesis Data Firehose delivery stream to collect notifications. Configure the Kinesis Data Firehose stream to deliver notifications to an Amazon OpenSearch Service (Amazon Elasticsearch Service) cluster. Configure the Amazon OpenSearch Service (Amazon Elasticsearch Service) cluster to create daily manual snapshots and delete data from the cluster older than 14 days.
-④ D. Create an Amazon Simple Queue Service (Amazon SQS) standard queue to collect notifications and set the message retention period to 14 days. Configure a consumer to poll the SQS queue, check the message age, and analyze the message data as needed. When a message is 14 days old, the consumer should copy the message to an Amazon S3 bucket and delete it from the SQS queue.
-
+④ D. Create an Amazon Simple Queue Service (Amazon SQS) standard queue to collect notifications and set the message retention period to 14 days. Configure a consumer to poll the SQS queue, check the message age, and analyze the message data as needed. When a message is 14 days old, the consumer should copy the message to an Amazon S3 bucket and delete it from the SQS queue.<br/>
   해당 회사의 요구 사항을 고려하면 1번이 가장 적합합니다. 회사는 매일 1TB의 상태 경고를 생성하는 수천 개의 엣지 장치로부터 경고를 수집하고 저장해야 하며, 14일 동안의 데이터를 보관하고 14일보다 오래된 데이터를 보관해야 합니다. 또한 가용성이 높은 솔루션을 원하며 비용을 최소화하고 추가 인프라를 관리하고 싶지 않습니다.
-
   1번의 솔루션은 Amazon Kinesis Data Firehose를 사용하여 경고를 수집하고 Amazon S3 버킷에 전달합니다. 이후 14일 후에 데이터를 Amazon S3 Glacier로 전환하도록 S3 수명 주기 구성을 설정하여 비용을 최소화하고 데이터를 장기적으로 보관할 수 있습니다. 이 솔루션은 가용성이 높고, 추가 인프라를 관리할 필요가 없으며, 비용을 효율적으로 관리할 수 있습니다.
-
   반면에 다른 옵션은 다음과 같은 이유로 적합하지 않습니다.
-
   2번은 EC2 인스턴스를 관리해야 하므로 추가 인프라를 관리할 필요가 있습니다.
   3번은 수동 스냅샷을 생성하고 데이터를 삭제해야 하므로 운영 효율성이 떨어집니다.
   4번은 메시지 보존 기간을 설정하고 소비자를 구성해야 하므로 복잡하고 비용이 많이 들 수 있습니다.
   따라서 1번이 가장 운영 효율적인 솔루션입니다.
-
   정답은 1번입니다.
-
   Amazon Kinesis Data Firehose는 실시간 데이터 스트리밍과 자동화된 데이터 전송에 최적화되어 있어, 수많은 엣지 장치에서 발생하는 경고 데이터를 효율적으로 수집하고 처리할 수 있습니다. Kinesis Data Firehose를 통해 데이터를 Amazon S3 버킷에 직접 전송하면, 추가적인 인프라 관리 부담을 최소화할 수 있습니다.
-
   S3의 수명 주기 정책을 활용해 14일 이내의 데이터는 일반 저장소에 유지하고, 그 이후의 데이터는 비용 효율적인 S3 Glacier로 자동 전환함으로써, 데이터 보관 기간 요구 사항을 충족하면서도 비용을 절감할 수 있습니다. 이 솔루션은 높은 가용성을 기본으로 제공하며, 관리의 복잡성을 줄이고 필요한 분석 준비 상태를 유지하는 데 가장 적합합니다.
-
   다른 옵션들과 비교했을 때, EC2 인스턴스를 사용하는 B 옵션은 관리 부담이 크고 비용 효율성이 떨어지며, OpenSearch Service를 사용하는 C 옵션은 분석에 더 초점을 맞추지만 수동 관리가 필요하고 자동화 수준이 낮습니다. SQS를 활용하는 D 옵션은 메시지 관리에 복잡성이 추가되고, 데이터의 자동화된 장기 보관 전략이 덜 효과적입니다. 따라서, 요구 사항을 가장 잘 충족하는 운영 효율적인 솔루션은 1번입니다.
 
 41. The company's application integrates with multiple Software-as-a-Service (SaaS) sources for data collection. The company runs an Amazon EC2 instance to receive the data and upload it to an Amazon S3 bucket for analysis. The same EC2 instance that receives and uploads the data also notifies the user when the upload is complete. The company is noticing slow application performance and wants to improve performance as much as possible.
@@ -424,26 +319,17 @@ What solution can meet these requirements with minimal operational overhead?
 ① A. Create an Auto Scaling group to allow EC2 instances to scale. Configure S3 event notifications to send events to an Amazon Simple Notification Service (Amazon SNS) topic when uploads to the S3 bucket are complete.
 ② B. Create an Amazon AppFlow flow that transfers data between each SaaS source and the S3 bucket. Configure an S3 event notification to send an event to an Amazon Simple Notification Service (Amazon SNS) topic when the upload to the S3 bucket is complete.
 ③ C. Create an Amazon EventBridge (Amazon CloudWatch Events) rule for each SaaS source to send output data. Configure an S3 bucket as the target of the rule. Create a second EventBridge (CloudWatch Events) rule to send an event when the upload to the S3 bucket is complete. Configure an Amazon Simple Notification Service (Amazon SNS) topic as the target of the second rule.
-④ D. Create a Docker container to use instead of an EC2 instance. Host the containerized application on Amazon Elastic Container Service (Amazon ECS). Configure Amazon CloudWatch Container Insights to send an event to an Amazon Simple Notification Service (Amazon SNS) topic when the upload to the S3 bucket is complete.
-
+④ D. Create a Docker container to use instead of an EC2 instance. Host the containerized application on Amazon Elastic Container Service (Amazon ECS). Configure Amazon CloudWatch Container Insights to send an event to an Amazon Simple Notification Service (Amazon SNS) topic when the upload to the S3 bucket is complete.<br/>
   이 문제의 해설은 다음과 같다.
-
   각 SaaS 소스와 Amazon S3 버킷 간에 데이터를 전송하는 Amazon AppFlow 흐름을 생성하면 EC2 인스턴스가 처리하던 일을 대신할 수 있다. 또한 S3 버킷에 대한 업로드가 완료되면 Amazon Simple 알림 서비스(Amazon SNS) 주제로 이벤트를 보내도록 S3 이벤트 알림을 구성할 수 있다. 이렇게 하면 EC2 인스턴스의 운영오버헤드를 최소화할 수 있으며, 성능 개선에도 도움이 된다.
-
   Amazon AppFlow는 AWS에서 제공하는 서비스로, 다양한 소스에서 데이터를 수집하고 처리할 수 있다. Amazon SNS는 메시지 큐를 사용하여 알림을 보내는 서비스로, 사용자에게 알림을 보낼 때 유용하게 사용될 수 있다. 따라서 이러한 서비스들을 사용하면 최소한의 운영 오버헤드로 성능을 개선할 수 있다.
-
   따라서 이 문제의 정답은 2번이다.
-
   정답은 2번입니다.
-
   현재 설정에서 EC2 인스턴스가 데이터 수집, 분석 및 알림 발송을 모두 처리하는 구조는 병목 현상을 일으키기 쉽습니다. 성능 개선을 위해 핵심은 작업 분담과 자동화입니다.
-
   2번 선택지는 이를 효과적으로 해결합니다.
-
   Amazon AppFlow: SaaS 소스와 S3 버킷 간 데이터 이동을 자동화하여 EC2 인스턴스 부담을 줄입니다. AppFlow는 데이터 전송을 효율적으로 처리하며 별도의 코드 개발 없이 통합 가능합니다.
   S3 이벤트 알림 + Amazon SNS: S3 버킷에 데이터 업로드 완료 시 자동으로 알림을 생성하여 사용자에게 전달합니다. 이는 EC2 인스턴스의 추가 작업 없이 알림 기능을 유지합니다.
   다른 선택지의 문제점:
-
   1번: EC2 인스턴스 확장만으로는 근본적인 병목 문제 해결에 한계가 있습니다.
   3번: EventBridge 규칙을 두 번 구성하는 것은 복잡성을 증가시키고 관리 부담을 높입니다.
   4번: 컨테이너화는 장점이 있지만, 본 문제의 핵심인 데이터 처리 자동화와 알림 기능 구현에 비해 과도한 접근입니다.
@@ -453,16 +339,11 @@ What is the most cost-effective way for the company to avoid regional data trans
 ① A. Start a NAT gateway in each availability zone.
 ② B. Replace the NAT gateway with a NAT instance.
 ③ C. Deploy a gateway VPC endpoint for Amazon S3.
-④ D. Provision an EC2 dedicated host to run EC2 instances.
-
+④ D. Provision an EC2 dedicated host to run EC2 instances.<br/>
   회사가 지역 간 데이터 전송 요금을 피할 수 있는 가장 비용 효율적인 방법은 Amazon S3용 게이트웨이 VPC 엔드포인트를 배포하는 것입니다. 이 방법을 사용하면 EC2 인스턴스에서 Amazon S3로의 아웃바운드 트래픽이 VPC 내에서 직접 라우팅되므로 지역 간 데이터 전송 요금이 부과되지 않습니다. 게이트웨이 VPC 엔드포인트는 VPC와 Amazon S3 간에 비공개ネットワーク 연결을 제공하여 보안과 비용 효율성을 제공합니다. 이 방법은 NAT 게이트웨이와 같은 추가 인프라를 프로비저닝할 필요가 없기 때문에 비용 효율적입니다. 따라서 회사는 Amazon S3용 게이트웨이 VPC 엔드포인트를 배포하여 지역 간 데이터 전송 요금을 피할 수 있습니다.
-
   정답은 3번, Amazon S3용 게이트웨이 VPC 엔드포인트 배포입니다.
-
   현재 설정에서는 EC2 인스턴스가 외부 인터넷을 통해 S3에 접근하므로 지역 간 데이터 전송 요금이 발생합니다. 게이트웨이 VPC 엔드포인트를 사용하면 VPC 내부에서 S3에 직접 접근할 수 있게 되어, 이러한 외부 트래픽을 내부 네트워크 내에서 처리함으로써 지역 간 데이터 전송 요금을 피할 수 있습니다.
-
   다른 옵션들은 다음과 같은 이유로 적합하지 않습니다:
-
   1번: 각 가용 영역에 NAT 게이트웨이를 추가하면 관리 복잡성만 증가하고, 기본적인 지역 간 데이터 전송 문제는 해결되지 않습니다.
   2번: NAT 인스턴스는 NAT 게이트웨이와 유사하게 작동하며, 여전히 외부 트래픽을 통해 S3에 접근하므로 데이터 전송 요금 문제는 해결되지 않습니다.
   4번: EC2 전용 호스트는 인스턴스 프로비저닝 모델의 변화일 뿐, 데이터 전송 경로나 요금 구조를 직접적으로 개선하지 않습니다.
