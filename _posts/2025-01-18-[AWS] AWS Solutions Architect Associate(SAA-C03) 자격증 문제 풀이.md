@@ -13,7 +13,7 @@ mermaid: true
 ② B. Deploy your entire website on Amazon EC2 instances running in an Auto Scaling group across multiple Availability Zones. Add an Application Load Balancer (ALB) to distribute website traffic. Add another ALB for your backend API. Store your data in Amazon RDS for MySQL.
 ③ C. Migrate the entire application to run in containers. Host the containers on Amazon Elastic Kubernetes Service (Amazon EKS). Use Kubernetes Cluster Autoscaler to increase or decrease the number of pods to handle traffic bursts. Store data in Amazon RDS for MySQL.
 **④ D. Host your website's static content using an Amazon S3 bucket. Deploy an Amazon CloudFront distribution. Set the S3 bucket as the origin. Use Amazon API Gateway and AWS Lambda functions for the backend API. Store data in Amazon DynamoDB.**
-
+```
   최소한의 운영 오버헤드로 하루에 수백만 건의 요청을 처리할 수 있는 솔루션은 AWS의 서버리스 아키텍처를 사용하는 것이다. 정적 콘텐츠는 Amazon S3 버킷에 호스팅되고, Amazon CloudFront 배포를 사용하여 콘텐츠를 캐시하고 전달한다. 백엔드 API에는 Amazon API Gateway와 AWS Lambda 함수를 사용하여 서버리스로 구축하고, 데이터는 Amazon DynamoDB에 저장한다.这样하면 피크 시간에도 밀리초의 대기 시간으로 요청을 처리할 수 있고, 운영 오버헤드도 최소화할 수 있다.
 
   1번 (S3 + CloudFront): 정적 콘텐츠에 적합하지만, 실시간 주문 처리와 같은 동적 기능을 지원하기에는 부족합니다.
@@ -24,7 +24,7 @@ mermaid: true
   Amazon S3와 CloudFront: 정적 웹 콘텐츠를 효율적으로 제공하며, CloudFront의 캐싱 기능으로 피크 시간대 성능을 향상시킵니다.
   API Gateway + Lambda: 백엔드 API를 서버리스 방식으로 구현하여 확장성과 관리 용이성을 높입니다.
   DynamoDB: NoSQL 데이터베이스로 트래픽 변동에 유연하게 대응하며, 스케일링이 자동화되어 운영 부담을 줄입니다.
-
+```
 22. A solution architect is designing a storage architecture for a new digital media application using Amazon S3. Media files must be resilient even if an Availability Zone is lost. Some files are accessed frequently, while others are accessed infrequently and in unpredictable patterns. The solution architect needs to minimize the cost of storing and retrieving media files.
 Which storage option meets these requirements?
 ① A. S3 Standard
@@ -1271,24 +1271,24 @@ Which solution meets these requirements?
 ③ C. Establish an AWS Transit Gateway connection from your VPC to an S3 bucket. Create an AWS Site-to-Site VPN connection between your company and your VPC.
 ④ D. Set up a proxy EC2 instance with a route to the NAT gateway. Configure the proxy EC2 instance to fetch S3 data and serve it to your application instances.
 
-해설: 이 문제는 AWS 솔루션을 통한 데이터 전송 및 보안 요구 사항을 충족하는 해결책을 찾는 것입니다.
+  이 문제는 AWS 솔루션을 통한 데이터 전송 및 보안 요구 사항을 충족하는 해결책을 찾는 것입니다.
 
-조건 1: 회사의 EC2 인스턴스에서 소스 데이터를 Amazon S3 버킷에 로드해야 합니다. 조건 2: 데이터는 공용 인터넷을 통해 전송되어서는 안 됩니다.
+  조건 1: 회사의 EC2 인스턴스에서 소스 데이터를 Amazon S3 버킷에 로드해야 합니다. 조건 2: 데이터는 공용 인터넷을 통해 전송되어서는 안 됩니다.
 
-위 조건을 충족하는 해결책은 B입니다. Amazon S3용 게이트웨이 VPC 엔드포인트를 배포하면 EC2 인스턴스와 S3 버킷 간에 비공개 연결을 생성하여 조건 1과 2를 충족합니다. 또한 온프레미스 네트워크와 VPC 간에 AWS Direct Connect 연결을 설정하면 공용 인터넷을 통해 데이터를 전송할 필요가 없어지므로 보안을 강화할 수 있습니다.
+  위 조건을 충족하는 해결책은 B입니다. Amazon S3용 게이트웨이 VPC 엔드포인트를 배포하면 EC2 인스턴스와 S3 버킷 간에 비공개 연결을 생성하여 조건 1과 2를 충족합니다. 또한 온프레미스 네트워크와 VPC 간에 AWS Direct Connect 연결을 설정하면 공용 인터넷을 통해 데이터를 전송할 필요가 없어지므로 보안을 강화할 수 있습니다.
 
-정답은 2번입니다. 이 솔루션은 데이터 보안과 직접 연결성 요구 사항을 모두 충족합니다:
+  정답은 2번입니다. 이 솔루션은 데이터 보안과 직접 연결성 요구 사항을 모두 충족합니다:
 
-Amazon S3용 게이트웨이 VPC 엔드포인트: 이 설정은 VPC 내 EC2 인스턴스가 공개 인터넷을 통하지 않고 S3 버킷에 안전하게 접근할 수 있게 합니다. 따라서 데이터 전송이 공용 인터넷을 거치지 않도록 규정 준수를 보장합니다.
+  Amazon S3용 게이트웨이 VPC 엔드포인트: 이 설정은 VPC 내 EC2 인스턴스가 공개 인터넷을 통하지 않고 S3 버킷에 안전하게 접근할 수 있게 합니다. 따라서 데이터 전송이 공용 인터넷을 거치지 않도록 규정 준수를 보장합니다.
 
-AWS Direct Connect: 이는 온프레미스 데이터 센터와 AWS VPC 간에 고가속, 저지연 연결을 제공합니다. 이 연결을 통해 EC2 인스턴스의 애플리케이션 출력이 온프레미스 서버로 안전하고 효율적으로 전송될 수 있습니다.
+  AWS Direct Connect: 이는 온프레미스 데이터 센터와 AWS VPC 간에 고가속, 저지연 연결을 제공합니다. 이 연결을 통해 EC2 인스턴스의 애플리케이션 출력이 온프레미스 서버로 안전하고 효율적으로 전송될 수 있습니다.
 
-다른 옵션들은 요구 사항을 완전히 충족하지 못합니다:
+  다른 옵션들은 요구 사항을 완전히 충족하지 못합니다:
 
-1번은 VPN을 사용하여 연결성을 제공하지만, S3에 대한 직접적인 VPC 엔드포인트 설정이 누락되어 인터넷을 통한 데이터 전송 위험이 남아 있습니다.
-3번의 Transit Gateway와 Site-to-Site VPN은 연결성을 제공하지만, S3에 대한 직접적인 보안 엔드포인트 설정이 부족합니다.
-4번의 NAT 게이트웨이와 프록시 EC2 인스턴스는 인터넷을 통한 아웃바운드 트래픽 관리에 도움이 될 수 있지만, S3와의 안전한 내부 통신과 온프레미스와의 고속 연결을 동시에 만족시키지 못합니다.
-따라서 요구 사항을 가장 효과적으로 충족하는 옵션은 2번입니다.
+  1번은 VPN을 사용하여 연결성을 제공하지만, S3에 대한 직접적인 VPC 엔드포인트 설정이 누락되어 인터넷을 통한 데이터 전송 위험이 남아 있습니다.
+  3번의 Transit Gateway와 Site-to-Site VPN은 연결성을 제공하지만, S3에 대한 직접적인 보안 엔드포인트 설정이 부족합니다.
+  4번의 NAT 게이트웨이와 프록시 EC2 인스턴스는 인터넷을 통한 아웃바운드 트래픽 관리에 도움이 될 수 있지만, S3와의 안전한 내부 통신과 온프레미스와의 고속 연결을 동시에 만족시키지 못합니다.
+  따라서 요구 사항을 가장 효과적으로 충족하는 옵션은 2번입니다.
 
 611. My company has an application with a REST-based interface that receives data from a third-party vendor in near real-time. Once received, the application processes and stores the data for further analysis. The application is running on an Amazon EC2 instance.
 When the third-party vendor sends data to the application, it receives numerous 503 Service Unavailable errors. As data volumes surge, computing capacity is maxed out, and the application cannot handle all requests.
@@ -1298,16 +1298,16 @@ What design should a solution architect recommend to ensure a more scalable solu
 ③ C. Collect data using Amazon Simple Notification Service (Amazon SNS). Deploy EC2 instances in an Auto Scaling group behind an Application Load Balancer.
 ④ D. Repackage the application into a container. Deploy the application using Amazon Elastic Container Service (Amazon ECS) with the EC2 launch type and an Auto Scaling group.
 
-Kinesis Data Streams는 대량의 스트리밍 데이터 수집 및 처리량을 처리할 수 있는 자동 조정 스트림을 제공합니다. 이렇게 하면 데이터 수신과 관련된 병목 현상이 제거됩니다.
-AWS Lambda는 EC2 용량 제한을 피하면서 확장 가능한 서버리스 방식으로 데이터를 처리하고 저장할 수 있습니다.
-API 게이트웨이는 API 관리 기능을 추가하지만 EC2 애플리케이션의 기본 확장성을 개선하지는 않습니다.
-SNS는 대규모 데이터 수집이 아닌 이벤트 게시/알림을 위한 것입니다. ECS는 여전히 EC2 용량에 의존합니다.
+  Kinesis Data Streams는 대량의 스트리밍 데이터 수집 및 처리량을 처리할 수 있는 자동 조정 스트림을 제공합니다. 이렇게 하면 데이터 수신과 관련된 병목 현상이 제거됩니다.
+  AWS Lambda는 EC2 용량 제한을 피하면서 확장 가능한 서버리스 방식으로 데이터를 처리하고 저장할 수 있습니다.
+  API 게이트웨이는 API 관리 기능을 추가하지만 EC2 애플리케이션의 기본 확장성을 개선하지는 않습니다.
+  SNS는 대규모 데이터 수집이 아닌 이벤트 게시/알림을 위한 것입니다. ECS는 여전히 EC2 용량에 의존합니다.
 
-이 상황은 데이터가 급격히 증가하여 컴퓨팅 용량이 최대치에 도달하면서 발생하는 문제입니다. 503 서비스 사용할 수 없음 오류가 자주 발생하는데, 이는 애플리케이션이 데이터 처리를 못해 생기는 문제입니다. 해결 방법은 데이터 처리能力을 향상시켜야 합니다.
+  이 상황은 데이터가 급격히 증가하여 컴퓨팅 용량이 최대치에 도달하면서 발생하는 문제입니다. 503 서비스 사용할 수 없음 오류가 자주 발생하는데, 이는 애플리케이션이 데이터 처리를 못해 생기는 문제입니다. 해결 방법은 데이터 처리能力을 향상시켜야 합니다.
 
-권장하는 디자인은 Amazon Kinesis Data Streams를 사용하여 데이터를 수집하고 AWS Lambda 함수를 사용하여 데이터를 처리하는 것입니다. Amazon Kinesis Data Streams는 대량의 데이터를 수집하고 처리할 수 있는 서비스로, 데이터가 많아지면 자동으로 처리 용량을 확장하여 데이터를 빠르게 처리할 수 있습니다. AWS Lambda 함수는 이벤트 驅動 방식으로 작동하여 데이터가 들어오면 자동으로 실행되어 데이터를 처리할 수 있습니다.
+  권장하는 디자인은 Amazon Kinesis Data Streams를 사용하여 데이터를 수집하고 AWS Lambda 함수를 사용하여 데이터를 처리하는 것입니다. Amazon Kinesis Data Streams는 대량의 데이터를 수집하고 처리할 수 있는 서비스로, 데이터가 많아지면 자동으로 처리 용량을 확장하여 데이터를 빠르게 처리할 수 있습니다. AWS Lambda 함수는 이벤트 驅動 방식으로 작동하여 데이터가 들어오면 자동으로 실행되어 데이터를 처리할 수 있습니다.
 
-이러한 설계로 인해 애플리케이션의 확장성을 향상시킬 수 있으며, 데이터 처리 능력을 향상시켜 503 오류를 줄일 수 있습니다. 또한, Amazon Kinesis Data Streams와 AWS Lambda 함수는 서버리스 아키텍처로, 컴퓨팅 용량을 관리할 필요가 없어 더욱 효율적입니다.
+  이러한 설계로 인해 애플리케이션의 확장성을 향상시킬 수 있으며, 데이터 처리 능력을 향상시켜 503 오류를 줄일 수 있습니다. 또한, Amazon Kinesis Data Streams와 AWS Lambda 함수는 서버리스 아키텍처로, 컴퓨팅 용량을 관리할 필요가 없어 더욱 효율적입니다.
 
 612. My company has an application running on an Amazon EC2 instance in a private subnet. The application needs to handle sensitive information in an Amazon S3 bucket. The application should not use the internet to connect to the S3 bucket. What solution meets this requirement?
 ① A. Configure an Internet gateway. Update your S3 bucket policy to allow access from the Internet gateway. Update your applications to use the new Internet gateway.
@@ -1315,20 +1315,20 @@ SNS는 대규모 데이터 수집이 아닌 이벤트 게시/알림을 위한 �
 ③ C. Configure a NAT gateway. Update your S3 bucket policy to allow access from the NAT gateway. Update your application to use the new NAT gateway.
 ④ D. Configure the VPC endpoint. Update the S3 bucket policy to allow access from the VPC endpoint. Update your application to use the new VPC endpoint.
 
-VPC 엔드포인트는 VPC로부터의 프라이빗 연결을 허용합니다. 인터넷 게이트웨이를 사용하지 않고 S3와 같은 AWS 서비스에 연결됩니다. 애플리케이션은 인터넷 액세스 없이 프라이빗 서브넷에 남아 있는 동안 VPC 엔드포인트를 통해 S3에 연결할 수 있습니다.
+  VPC 엔드포인트는 VPC로부터의 프라이빗 연결을 허용합니다. 인터넷 게이트웨이를 사용하지 않고 S3와 같은 AWS 서비스에 연결됩니다. 애플리케이션은 인터넷 액세스 없이 프라이빗 서브넷에 남아 있는 동안 VPC 엔드포인트를 통해 S3에 연결할 수 있습니다.
 
-올바른 솔루션은 D입니다. 이 방법은 프라이빗 서브넷의 애플리케이션이 인터넷을 통해 연결하지 않고도 Amazon S3 버킷에 연결할 수 있도록 해줍니다. VPC 엔드포인트를 사용하면 VPC 내에서 AWS 서비스에 대한 프라이빗 연결을 생성할 수 있습니다.
+  올바른 솔루션은 D입니다. 이 방법은 프라이빗 서브넷의 애플리케이션이 인터넷을 통해 연결하지 않고도 Amazon S3 버킷에 연결할 수 있도록 해줍니다. VPC 엔드포인트를 사용하면 VPC 내에서 AWS 서비스에 대한 프라이빗 연결을 생성할 수 있습니다.
 
-이렇게하면 애플리케이션이 S3 버킷과 통신할 수 있게 됩니다. 또한, VPC 엔드포인트에서 액세스를 허용하도록 S3 버킷 정책을 업데이트하여 보안을 강화할 수 있습니다.
+  이렇게하면 애플리케이션이 S3 버킷과 통신할 수 있게 됩니다. 또한, VPC 엔드포인트에서 액세스를 허용하도록 S3 버킷 정책을 업데이트하여 보안을 강화할 수 있습니다.
 
-인터넷 게이트웨이, VPN 연결, NAT 게이트웨이를 사용하는 다른 방법은 모두 인터넷을 통해 연결해야 하기 때문에 요구 사항을 충족하지 못합니다. 따라서, VPC 엔드포인트를 구성하는 것이 가장 적합한 솔루션입니다.
+  인터넷 게이트웨이, VPN 연결, NAT 게이트웨이를 사용하는 다른 방법은 모두 인터넷을 통해 연결해야 하기 때문에 요구 사항을 충족하지 못합니다. 따라서, VPC 엔드포인트를 구성하는 것이 가장 적합한 솔루션입니다.
 
-프라이빗 서브넷 내의 EC2 인스턴스는 인터넷에 직접 노출되지 않도록 설계되어 민감한 정보에 대한 직접적인 인터넷 접근을 피해야 합니다. 옵션들을 살펴보면:
+  프라이빗 서브넷 내의 EC2 인스턴스는 인터넷에 직접 노출되지 않도록 설계되어 민감한 정보에 대한 직접적인 인터넷 접근을 피해야 합니다. 옵션들을 살펴보면:
 
-옵션 1은 인터넷 게이트웨이를 사용하므로 인스턴스가 인터넷을 통해 S3에 접근하게 되어 요구 사항을 충족하지 못합니다.
-옵션 2의 VPN 연결은 보안을 강화하지만, 이 역시 인터넷을 통해 통신이 이루어지므로 적합하지 않습니다.
-옵션 3의 NAT 게이트웨이는 주로 프라이빗 서브넷의 인스턴스가 인터넷을 통해 아웃바운드 트래픽을 보내는 데 사용되며, S3와 같은 서비스에 대한 안전한 사설 네트워크 액세스를 직접 제공하지 않습니다.
-옵션 4의 VPC 엔드포인트는 VPC 내부에서 직접 S3에 연결할 수 있는 사설 경로를 제공합니다. 이를 통해 인스턴스는 인터넷을 통하지 않고 S3 버킷에 안전하게 접근할 수 있습니다. 따라서 VPC 엔드포인트 구성이 요구 사항을 완벽하게 충족합니다.
+  옵션 1은 인터넷 게이트웨이를 사용하므로 인스턴스가 인터넷을 통해 S3에 접근하게 되어 요구 사항을 충족하지 못합니다.
+  옵션 2의 VPN 연결은 보안을 강화하지만, 이 역시 인터넷을 통해 통신이 이루어지므로 적합하지 않습니다.
+  옵션 3의 NAT 게이트웨이는 주로 프라이빗 서브넷의 인스턴스가 인터넷을 통해 아웃바운드 트래픽을 보내는 데 사용되며, S3와 같은 서비스에 대한 안전한 사설 네트워크 액세스를 직접 제공하지 않습니다.
+  옵션 4의 VPC 엔드포인트는 VPC 내부에서 직접 S3에 연결할 수 있는 사설 경로를 제공합니다. 이를 통해 인스턴스는 인터넷을 통하지 않고 S3 버킷에 안전하게 접근할 수 있습니다. 따라서 VPC 엔드포인트 구성이 요구 사항을 완벽하게 충족합니다.
 
 613. A company uses Amazon Elastic Kubernetes Service ( Amazon EKS ) to run container applications. The EKS cluster stores sensitive information in Kubernetes secret objects. The company wants to ensure that the information is encrypted
 . What solution meets these requirements with minimal operational overhead?
@@ -1337,9 +1337,9 @@ VPC 엔드포인트는 VPC로부터의 프라이빗 연결을 허용합니다. �
 ③ C. Implement an AWS Lambda function that encrypts information using AWS Key Management Service (AWS KMS).
 ④ D. Use AWS Systems Manager Parameter Store to encrypt information using AWS Key Management Service (AWS KMS).
 
-EKS는 AWS KMS 키를 사용하여 클러스터 수준에서 Kubernetes 암호 암호화를 지원합니다. 이는 비밀을 암호화하는 자동화된 방법을 제공합니다. 이 기능을 활성화하려면 EKS 클러스터에 대한 구성 변경을 최소화해야 하며 코드는 변경하지 않아도 됩니다. Lambda 함수를 사용하거나 애플리케이션 코드를 수정하여 비밀을 암호화하는 등의 다른 옵션에는 추가 개발 노력과 오버헤드가 필요합니다. Systems Manager Parameter Store는 암호화된 매개변수를 저장할 수 있지만 Kubernetes 비밀을 암호화하기 위해 기본적으로 EKS와 통합되지는 않습니다. EKS 비밀 암호화 기능은 애플리케이션에서 KMS API를 직접 호출할 필요 없이 AWS KMS를 활용합니다.
+  EKS는 AWS KMS 키를 사용하여 클러스터 수준에서 Kubernetes 암호 암호화를 지원합니다. 이는 비밀을 암호화하는 자동화된 방법을 제공합니다. 이 기능을 활성화하려면 EKS 클러스터에 대한 구성 변경을 최소화해야 하며 코드는 변경하지 않아도 됩니다. Lambda 함수를 사용하거나 애플리케이션 코드를 수정하여 비밀을 암호화하는 등의 다른 옵션에는 추가 개발 노력과 오버헤드가 필요합니다. Systems Manager Parameter Store는 암호화된 매개변수를 저장할 수 있지만 Kubernetes 비밀을 암호화하기 위해 기본적으로 EKS와 통합되지는 않습니다. EKS 비밀 암호화 기능은 애플리케이션에서 KMS API를 직접 호출할 필요 없이 AWS KMS를 활용합니다.
 
-회사의 요구사항은 EKS 클러스터에서 민감한 정보가 암호화되었는지 확인하는 것입니다. 이 요구사항을 충족하면서 최소한의 운영 오버헤드를 갖는 솔루션은 AWS Key Management Service(AWS KMS)를 사용하여 EKS 클러스터에서 비밀 암호화를 활성화하는 것입니다. 이 방법은 EKS 클러스터에서 직접 비밀을 암호화할 수 있으므로 추가적인 리소스나 구성이 필요 없습니다. 또한 AWS KMS는 키를 안전하게 관리하고 암호화를 제공하는 AWS 관리형 서비스이므로 운영 오버헤드가 줄어듭니다.
+  회사의 요구사항은 EKS 클러스터에서 민감한 정보가 암호화되었는지 확인하는 것입니다. 이 요구사항을 충족하면서 최소한의 운영 오버헤드를 갖는 솔루션은 AWS Key Management Service(AWS KMS)를 사용하여 EKS 클러스터에서 비밀 암호화를 활성화하는 것입니다. 이 방법은 EKS 클러스터에서 직접 비밀을 암호화할 수 있으므로 추가적인 리소스나 구성이 필요 없습니다. 또한 AWS KMS는 키를 안전하게 관리하고 암호화를 제공하는 AWS 관리형 서비스이므로 운영 오버헤드가 줄어듭니다.
 
 614. A company is designing a new multi-tier web application consisting of the following components:
 
@@ -1353,17 +1353,17 @@ Which solution meets these requirements?
 ③ C. Deploy a Network Load Balancer to a target group that includes the Auto Scaling group for the application servers. Configure a network ACL to ensure that only the web servers can access the application servers.
 ④ D. Deploy an Application Load Balancer with a target group that includes the Auto Scaling group for the application servers. Configure a security group to ensure that only the web servers can access the application servers.
 
-ALB(Application Load Balancer)는 트래픽을 애플리케이션 서버로 전달하고 보안 그룹을 통해 액세스 제어를 제공합니다. 보안 그룹은 인스턴스 수준에서 방화벽 역할을 하며 웹 서버에서 애플리케이션 서버에 대한 액세스를 제어할 수 있습니다. 네트워크 ACL은 서브넷 수준에서 작동하며 인스턴스 수준 액세스 제어를 위한 보안 그룹의 경우 유연성이 떨어집니다. VPC 엔드포인트는 EC2 인스턴스 간 액세스가 아닌 AWS 서비스에 대한 프라이빗 액세스를 제공하는 데 사용됩니다. AWS PrivateLink는 이 단일 VPC 시나리오에서는 필요하지 않은 VPC 간의 프라이빗 연결을 제공합니다.
+  ALB(Application Load Balancer)는 트래픽을 애플리케이션 서버로 전달하고 보안 그룹을 통해 액세스 제어를 제공합니다. 보안 그룹은 인스턴스 수준에서 방화벽 역할을 하며 웹 서버에서 애플리케이션 서버에 대한 액세스를 제어할 수 있습니다. 네트워크 ACL은 서브넷 수준에서 작동하며 인스턴스 수준 액세스 제어를 위한 보안 그룹의 경우 유연성이 떨어집니다. VPC 엔드포인트는 EC2 인스턴스 간 액세스가 아닌 AWS 서비스에 대한 프라이빗 액세스를 제공하는 데 사용됩니다. AWS PrivateLink는 이 단일 VPC 시나리오에서는 필요하지 않은 VPC 간의 프라이빗 연결을 제공합니다.
 
-해당 요구 사항을 충족하는 솔루션은 애플리케이션 서버의 Auto Scaling 그룹이 포함된 대상 그룹과 함께 Application Load Balancer를 배포하는 것입니다. 이를 통해 웹 서버만 애플리케이션 서버에 액세스할 수 있도록 보안 그룹을 구성할 수 있습니다. Application Load Balancer는 들어오는 요청을 웹 서버로 분산시키고, 웹 서버만 애플리케이션 서버에 액세스할 수 있도록 하는 데 도움이 됩니다. 보안 그룹을 구성하여 애플리케이션 서버에 대한 액세스를 제한할 수 있습니다.
+  해당 요구 사항을 충족하는 솔루션은 애플리케이션 서버의 Auto Scaling 그룹이 포함된 대상 그룹과 함께 Application Load Balancer를 배포하는 것입니다. 이를 통해 웹 서버만 애플리케이션 서버에 액세스할 수 있도록 보안 그룹을 구성할 수 있습니다. Application Load Balancer는 들어오는 요청을 웹 서버로 분산시키고, 웹 서버만 애플리케이션 서버에 액세스할 수 있도록 하는 데 도움이 됩니다. 보안 그룹을 구성하여 애플리케이션 서버에 대한 액세스를 제한할 수 있습니다.
 
-정답은 4번입니다. 애플리케이션 서버에 대한 접근을 웹 서버로만 제한하려면 다음과 같은 접근이 필요합니다:
+  정답은 4번입니다. 애플리케이션 서버에 대한 접근을 웹 서버로만 제한하려면 다음과 같은 접근이 필요합니다:
 
-Application Load Balancer (ALB): 웹 서버와 애플리케이션 서버 간의 트래픽을 관리하며, 세밀한 라우팅 규칙을 설정할 수 있어요. 특정 서버나 그룹으로의 접근을 제어하는 데 유용합니다.
+  Application Load Balancer (ALB): 웹 서버와 애플리케이션 서버 간의 트래픽을 관리하며, 세밀한 라우팅 규칙을 설정할 수 있어요. 특정 서버나 그룹으로의 접근을 제어하는 데 유용합니다.
 
-보안 그룹 구성: ALB의 후단에 위치한 애플리케이션 서버의 보안 그룹을 적절히 설정하여 웹 서버 IP 주소만 애플리케이션 서버에 접근할 수 있도록 제한합니다. 이를 통해 외부 또는 다른 내부 서버의 무단 접근을 방지합니다.
+  보안 그룹 구성: ALB의 후단에 위치한 애플리케이션 서버의 보안 그룹을 적절히 설정하여 웹 서버 IP 주소만 애플리케이션 서버에 접근할 수 있도록 제한합니다. 이를 통해 외부 또는 다른 내부 서버의 무단 접근을 방지합니다.
 
-1번과 2번 옵션들은 주로 프라이빗 연결이나 VPC 엔드포인트를 강조하지만, 애플리케이션 서버에 대한 세밀한 액세스 제어가 필요한 이 문제에서는 직접적인 트래픽 관리와 보안 설정이 더 적합합니다. 3번은 Network Load Balancer를 사용하며, 주로 TCP/UDP 트래픽에 최적화되어 있어 애플리케이션 레벨의 세밀한 라우팅 제어가 부족합니다. 따라서, 애플리케이션 서버의 접근 제어를 효과적으로 구현하려면 4번의 Application Load Balancer와 보안 그룹 조합이 가장 적합합니다.
+  1번과 2번 옵션들은 주로 프라이빗 연결이나 VPC 엔드포인트를 강조하지만, 애플리케이션 서버에 대한 세밀한 액세스 제어가 필요한 이 문제에서는 직접적인 트래픽 관리와 보안 설정이 더 적합합니다. 3번은 Network Load Balancer를 사용하며, 주로 TCP/UDP 트래픽에 최적화되어 있어 애플리케이션 레벨의 세밀한 라우팅 제어가 부족합니다. 따라서, 애플리케이션 서버의 접근 제어를 효과적으로 구현하려면 4번의 Application Load Balancer와 보안 그룹 조합이 가장 적합합니다.
 
 615. A company runs a critical customer-facing application on Amazon Elastic Kubernetes Service (Amazon EKS). The application has a microservices architecture. The company needs to implement a solution to collect, aggregate, and summarize application metrics and logs in a central location.
 What solution meets these requirements?
@@ -1374,23 +1374,23 @@ What solution meets these requirements?
 
 CloudWatch Container Insights를 사용하여 컨테이너화된 애플리케이션 및 마이크로서비스에서 지표와 로그를 수집, 집계 및 요약합니다
 
-한 회사가 Amazon Elastic Kubernetes Service(Amazon EKS)에서 고객을 대상으로 하는 중요한 애플리케이션을 실행하고 있고, 이 애플리케이션에는 마이크로서비스 아키텍처가 있습니다. 회사는 중앙 위치에서 애플리케이션의 측정항목과 로그를 수집, 집계, 요약하는 솔루션을 구현해야 합니다.
+  한 회사가 Amazon Elastic Kubernetes Service(Amazon EKS)에서 고객을 대상으로 하는 중요한 애플리케이션을 실행하고 있고, 이 애플리케이션에는 마이크로서비스 아키텍처가 있습니다. 회사는 중앙 위치에서 애플리케이션의 측정항목과 로그를 수집, 집계, 요약하는 솔루션을 구현해야 합니다.
 
-이러한 요구 사항을 충족하는 솔루션은 기존 EKS 클러스터에 Amazon CloudWatch Container Insights를 구성하는 것입니다. CloudWatch Container Insights를 사용하면 컨테이너의 성능을 모니터링하고, 로그를 수집하며, 문제를 진단할 수 있습니다. CloudWatch 콘솔에서 지표와 로그를 확인하면 중앙 위치에서 애플리케이션의 성능과 문제를 모니터링할 수 있습니다.
+  이러한 요구 사항을 충족하는 솔루션은 기존 EKS 클러스터에 Amazon CloudWatch Container Insights를 구성하는 것입니다. CloudWatch Container Insights를 사용하면 컨테이너의 성능을 모니터링하고, 로그를 수집하며, 문제를 진단할 수 있습니다. CloudWatch 콘솔에서 지표와 로그를 확인하면 중앙 위치에서 애플리케이션의 성능과 문제를 모니터링할 수 있습니다.
 
-따라서 정답은 D입니다. Amazon CloudWatch Container Insights는 컨테이너화된 애플리케이션의 성능 모니터링과 문제 진단을 위한 강력한 도구입니다.
+  따라서 정답은 D입니다. Amazon CloudWatch Container Insights는 컨테이너화된 애플리케이션의 성능 모니터링과 문제 진단을 위한 강력한 도구입니다.
 
-정답은 4번입니다.
+  정답은 4번입니다.
 
-Amazon CloudWatch Container Insights는 EKS 환경 내의 컨테이너화된 애플리케이션에 특화된 모니터링 솔루션입니다. 이 솔루션은 마이크로서비스 아키텍처를 갖춘 애플리케이션의 성능 지표와 로그를 자동으로 수집, 집계, 요약합니다. 특히, Kubernetes 환경의 복잡성을 고려해 최적화되어 있어, 중앙 집중식 관리와 분석이 용이합니다.
+  Amazon CloudWatch Container Insights는 EKS 환경 내의 컨테이너화된 애플리케이션에 특화된 모니터링 솔루션입니다. 이 솔루션은 마이크로서비스 아키텍처를 갖춘 애플리케이션의 성능 지표와 로그를 자동으로 수집, 집계, 요약합니다. 특히, Kubernetes 환경의 복잡성을 고려해 최적화되어 있어, 중앙 집중식 관리와 분석이 용이합니다.
 
-1번 옵션의 Amazon CloudWatch 에이전트는 일반적인 모니터링에 효과적이나, 컨테이너와 EKS 환경에 특화된 심층적인 인사이트를 제공하는 데는 한계가 있습니다.
+  1번 옵션의 Amazon CloudWatch 에이전트는 일반적인 모니터링에 효과적이나, 컨테이너와 EKS 환경에 특화된 심층적인 인사이트를 제공하는 데는 한계가 있습니다.
 
-2번의 AWS App Mesh는 주로 서비스 간 통신 관리와 모니터링에 초점을 맞추고 있어, 전체 애플리케이션의 측정항목과 로그의 종합적인 수집과 집계에는 적합하지 않습니다.
+  2번의 AWS App Mesh는 주로 서비스 간 통신 관리와 모니터링에 초점을 맞추고 있어, 전체 애플리케이션의 측정항목과 로그의 종합적인 수집과 집계에는 적합하지 않습니다.
 
-3번의 AWS CloudTrail은 주로 API 호출 활동을 기록하는 데 사용되며, 애플리케이션의 실시간 성능 지표와 로그 수집에 최적화되어 있지 않습니다. Amazon OpenSearch Service는 로그 분석에 유용하지만, CloudTrail 데이터를 직접적으로 활용하는 것은 주어진 문제의 요구사항에 완벽하게 부합하지 않습니다.
+  3번의 AWS CloudTrail은 주로 API 호출 활동을 기록하는 데 사용되며, 애플리케이션의 실시간 성능 지표와 로그 수집에 최적화되어 있지 않습니다. Amazon OpenSearch Service는 로그 분석에 유용하지만, CloudTrail 데이터를 직접적으로 활용하는 것은 주어진 문제의 요구사항에 완벽하게 부합하지 않습니다.
 
-따라서, 마이크로서비스 기반 애플리케이션의 측정항목과 로그를 효과적으로 중앙에서 수집하고 분석하려면 Amazon CloudWatch Container Insights가 가장 적합합니다.
+  따라서, 마이크로서비스 기반 애플리케이션의 측정항목과 로그를 효과적으로 중앙에서 수집하고 분석하려면 Amazon CloudWatch Container Insights가 가장 적합합니다.
 
 616. A company has deployed its latest product to AWS. The product runs in an Auto Scaling group behind a Network Load Balancer. The company stores the product's objects in an Amazon S3 bucket.
 The company recently experienced a malicious attack on its systems. The company needs a solution that continuously monitors its AWS account for malicious activity, workloads, and access patterns to the S3 bucket . The solution also needs to report suspicious activity and display the information on a dashboard.
@@ -1400,21 +1400,21 @@ Which solution meets these requirements?
 ③ C. Configure Amazon GuardDuty to monitor findings and report to AWS Security Hub.
 ④ D. Configure AWS Config to monitor results and report to Amazon EventBridge.
 
-Amazon GuardDuty는 악의적인 활동과 무단 행동을 지속적으로 모니터링하는 위협 탐지 서비스입니다. AWS CloudTrail, VPC 흐름 로그 및 DNS 로그를 분석합니다. GuardDuty는 인스턴스 또는 S3 버킷 손상, 악성 IP 주소 또는 비정상적인 API 호출과 같은 위협을 탐지할 수 있습니다. 중앙 집중식 보안 대시보드와 알림을 제공하는 AWS Security Hub로 결과를 전송할 수 있습니다. Amazon Macie 및 Amazon Inspector는 GuardDuty가 수행하는 활동의 범위를 모니터링하지 않습니다. 그들은 각각 데이터 보안과 애플리케이션 취약성에 더 중점을 둡니다. AWS Config는 악의적인 활동이 아닌 리소스 구성 변경을 모니터링합니다.
+  Amazon GuardDuty는 악의적인 활동과 무단 행동을 지속적으로 모니터링하는 위협 탐지 서비스입니다. AWS CloudTrail, VPC 흐름 로그 및 DNS 로그를 분석합니다. GuardDuty는 인스턴스 또는 S3 버킷 손상, 악성 IP 주소 또는 비정상적인 API 호출과 같은 위협을 탐지할 수 있습니다. 중앙 집중식 보안 대시보드와 알림을 제공하는 AWS Security Hub로 결과를 전송할 수 있습니다. Amazon Macie 및 Amazon Inspector는 GuardDuty가 수행하는 활동의 범위를 모니터링하지 않습니다. 그들은 각각 데이터 보안과 애플리케이션 취약성에 더 중점을 둡니다. AWS Config는 악의적인 활동이 아닌 리소스 구성 변경을 모니터링합니다.
 
-정답은 3번입니다.
+  정답은 3번입니다.
 
-Amazon GuardDuty는 AWS 계정, 네트워크, 워크로드, 그리고 서비스 활동을 지속적으로 모니터링하여 악의적인 행동이나 보안 위협을 탐지합니다. 이 솔루션은 다음과 같은 특징을 가지고 있어 문제의 요구 사항을 완벽하게 충족합니다:
+  Amazon GuardDuty는 AWS 계정, 네트워크, 워크로드, 그리고 서비스 활동을 지속적으로 모니터링하여 악의적인 행동이나 보안 위협을 탐지합니다. 이 솔루션은 다음과 같은 특징을 가지고 있어 문제의 요구 사항을 완벽하게 충족합니다:
 
-다양한 위협 감지: 네트워크 트래픽, S3 버킷 액세스 패턴, 그리고 Auto Scaling 그룹 내의 워크로드 활동 등을 포함한 다양한 영역에서 의심스러운 활동을 감지합니다.
-자동 보고 및 통합: 감지된 위협과 이상 징후를 AWS Security Hub에 자동으로 보고합니다. Security Hub는 이러한 정보를 통합된 대시보드에서 제공하여 관리자가 쉽게 모니터링하고 대응할 수 있게 합니다.
-실시간 모니터링: 지속적인 모니터링 기능으로 실시간으로 위협을 감지하고 알림을 제공하여 신속한 대응이 가능합니다.
-다른 옵션들과 비교했을 때:
+  다양한 위협 감지: 네트워크 트래픽, S3 버킷 액세스 패턴, 그리고 Auto Scaling 그룹 내의 워크로드 활동 등을 포함한 다양한 영역에서 의심스러운 활동을 감지합니다.
+  자동 보고 및 통합: 감지된 위협과 이상 징후를 AWS Security Hub에 자동으로 보고합니다. Security Hub는 이러한 정보를 통합된 대시보드에서 제공하여 관리자가 쉽게 모니터링하고 대응할 수 있게 합니다.
+  실시간 모니터링: 지속적인 모니터링 기능으로 실시간으로 위협을 감지하고 알림을 제공하여 신속한 대응이 가능합니다.
+  다른 옵션들과 비교했을 때:
 
-Amazon Macie는 주로 S3 버킷 내의 민감 데이터 보호에 초점을 맞춥니다.
-Amazon Inspector는 주로 EC2 인스턴스의 보안 취약성을 스캔하는 데 중점을 둡니다.
-AWS Config는 리소스의 구성 변경을 추적하고 감사하는데 유용하지만, 직접적인 위협 감지와 실시간 모니터링 기능은 제한적입니다.
-따라서, 종합적인 보안 모니터링과 의심스러운 활동의 자동 보고 및 대시보드 표시를 요구하는 상황에서는 Amazon GuardDuty가 가장 적합합니다.
+  Amazon Macie는 주로 S3 버킷 내의 민감 데이터 보호에 초점을 맞춥니다.
+  Amazon Inspector는 주로 EC2 인스턴스의 보안 취약성을 스캔하는 데 중점을 둡니다.
+  AWS Config는 리소스의 구성 변경을 추적하고 감사하는데 유용하지만, 직접적인 위협 감지와 실시간 모니터링 기능은 제한적입니다.
+  따라서, 종합적인 보안 모니터링과 의심스러운 활동의 자동 보고 및 대시보드 표시를 요구하는 상황에서는 Amazon GuardDuty가 가장 적합합니다.
 
 617. A company is planning to migrate its on-premises data center to AWS. The data center hosts storage servers that store data on an NFS-based file system. The storage servers contain 200 GB of data. The company needs to migrate the data without disrupting existing services. Multiple resources in AWS must be able to access the data using the NFS protocol.
 What combination of steps will most cost-effectively meet these requirements? (Choose two.)
@@ -1424,19 +1424,19 @@ What combination of steps will most cost-effectively meet these requirements? (C
 ④ E. Install the AWS DataSync agent in your on-premises data center. Use DataSync tasks between your on-premises location and AWS.
 ⑤ E. Install the AWS DataSync agent in your on-premises data center. Use DataSync tasks between your on-premises location and AWS.
 
-Amazon EFS는 AWS의 여러 리소스에서 액세스할 수 있는 확장 가능한 고성능 NFS 파일 시스템을 제공합니다. AWS DataSync는 기존 서비스를 중단하지 않고 온프레미스 NFS 서버에서 EFS로 마이그레이션을 수행할 수 있습니다. 이렇게 하면 가동 중지 시간을 유발할 수 있는 데이터를 수동으로 이동할 필요가 없습니다. DataSync는 변경된 데이터를 점진적으로 동기화합니다. EFS와 DataSync는 요구 사항을 충족하면서도 S3 또는 FSx를 사용할 때보다 비용 최적화된 접근 방식을 제공합니다. 200GB의 데이터를 AWS에 수동으로 복사하는 것은 DataSync를 사용하는 것에 비해 느리고 위험합니다.
+  Amazon EFS는 AWS의 여러 리소스에서 액세스할 수 있는 확장 가능한 고성능 NFS 파일 시스템을 제공합니다. AWS DataSync는 기존 서비스를 중단하지 않고 온프레미스 NFS 서버에서 EFS로 마이그레이션을 수행할 수 있습니다. 이렇게 하면 가동 중지 시간을 유발할 수 있는 데이터를 수동으로 이동할 필요가 없습니다. DataSync는 변경된 데이터를 점진적으로 동기화합니다. EFS와 DataSync는 요구 사항을 충족하면서도 S3 또는 FSx를 사용할 때보다 비용 최적화된 접근 방식을 제공합니다. 200GB의 데이터를 AWS에 수동으로 복사하는 것은 DataSync를 사용하는 것에 비해 느리고 위험합니다.
 
-AWS에서 제공하는 서비스 중에 NFS 프로토콜을 지원하는 서비스는 Amazon Elastic File System(Amazon EFS)와 Lustre 파일 시스템용 Amazon FSx가 있습니다. 하지만 데이터를 마이그레이션할 때 기존 서비스를 중단하지 않고 데이터를 마이그레이션해야 하므로 AWS DataSync를 사용하여 온프레미스 데이터 센터와 AWS 간에 데이터를 마이그레이션할 수 있습니다. 비용 효율적으로 데이터를 마이그레이션하기 위해서는 AWS DataSync 에이전트를 설치하여 데이터를 마이그레이션하고 NFS 프로토콜을 지원하는 Amazon EFS 파일 시스템을 생성하여 AWS의 여러 리소스가 데이터에 액세스할 수 있게끔 하면 됩니다. 따라서 2번과 4번이 정답입니다.
+  AWS에서 제공하는 서비스 중에 NFS 프로토콜을 지원하는 서비스는 Amazon Elastic File System(Amazon EFS)와 Lustre 파일 시스템용 Amazon FSx가 있습니다. 하지만 데이터를 마이그레이션할 때 기존 서비스를 중단하지 않고 데이터를 마이그레이션해야 하므로 AWS DataSync를 사용하여 온프레미스 데이터 센터와 AWS 간에 데이터를 마이그레이션할 수 있습니다. 비용 효율적으로 데이터를 마이그레이션하기 위해서는 AWS DataSync 에이전트를 설치하여 데이터를 마이그레이션하고 NFS 프로토콜을 지원하는 Amazon EFS 파일 시스템을 생성하여 AWS의 여러 리소스가 데이터에 액세스할 수 있게끔 하면 됩니다. 따라서 2번과 4번이 정답입니다.
 
-주어진 요구 사항을 충족하면서 비용 효율성을 고려할 때, 주요 포인트는 서비스 중단 없이 데이터를 마이그레이션하고 NFS 프로토콜을 통한 접근성을 유지하는 것입니다.
+  주어진 요구 사항을 충족하면서 비용 효율성을 고려할 때, 주요 포인트는 서비스 중단 없이 데이터를 마이그레이션하고 NFS 프로토콜을 통한 접근성을 유지하는 것입니다.
 
-Amazon FSx (Lustre or EFS) 옵션들은 NFS 지원은 가능하지만, 기존 스토리지를 운영 중인 상태에서의 점진적 마이그레이션 과정에서 추가 장애 포인트를 유발하거나 초기 설정 비용이 높을 수 있습니다. 특히, 기존 NFS 환경을 그대로 유지하면서 바로 접근 가능하게 전환하기에는 제약이 있을 수 있습니다.
+  Amazon FSx (Lustre or EFS) 옵션들은 NFS 지원은 가능하지만, 기존 스토리지를 운영 중인 상태에서의 점진적 마이그레이션 과정에서 추가 장애 포인트를 유발하거나 초기 설정 비용이 높을 수 있습니다. 특히, 기존 NFS 환경을 그대로 유지하면서 바로 접근 가능하게 전환하기에는 제약이 있을 수 있습니다.
 
-Amazon S3는 고성능 파일 시스템 액세스에 최적화되지 않았으며, NFS 프로토콜을 직접 지원하지 않기 때문에, 기존 시스템이 직접 접근하기 위한 중간 계층 도입이 필요해지면 복잡성과 추가 비용이 발생할 수 있습니다.
+  Amazon S3는 고성능 파일 시스템 액세스에 최적화되지 않았으며, NFS 프로토콜을 직접 지원하지 않기 때문에, 기존 시스템이 직접 접근하기 위한 중간 계층 도입이 필요해지면 복잡성과 추가 비용이 발생할 수 있습니다.
 
-AWS DataSync (보기 4와 중복)를 사용하면, 온프레미스 환경에서 AWS로의 안정적이고 효율적인 데이터 마이그레이션이 가능합니다. 특히, DataSync는 중단 없이 데이터를 전송하고, 후에 Amazon EFS와 같은 서비스로의 전환을 용이하게 할 수 있습니다. 초기 설정 후에는 비용 효율적인 지속적인 데이터 동기화를 제공하며, NFS 프로토콜에 의존하는 시스템의 요구사항을 충족시키는 후속 단계로 EFS 등의 파일 시스템 도입이 가능합니다.
+  AWS DataSync (보기 4와 중복)를 사용하면, 온프레미스 환경에서 AWS로의 안정적이고 효율적인 데이터 마이그레이션이 가능합니다. 특히, DataSync는 중단 없이 데이터를 전송하고, 후에 Amazon EFS와 같은 서비스로의 전환을 용이하게 할 수 있습니다. 초기 설정 후에는 비용 효율적인 지속적인 데이터 동기화를 제공하며, NFS 프로토콜에 의존하는 시스템의 요구사항을 충족시키는 후속 단계로 EFS 등의 파일 시스템 도입이 가능합니다.
 
-따라서, 정답은 4번 (AWS DataSync 에이전트 설치 및 DataSync 작업 사용)이 가장 적합합니다. 이 방법은 초기 안정적인 마이그레이션과 유지 비용 효율성을 동시에 고려한 접근법을 제공합니다. 필요에 따라 EFS와 같은 다른 AWS 파일 서비스로의 후속 전환도 용이합니다. 다른 정답으로는 직접 NFS 지원과 마이그레이션 후의 파일 시스템 관리 측면에서 비슷한 유연성을 제공하지 않는 옵션들이므로, 주어진 조건에서는 4번 외의 추가 선택은 적절하지 않습니다.
+  따라서, 정답은 4번 (AWS DataSync 에이전트 설치 및 DataSync 작업 사용)이 가장 적합합니다. 이 방법은 초기 안정적인 마이그레이션과 유지 비용 효율성을 동시에 고려한 접근법을 제공합니다. 필요에 따라 EFS와 같은 다른 AWS 파일 서비스로의 후속 전환도 용이합니다. 다른 정답으로는 직접 NFS 지원과 마이그레이션 후의 파일 시스템 관리 측면에서 비슷한 유연성을 제공하지 않는 옵션들이므로, 주어진 조건에서는 4번 외의 추가 선택은 적절하지 않습니다.
 
 618. A company wants to use Amazon FSx for Windows File Server on an Amazon EC2 instance with an SMB file share mounted as a volume in the us-east-1 region. The company has a recovery point objective (RPO) of 5 minutes for planned system maintenance or unplanned service outages. The company needs to replicate the file system to the us-west-2 region. The replicated data must not be deleted by any user for 5 years.
 Which solution meets these requirements?
@@ -1447,23 +1447,22 @@ Which solution meets these requirements?
 
 us-east-1 리전에 Amazon FSx for Windows File Server를 사용하여 데이터를 저장하고 us-west-2 리전에 복제해야 합니다. 또한 5년 동안 삭제되지 않도록 모든 복제된 데이터를 보존해야 합니다.
 
-이 요구 사항을 충족하려면 다중 AZ 배포 유형을 사용하여 높은 가용성과 내구성을 제공하는 us-east-1에 FSx for Windows File Server 파일 시스템을 생성해야 합니다. AWS Backup을 사용하면 일일 백업 계획을 생성하여 us-west-2에 백업을 복사할 수 있습니다.
+  이 요구 사항을 충족하려면 다중 AZ 배포 유형을 사용하여 높은 가용성과 내구성을 제공하는 us-east-1에 FSx for Windows File Server 파일 시스템을 생성해야 합니다. AWS Backup을 사용하면 일일 백업 계획을 생성하여 us-west-2에 백업을 복사할 수 있습니다.
 
-중요한 점은 us-west-2의 대상 볼트에 대해 규정 준수 모드로 AWS Backup Vault Lock을 구성하여 백업 데이터의 무단 삭제나 수정을 방지하는 것입니다. 규정 준수 모드는 최소 보존 기간을 5년으로 설정하여 필요한 기간 동안 데이터를 보존하도록 합니다.
+  중요한 점은 us-west-2의 대상 볼트에 대해 규정 준수 모드로 AWS Backup Vault Lock을 구성하여 백업 데이터의 무단 삭제나 수정을 방지하는 것입니다. 규정 준수 모드는 최소 보존 기간을 5년으로 설정하여 필요한 기간 동안 데이터를 보존하도록 합니다.
 
-따라서 다중 AZ 배포 유형을 사용하여 us-east-1에 FSx for Windows File Server 파일 시스템을 생성하고, AWS Backup을 사용하여 일일 백업 계획을 생성하여 us-west-2에 백업을 복사하고, us-west-2의 대상 볼트에 대해 규정 준수 모드로 AWS Backup Vault Lock을 구성하며, 최소 기간을 5년으로 구성하는 것이 적절한 솔루션입니다.
+  따라서 다중 AZ 배포 유형을 사용하여 us-east-1에 FSx for Windows File Server 파일 시스템을 생성하고, AWS Backup을 사용하여 일일 백업 계획을 생성하여 us-west-2에 백업을 복사하고, us-west-2의 대상 볼트에 대해 규정 준수 모드로 AWS Backup Vault Lock을 구성하며, 최소 기간을 5년으로 구성하는 것이 적절한 솔루션입니다.
 
-회사의 요구 사항을 충족하기 위해서는 다음과 같은 요소들이 필요합니다:
+  회사의 요구 사항을 충족하기 위해서는 다음과 같은 요소들이 필요합니다:
 
-안정적인 다중 AZ 배포로 인한 가용성 향상
-5분 이하의 RPO를 지원하는 꾸준한 백업 및 복제 시스템
-5년 동안 데이터 삭제 방지를 위한 엄격한 규정 준수
-해설:
+  안정적인 다중 AZ 배포로 인한 가용성 향상
+  5분 이하의 RPO를 지원하는 꾸준한 백업 및 복제 시스템
+  5년 동안 데이터 삭제 방지를 위한 엄격한 규정 준수
 
-다중 AZ 배포는 시스템의 가용성을 높이고 중대한 중단 시에도 복구를 용이하게 하므로, 단일 AZ 배포보다 다중 AZ 배포 유형 (보기 1, 4 제외)이 적합하다.
-백업 및 복제: AWS Backup을 활용해 us-east-1의 FSx 파일 시스템을 us-west-2로 일일 백업을 복사하는 것은 요구 사항을 만족시킨다. 모든 옵션이 이 부분을 충족한다.
-데이터 보존 정책: 5년 동안 데이터 삭제를 방지하기 위해 규정 준수 모드가 필요하며, 이는 보다 엄격한 데이터 보호를 제공한다. 거버넌스 모드보다 규정 준수 모드가 더 강력한 보호를 제공하므로, 옵션 3만이 모든 요구 사항을 충족한다.
-따라서, 정답은 3번입니다. 이 옵션은 다중 AZ 배포를 통해 가용성을 확보하고, AWS Backup과 규정 준수 모드의 AWS Backup Vault Lock을 통해 RPO와 데이터 보존 기간을 충족시킵니다.
+  다중 AZ 배포는 시스템의 가용성을 높이고 중대한 중단 시에도 복구를 용이하게 하므로, 단일 AZ 배포보다 다중 AZ 배포 유형 (보기 1, 4 제외)이 적합하다.
+  백업 및 복제: AWS Backup을 활용해 us-east-1의 FSx 파일 시스템을 us-west-2로 일일 백업을 복사하는 것은 요구 사항을 만족시킨다. 모든 옵션이 이 부분을 충족한다.
+  데이터 보존 정책: 5년 동안 데이터 삭제를 방지하기 위해 규정 준수 모드가 필요하며, 이는 보다 엄격한 데이터 보호를 제공한다. 거버넌스 모드보다 규정 준수 모드가 더 강력한 보호를 제공하므로, 옵션 3만이 모든 요구 사항을 충족한다.
+  따라서, 정답은 3번입니다. 이 옵션은 다중 AZ 배포를 통해 가용성을 확보하고, AWS Backup과 규정 준수 모드의 AWS Backup Vault Lock을 통해 RPO와 데이터 보존 기간을 충족시킵니다.
 
 619. A solutions architect is designing a security solution for a company that wants to provide individual AWS accounts to developers through AWS Organizations while maintaining standard security controls. Because individual developers will have root user-level access to their accounts, the solutions architect wants to ensure that the required AWS CloudTrail configurations applied to the new developer accounts are not modified.
 What actions can be taken to meet this requirement?
@@ -1472,14 +1471,14 @@ What actions can be taken to meet this requirement?
 ③ C. Create a Service Control Policy (SCP) that prohibits changes to CloudTrail and attach it to your developer account.
 ④ D. Create a service-linked role for CloudTrail with a policy condition that allows changes only to the Amazon Resource Name (ARN) of the master account.
 
-새 개발자 계정에 적용되는 필수 AWS CloudTrail 구성이 수정되지 않았는지 확인하려면 CloudTrail 변경을 금지하는 서비스 제어 정책(SCP)을 생성하고 이를 개발자 계정에 연결해야 합니다.这样하면 개발자가 자신의 계정에서 CloudTrail 설정을 수정할 수 없게 됩니다. 이것이 SCP의 목적이기 때문입니다. 따라서 서비스 제어 정책을 생성하고 이를 개발자 계정에 연결함으로써 솔루션 아키텍트의 요구 사항을 충족할 수 있습니다.
+  새 개발자 계정에 적용되는 필수 AWS CloudTrail 구성이 수정되지 않았는지 확인하려면 CloudTrail 변경을 금지하는 서비스 제어 정책(SCP)을 생성하고 이를 개발자 계정에 연결해야 합니다.这样하면 개발자가 자신의 계정에서 CloudTrail 설정을 수정할 수 없게 됩니다. 이것이 SCP의 목적이기 때문입니다. 따라서 서비스 제어 정책을 생성하고 이를 개발자 계정에 연결함으로써 솔루션 아키텍트의 요구 사항을 충족할 수 있습니다.
 
-정답은 3번입니다. 회사가 AWS Organizations를 통해 여러 개발자 계정을 관리하며, 각 개발자에게 루트 사용자 수준의 액세스 권한을 부여하면서도 CloudTrail 설정이 무단으로 변경되지 않도록 보호하려면, 서비스 제어 정책 (SCP)을 활용하는 것이 가장 효과적입니다.
+  정답은 3번입니다. 회사가 AWS Organizations를 통해 여러 개발자 계정을 관리하며, 각 개발자에게 루트 사용자 수준의 액세스 권한을 부여하면서도 CloudTrail 설정이 무단으로 변경되지 않도록 보호하려면, 서비스 제어 정책 (SCP)을 활용하는 것이 가장 효과적입니다.
 
-보기 1은 IAM 정책을 사용하나, 이는 개별 계정 수준에서만 적용되어 조직 전체의 일관된 제어를 제공하지 못합니다.
-보기 2는 개발자 계정 내에서 CloudTrail 추적을 설정하는 것으로, 변경 방지 기능이 포함되어 있지 않습니다.
-보기 4는 특정 ARN에 대한 접근 제한을 설정하지만, 서비스 제어와 조직 전체의 정책 적용 측면에서 SCP보다 제한적입니다.
-따라서 3번의 SCP는 AWS Organizations 수준에서 강력한 정책 통제를 제공하여, 조직 내 모든 개발자 계정에서 CloudTrail 설정이 무단으로 수정되지 않도록 강제할 수 있습니다. 이는 요구사항에 가장 적합한 접근 방식입니다.
+  보기 1은 IAM 정책을 사용하나, 이는 개별 계정 수준에서만 적용되어 조직 전체의 일관된 제어를 제공하지 못합니다.
+  보기 2는 개발자 계정 내에서 CloudTrail 추적을 설정하는 것으로, 변경 방지 기능이 포함되어 있지 않습니다.
+  보기 4는 특정 ARN에 대한 접근 제한을 설정하지만, 서비스 제어와 조직 전체의 정책 적용 측면에서 SCP보다 제한적입니다.
+  따라서 3번의 SCP는 AWS Organizations 수준에서 강력한 정책 통제를 제공하여, 조직 내 모든 개발자 계정에서 CloudTrail 설정이 무단으로 수정되지 않도록 강제할 수 있습니다. 이는 요구사항에 가장 적합한 접근 방식입니다.
 
 620. A company plans to deploy a business-critical application on the AWS Cloud. The application requires durable storage with consistent, low-latency performance . What type of storage should the solution architect recommend to meet these requirements?
 ① A. Instance Store Volume
@@ -1487,18 +1486,18 @@ What actions can be taken to meet this requirement?
 ③ C. Provisioned IOPS SSD Amazon Elastic Block Store (Amazon EBS) volume
 ④ D. Throughput-optimized HDD Amazon Elastic Block Store (Amazon EBS) volumes
 
-프로비저닝된 IOPS SSD — 미션 크리티컬하고 지연 시간이 짧으며 처리량이 높은 워크로드에 고성능을 제공합니다.
-처리량 최적화 HDD — 자주 액세스하고 처리량 집약적인 워크로드를 위해 설계된 저가형 HDD입니다.
+  프로비저닝된 IOPS SSD — 미션 크리티컬하고 지연 시간이 짧으며 처리량이 높은 워크로드에 고성능을 제공합니다.
+  처리량 최적화 HDD — 자주 액세스하고 처리량 집약적인 워크로드를 위해 설계된 저가형 HDD입니다.
 
-빌드업된 IOPS SSD 아마존 탄력적 블록 저장소 볼륨은 일관되고 지연 시간이 짧은 성능을 제공하여 비즈니스에 중요한 애플리케이션에 적합합니다. 이 유형의 저장소는 높은 성능과 내구성을 제공하므로 애플리케이션에 필요한 일관된 성능을 보장합니다. 또한 IOPS를 프로비저닝하여 특정 워크로드에 필요한 성능을 미리 설정할 수 있습니다. 따라서, 이 유형의 저장소가 최선의 선택입니다. 다른 옵션은 일관된 성능과 내구성을 제공하지 않거나, 추가 구성이 필요하여 적합하지 않습니다.
+  빌드업된 IOPS SSD 아마존 탄력적 블록 저장소 볼륨은 일관되고 지연 시간이 짧은 성능을 제공하여 비즈니스에 중요한 애플리케이션에 적합합니다. 이 유형의 저장소는 높은 성능과 내구성을 제공하므로 애플리케이션에 필요한 일관된 성능을 보장합니다. 또한 IOPS를 프로비저닝하여 특정 워크로드에 필요한 성능을 미리 설정할 수 있습니다. 따라서, 이 유형의 저장소가 최선의 선택입니다. 다른 옵션은 일관된 성능과 내구성을 제공하지 않거나, 추가 구성이 필요하여 적합하지 않습니다.
 
-해당 애플리케이션은 일관되고 짧은 지연 시간과 높은 내구성을 필요로 합니다. 각 옵션을 분석해보면:
+  해당 애플리케이션은 일관되고 짧은 지연 시간과 높은 내구성을 필요로 합니다. 각 옵션을 분석해보면:
 
-인스턴스 스토어 볼륨: 빠른 성능을 제공하지만, 내구성이 낮고 가용성 문제가 있을 수 있으며, 호스트 인스턴스의 수명에 종속됩니다.
-Memcached 클러스터용 Amazon ElastiCache: 주로 캐싱 용도로 사용되며, 데이터의 영구 저장보다는 빠른 읽기/쓰기 성능에 초점을 맞춥니다.
-프로비저닝된 IOPS SSD Amazon Elastic Block Store (EBS) 볼륨: SSD 기반으로 매우 낮은 지연 시간과 높은 IOPS(Input/Output Operations Per Second)를 제공하여 고성능과 내구성을 동시에 충족합니다.
-처리량 최적화 HDD EBS 볼륨: 비용 효율적이지만, SSD에 비해 지연 시간이 길고 IOPS가 낮아 성능 요구사항을 충족시키기 어렵습니다.
-특별시된 성능 요구사항, 특히 짧은 지연 시간과 내구성을 고려할 때, C. 프로비저닝된 IOPS SSD Amazon EBS 볼륨이 가장 적합합니다. 이를 통해 애플리케이션은 요구되는 고성능과 신뢰성을 확보할 수 있습니다.
+  인스턴스 스토어 볼륨: 빠른 성능을 제공하지만, 내구성이 낮고 가용성 문제가 있을 수 있으며, 호스트 인스턴스의 수명에 종속됩니다.
+  Memcached 클러스터용 Amazon ElastiCache: 주로 캐싱 용도로 사용되며, 데이터의 영구 저장보다는 빠른 읽기/쓰기 성능에 초점을 맞춥니다.
+  프로비저닝된 IOPS SSD Amazon Elastic Block Store (EBS) 볼륨: SSD 기반으로 매우 낮은 지연 시간과 높은 IOPS(Input/Output Operations Per Second)를 제공하여 고성능과 내구성을 동시에 충족합니다.
+  처리량 최적화 HDD EBS 볼륨: 비용 효율적이지만, SSD에 비해 지연 시간이 길고 IOPS가 낮아 성능 요구사항을 충족시키기 어렵습니다.
+  특별시된 성능 요구사항, 특히 짧은 지연 시간과 내구성을 고려할 때, C. 프로비저닝된 IOPS SSD Amazon EBS 볼륨이 가장 적합합니다. 이를 통해 애플리케이션은 요구되는 고성능과 신뢰성을 확보할 수 있습니다.
 
 621. An online photo-sharing company stores photos in an Amazon S3 bucket in the us-west-1 region. The company needs to store a copy of all new photos in the us-east-1 region. What solution can meet this requirement with minimal operational effort?
 ① A. Create a second S3 bucket in us-east-1. Use S3 cross-region replication to copy photos from the existing S3 bucket to the second S3 bucket.
@@ -1506,19 +1505,19 @@ Memcached 클러스터용 Amazon ElastiCache: 주로 캐싱 용도로 사용되�
 ③ C. Create a second S3 bucket in us-east-1 across multiple Availability Zones. Create an S3 lifecycle rule to store photos in the second S3 bucket.
 ④ D. Create a second S3 bucket in us-east-1. Configure S3 event notifications for object creation and update events to invoke an AWS Lambda function that copies photos from the existing S3 bucket to the second S3 bucket.
 
-S3 교차 리전 복제는 원본 버킷에 추가된 새 객체를 다른 리전의 대상 버킷에 자동으로 복사하는 작업을 처리합니다. 파일을 수동으로 복사하거나 Lambda 트리거를 설정할 필요 없이 새 사진을 지속적으로 복제합니다. CORS는 원본 간 액세스만 허용하며 객체를 복사하지 않습니다. 수명 주기 규칙 또는 Lambda 함수를 사용하려면 복사를 처리하기 위한 사용자 지정 코드와 논리가 필요합니다. S3 교차 리전 복제는 운영 오버헤드를 최소화하는 자동화된 복제를 제공합니다.
+  S3 교차 리전 복제는 원본 버킷에 추가된 새 객체를 다른 리전의 대상 버킷에 자동으로 복사하는 작업을 처리합니다. 파일을 수동으로 복사하거나 Lambda 트리거를 설정할 필요 없이 새 사진을 지속적으로 복제합니다. CORS는 원본 간 액세스만 허용하며 객체를 복사하지 않습니다. 수명 주기 규칙 또는 Lambda 함수를 사용하려면 복사를 처리하기 위한 사용자 지정 코드와 논리가 필요합니다. S3 교차 리전 복제는 운영 오버헤드를 최소화하는 자동화된 복제를 제공합니다.
 
-온라인 사진 공유 회사의 요구 사항을滿足하는 솔루션은 us-west-1 지역의 기존 S3 버킷에서 us-east-1 지역의 두 번째 S3 버킷으로 새 사진을 복사해야 합니다. 이 요구 사항을 최소한의 운영 노력으로 충족할 수 있는 솔루션은 us-east-1 지역에 두 번째 S3 버킷을 생성하고 S3 교차 리전 복제를 사용하여 기존 S3 버킷의 사진을 두 번째 S3 버킷으로 복사하는 것입니다. 이 방법은 자동으로 새 사진을 복사하여 추가적인 운영 노력이 필요 없습니다.
+  온라인 사진 공유 회사의 요구 사항을滿足하는 솔루션은 us-west-1 지역의 기존 S3 버킷에서 us-east-1 지역의 두 번째 S3 버킷으로 새 사진을 복사해야 합니다. 이 요구 사항을 최소한의 운영 노력으로 충족할 수 있는 솔루션은 us-east-1 지역에 두 번째 S3 버킷을 생성하고 S3 교차 리전 복제를 사용하여 기존 S3 버킷의 사진을 두 번째 S3 버킷으로 복사하는 것입니다. 이 방법은 자동으로 새 사진을 복사하여 추가적인 운영 노력이 필요 없습니다.
 
-정답은 1번입니다. 이 솔루션이 가장 효과적인 이유는 다음과 같습니다:
+  정답은 1번입니다. 이 솔루션이 가장 효과적인 이유는 다음과 같습니다:
 
-S3 교차 리전 복제: 옵션 A는 S3의 내장 기능인 교차 리전 복제를 활용합니다. 이를 통해 us-west-1에 있는 원본 S3 버킷의 새 객체가 생성되거나 업데이트될 때 자동으로 us-east-1의 복제본 버킷에 사본이 생성됩니다. 이 방법은 수동 개입 없이 실시간으로 데이터 일관성을 유지할 수 있습니다.
-다른 옵션들의 한계점:
+  S3 교차 리전 복제: 옵션 A는 S3의 내장 기능인 교차 리전 복제를 활용합니다. 이를 통해 us-west-1에 있는 원본 S3 버킷의 새 객체가 생성되거나 업데이트될 때 자동으로 us-east-1의 복제본 버킷에 사본이 생성됩니다. 이 방법은 수동 개입 없이 실시간으로 데이터 일관성을 유지할 수 있습니다.
+  다른 옵션들의 한계점:
 
-옵션 B: CORS는 클라이언트 간의 교차 도메인 요청을 처리하는 데 사용되며, 데이터의 자동 복제와는 무관합니다. 따라서 이 요구 사항을 충족시키지 못합니다.
-옵션 C: 가용 영역 내에서의 복제나 수명 주기 규칙은 데이터의 자동 교차 리전 복제를 지원하지 않습니다. 수명 주기 규칙은 주로 데이터의 보관 및 삭제 정책에 초점을 맞추고 있습니다.
-옵션 D: AWS Lambda와 이벤트 알림을 사용하는 방식은 작동하지만, 수동 구성과 람다 함수의 실행 오버헤드가 필요합니다. 이는 실시간 자동화와 최소한의 운영 노력이라는 요구사항에 비해 비효율적입니다.
-따라서, 최소한의 운영 노력과 자동화된 복제를 위해 옵션 1이 가장 적합합니다.
+  옵션 B: CORS는 클라이언트 간의 교차 도메인 요청을 처리하는 데 사용되며, 데이터의 자동 복제와는 무관합니다. 따라서 이 요구 사항을 충족시키지 못합니다.
+  옵션 C: 가용 영역 내에서의 복제나 수명 주기 규칙은 데이터의 자동 교차 리전 복제를 지원하지 않습니다. 수명 주기 규칙은 주로 데이터의 보관 및 삭제 정책에 초점을 맞추고 있습니다.
+  옵션 D: AWS Lambda와 이벤트 알림을 사용하는 방식은 작동하지만, 수동 구성과 람다 함수의 실행 오버헤드가 필요합니다. 이는 실시간 자동화와 최소한의 운영 노력이라는 요구사항에 비해 비효율적입니다.
+  따라서, 최소한의 운영 노력과 자동화된 복제를 위해 옵션 1이 가장 적합합니다.
 
 622. A company is building a new web application for its subscribers. The application consists of a static single page and a persistent database layer. During the first four hours of the morning, the application receives millions of users, but during the rest of the day, it receives only a few thousand users. The company's data architects have requested the ability to rapidly evolve the schema.
 Which solution meets these requirements and offers the greatest scalability? (Choose two.)
@@ -1531,19 +1530,19 @@ Which solution meets these requirements and offers the greatest scalability? (Ch
 A: 수요가 급격히 변하기 때문에 온디맨드 확장(수백만에서 수천)
 D: 단일 페이지 앱에 대한 대부분의 확장성 = S3 버킷을 원본으로 사용하는 Amazon CloudFront 배포
 
-정답은 4번입니다. 회사는 정적 단일 페이지와 영구 데이터베이스 계층으로 구성된 새로운 웹 애플리케이션을 만들고 있습니다. 애플리케이션의 사용자는 아침에만 수백만 명에 달하고 나머지 시간에는 수천 명에 불과합니다. 따라서, 데이터 설계자는 스키마를 빠르게 발전시킬 수 있는 기능을 요청했습니다. 이러한 요구 사항을 충족하고 가장 뛰어난 확장성을 제공하는 솔루션은 정적 콘텐츠를 Amazon S3 버킷에 배포하고 S3 버킷을 원본으로 사용하여 Amazon CloudFront 배포를 프로비저닝하는 것입니다. Amazon S3는 확장성이 뛰어난 정적 콘텐츠 저장소로, 높은 요청률에도 대응할 수 있습니다. Amazon CloudFront는 캐싱 및 콘텐츠 전송 네트워크 서비스로, 사용자에게 더 빠르고 안전하게 콘텐츠를 제공할 수 있습니다. 이러한 솔루션은 회사에 필요한 확장성과 성능을 제공할 수 있습니다.
+  정답은 4번입니다. 회사는 정적 단일 페이지와 영구 데이터베이스 계층으로 구성된 새로운 웹 애플리케이션을 만들고 있습니다. 애플리케이션의 사용자는 아침에만 수백만 명에 달하고 나머지 시간에는 수천 명에 불과합니다. 따라서, 데이터 설계자는 스키마를 빠르게 발전시킬 수 있는 기능을 요청했습니다. 이러한 요구 사항을 충족하고 가장 뛰어난 확장성을 제공하는 솔루션은 정적 콘텐츠를 Amazon S3 버킷에 배포하고 S3 버킷을 원본으로 사용하여 Amazon CloudFront 배포를 프로비저닝하는 것입니다. Amazon S3는 확장성이 뛰어난 정적 콘텐츠 저장소로, 높은 요청률에도 대응할 수 있습니다. Amazon CloudFront는 캐싱 및 콘텐츠 전송 네트워크 서비스로, 사용자에게 더 빠르고 안전하게 콘텐츠를 제공할 수 있습니다. 이러한 솔루션은 회사에 필요한 확장성과 성능을 제공할 수 있습니다.
 
-정답은 4번과 1번입니다.
+  정답은 4번과 1번입니다.
 
-4번 (Amazon S3 + CloudFront): 정적 단일 페이지 애플리케이션의 경우, Amazon S3는 저렴하고 확장성이 뛰어난 객체 스토리지를 제공하여 콘텐츠를 효율적으로 저장하고 관리할 수 있습니다. CloudFront는 S3 버킷을 원본으로 사용하여 글로벌 콘텐츠 배송 네트워크를 통해 사용자에게 빠르게 콘텐츠를 제공하여 성능을 극대화합니다. 특히 사용자 수 변동이 큰 상황에서 S3와 CloudFront의 자동 확장 기능은 비용 효율적인 솔루션을 제공합니다.
+  4번 (Amazon S3 + CloudFront): 정적 단일 페이지 애플리케이션의 경우, Amazon S3는 저렴하고 확장성이 뛰어난 객체 스토리지를 제공하여 콘텐츠를 효율적으로 저장하고 관리할 수 있습니다. CloudFront는 S3 버킷을 원본으로 사용하여 글로벌 콘텐츠 배송 네트워크를 통해 사용자에게 빠르게 콘텐츠를 제공하여 성능을 극대화합니다. 특히 사용자 수 변동이 큰 상황에서 S3와 CloudFront의 자동 확장 기능은 비용 효율적인 솔루션을 제공합니다.
 
-1번 (DynamoDB + 온디맨드 용량): 영구 데이터베이스 계층의 경우, DynamoDB는 NoSQL 데이터베이스로 스키마 유연성과 빠른 성능이 강점입니다. 온디맨드 용량 프로비저닝은 사용자 트래픽 변동에 따라 자동으로 리소스를 조절하여 아침 시간대의 수백만 명의 사용자 부하에도 안정적으로 대응합니다. 이는 데이터 설계자의 요구사항인 빠른 스키마 발전을 지원하며, 확장성을 최우선으로 고려하는 상황에 적합합니다.
+  1번 (DynamoDB + 온디맨드 용량): 영구 데이터베이스 계층의 경우, DynamoDB는 NoSQL 데이터베이스로 스키마 유연성과 빠른 성능이 강점입니다. 온디맨드 용량 프로비저닝은 사용자 트래픽 변동에 따라 자동으로 리소스를 조절하여 아침 시간대의 수백만 명의 사용자 부하에도 안정적으로 대응합니다. 이는 데이터 설계자의 요구사항인 빠른 스키마 발전을 지원하며, 확장성을 최우선으로 고려하는 상황에 적합합니다.
 
-2번, 3번, 5번은 적합하지 않습니다.
+  2번, 3번, 5번은 적합하지 않습니다.
 
-2번 (Amazon Aurora 서버리스): 서버리스 모드는 비용 효율적이지만, 데이터베이스 워크로드에 대한 예측 가능한 패턴이 없는 경우 비용 예측이 어려울 수 있습니다. 또한, 서버리스 모드는 장기적인 쿼리 실행 등 특정 작업에 제약이 있을 수 있습니다.
-3번 (DynamoDB Auto Scaling): Auto Scaling은 유용하지만, 온디맨드 용량 프로비저닝과 비교했을 때 예측 불가능한 트래픽 변동에 대한 즉각적인 대응력이 다소 떨어질 수 있습니다.
-5번 (EC2 + EFS): 정적 콘텐츠 배포에는 EC2 인스턴스와 EFS가 과도한 리소스 사용을 초래하며, 확장성과 비용 효율성 측면에서 S3와 CloudFront 조합보다 불리합니다.
+  2번 (Amazon Aurora 서버리스): 서버리스 모드는 비용 효율적이지만, 데이터베이스 워크로드에 대한 예측 가능한 패턴이 없는 경우 비용 예측이 어려울 수 있습니다. 또한, 서버리스 모드는 장기적인 쿼리 실행 등 특정 작업에 제약이 있을 수 있습니다.
+  3번 (DynamoDB Auto Scaling): Auto Scaling은 유용하지만, 온디맨드 용량 프로비저닝과 비교했을 때 예측 불가능한 트래픽 변동에 대한 즉각적인 대응력이 다소 떨어질 수 있습니다.
+  5번 (EC2 + EFS): 정적 콘텐츠 배포에는 EC2 인스턴스와 EFS가 과도한 리소스 사용을 초래하며, 확장성과 비용 효율성 측면에서 S3와 CloudFront 조합보다 불리합니다.
 
 623. The company uses Amazon API Gateway to manage a REST API accessed by third-party service providers. The company needs to protect the REST API from SQL injection and cross-site scripting attacks. What is the most operationally efficient solution to meet these requirements?
 ① A. Configure AWS Shield.
@@ -1551,17 +1550,17 @@ D: 단일 페이지 앱에 대한 대부분의 확장성 = S3 버킷을 원본�
 ③ C. Set up API Gateway using an Amazon CloudFront distribution. Configure AWS Shield on CloudFront.
 ④ D. Set up API Gateway with an Amazon CloudFront distribution. Configure AWS WAF on CloudFront.
 
-SQL 주입 및 교차 사이트 스크립팅 = WAF이므로 B 또는 D입니다. B와 D는 모두 유효한 옵션이지만 질문은 CloudFront가 실제로 필요함을 나타내지 않으므로 API 게이트웨이와 함께 WAF를 사용하면 됩니다.
+  SQL 주입 및 교차 사이트 스크립팅 = WAF이므로 B 또는 D입니다. B와 D는 모두 유효한 옵션이지만 질문은 CloudFront가 실제로 필요함을 나타내지 않으므로 API 게이트웨이와 함께 WAF를 사용하면 됩니다.
 
-AWS WAF를 구성하면 REST API를 SQL 주입 및 크로스 사이트 스크립팅 공격으로부터 보호할 수 있습니다. AWS WAF는 웹 애플리케이션 방화벽 서비스로,悪의적인 요청을 필터링하고 웹 애플리케이션을 보호하는 기능을 제공합니다. 다른 보안 서비스와 통합하여 사용할 수 있습니다. 따라서 AWS WAF를 구성하는 것이 가장 운영 효율적인 솔루션입니다. 다른 옵션은 부가적인 보안을 제공할 수 있으나, SQL 주입 및 크로스 사이트 스크립팅 공격으로부터 REST API를 보호하는 데에는 AWS WAF가 가장 적합합니다.
+  AWS WAF를 구성하면 REST API를 SQL 주입 및 크로스 사이트 스크립팅 공격으로부터 보호할 수 있습니다. AWS WAF는 웹 애플리케이션 방화벽 서비스로,悪의적인 요청을 필터링하고 웹 애플리케이션을 보호하는 기능을 제공합니다. 다른 보안 서비스와 통합하여 사용할 수 있습니다. 따라서 AWS WAF를 구성하는 것이 가장 운영 효율적인 솔루션입니다. 다른 옵션은 부가적인 보안을 제공할 수 있으나, SQL 주입 및 크로스 사이트 스크립팅 공격으로부터 REST API를 보호하는 데에는 AWS WAF가 가장 적합합니다.
 
-정답은 B입니다. AWS WAF(Web Application Firewall)를 구성하는 것이 가장 효과적입니다.
+  정답은 B입니다. AWS WAF(Web Application Firewall)를 구성하는 것이 가장 효과적입니다.
 
-SQL 주입과 크로스 사이트 스크립팅(XSS) 공격을 방어하기 위해서는 웹 애플리케이션 수준에서의 세밀한 트래픽 필터링이 필요합니다. AWS WAF는 이러한 특정 유형의 공격을 차단하도록 설계된 규칙을 적용할 수 있는 기능을 제공합니다.
+  SQL 주입과 크로스 사이트 스크립팅(XSS) 공격을 방어하기 위해서는 웹 애플리케이션 수준에서의 세밀한 트래픽 필터링이 필요합니다. AWS WAF는 이러한 특정 유형의 공격을 차단하도록 설계된 규칙을 적용할 수 있는 기능을 제공합니다.
 
-AWS Shield는 주로 DDoS 공격에 대한 보호를 제공하므로, SQL 주입이나 XSS와 같은 애플리케이션 수준의 위협에는 적합하지 않습니다.
-CloudFront와의 조합 (C와 D 옵션)은 캐싱 및 콘텐츠 배포의 효율성을 높일 수 있지만, 기본적으로 애플리케이션 수준의 보안 위협을 직접적으로 방어하는 기능은 제공하지 않습니다. CloudFront 자체에는 이러한 보안 규칙이 내장되어 있지 않기 때문에, AWS WAF를 CloudFront와 함께 사용하는 D 옵션도 부분적으로 올바르지만, 가장 직접적이고 효과적인 해결책은 AWS WAF를 API Gateway 바로 앞에 직접 적용하는 것입니다.
-따라서, SQL 주입과 XSS 공격으로부터 REST API를 효과적으로 보호하려면 AWS WAF를 직접 구성하는 것이 가장 적합합니다.
+  AWS Shield는 주로 DDoS 공격에 대한 보호를 제공하므로, SQL 주입이나 XSS와 같은 애플리케이션 수준의 위협에는 적합하지 않습니다.
+  CloudFront와의 조합 (C와 D 옵션)은 캐싱 및 콘텐츠 배포의 효율성을 높일 수 있지만, 기본적으로 애플리케이션 수준의 보안 위협을 직접적으로 방어하는 기능은 제공하지 않습니다. CloudFront 자체에는 이러한 보안 규칙이 내장되어 있지 않기 때문에, AWS WAF를 CloudFront와 함께 사용하는 D 옵션도 부분적으로 올바르지만, 가장 직접적이고 효과적인 해결책은 AWS WAF를 API Gateway 바로 앞에 직접 적용하는 것입니다.
+  따라서, SQL 주입과 XSS 공격으로부터 REST API를 효과적으로 보호하려면 AWS WAF를 직접 구성하는 것이 가장 적합합니다.
 
 624. A company wants to provide users with access to AWS resources. The company has 1,500 users and manages access to on-premises resources through Active Directory user groups on the company network. However, the company doesn't want users to have to maintain different identities to access resources. The solutions architect needs to manage user access to AWS resources while maintaining access to on-premises resources.
 What should the solutions architect do to meet these requirements?
@@ -1570,23 +1569,23 @@ What should the solutions architect do to meet these requirements?
 ③ C. Define cross-account roles with appropriate policies attached. Map the roles to Active Directory groups.
 ④ D. Configure a federation based on Security Assertion Markup Language (SAML) 2.0. Create roles with appropriate policies attached. Map the roles to Active Directory groups.
 
-SAML 통합을 통해 Amazon Cognito를 사용하세요. (SAML)은 자격 증명 공급자(이 경우 온프레미스 AD)가 사용자를 인증하고 사용자에 대한 자격 증명 및 보안 정보를 서비스 공급자(이 경우 AWS)에 전달할 수 있도록 허용하는 개방형 페더레이션 표준입니다
+  SAML 통합을 통해 Amazon Cognito를 사용하세요. (SAML)은 자격 증명 공급자(이 경우 온프레미스 AD)가 사용자를 인증하고 사용자에 대한 자격 증명 및 보안 정보를 서비스 공급자(이 경우 AWS)에 전달할 수 있도록 허용하는 개방형 페더레이션 표준입니다
 
-회사에서는 온프레미스 리소스에 대한 액세스를 유지하면서 AWS 리소스에 대한 사용자 액세스를 관리하려고 합니다. 이를 위해서는 사용자가 리소스에 액세스하기 위해 다른 ID를 유지하지 않도록 해야 합니다.
+  회사에서는 온프레미스 리소스에 대한 액세스를 유지하면서 AWS 리소스에 대한 사용자 액세스를 관리하려고 합니다. 이를 위해서는 사용자가 리소스에 액세스하기 위해 다른 ID를 유지하지 않도록 해야 합니다.
 
-솔루션 설계자는 SAML 2.0 기반 페더레이션을 구성하여 Active Directory 사용자 그룹을 AWS 리소스와 통합할 수 있습니다. 이를 통해 Active Directory를 통해 액세스 권한을 관리할 수 있습니다.
+  솔루션 설계자는 SAML 2.0 기반 페더레이션을 구성하여 Active Directory 사용자 그룹을 AWS 리소스와 통합할 수 있습니다. 이를 통해 Active Directory를 통해 액세스 권한을 관리할 수 있습니다.
 
-즉, 사용자는 온프레미스 리소스에 액세스하는 것과 동일한 자격 증명을 사용하여 AWS 리소스에 액세스할 수 있습니다. 적절한 정책이 연결된 역할을 생성하여 사용자 그룹에 매핑하면 사용자가 온프레미스 리소스와 AWS 리소스에 액세스할 수 있도록 할 수 있습니다.
+  즉, 사용자는 온프레미스 리소스에 액세스하는 것과 동일한 자격 증명을 사용하여 AWS 리소스에 액세스할 수 있습니다. 적절한 정책이 연결된 역할을 생성하여 사용자 그룹에 매핑하면 사용자가 온프레미스 리소스와 AWS 리소스에 액세스할 수 있도록 할 수 있습니다.
 
-따라서 솔루션 설계자는 SAML 2.0 기반 페더레이션을 구성하고 적절한 정책이 연결된 역할을 생성하여 Active Directory 그룹에 매핑해야 합니다.
+  따라서 솔루션 설계자는 SAML 2.0 기반 페더레이션을 구성하고 적절한 정책이 연결된 역할을 생성하여 Active Directory 그룹에 매핑해야 합니다.
 
-정답은 4번입니다. 이 솔루션은 온프레미스 Active Directory와 AWS 간의 원활한 싱글 사인온(SSO) 환경을 구축하는 데 적합합니다. 구체적으로 설명하면:
+  정답은 4번입니다. 이 솔루션은 온프레미스 Active Directory와 AWS 간의 원활한 싱글 사인온(SSO) 환경을 구축하는 데 적합합니다. 구체적으로 
 
-SAML 2.0 기반 페더레이션을 사용하면, 회사의 온프레미스 Active Directory와 AWS 간에 보안 인증 정보를 교환할 수 있습니다. 이를 통해 사용자들은 이미 Active Directory를 통해 인증받은 상태에서 추가적인 로그인 없이 AWS 리소스에 안전하게 접근할 수 있습니다.
+  SAML 2.0 기반 페더레이션을 사용하면, 회사의 온프레미스 Active Directory와 AWS 간에 보안 인증 정보를 교환할 수 있습니다. 이를 통해 사용자들은 이미 Active Directory를 통해 인증받은 상태에서 추가적인 로그인 없이 AWS 리소스에 안전하게 접근할 수 있습니다.
 
-역할 생성 및 그룹 매핑: 각 Active Directory 그룹에 맞는 AWS 역할을 생성하고, 이 역할들에 필요한 액세스 권한을 부여하는 정책을 연결합니다. 그런 다음, Active Directory 그룹과 AWS 역할을 매핑하여 해당 그룹의 모든 사용자가 자동으로 해당 역할의 권한을 갖게 됩니다.
+  역할 생성 및 그룹 매핑: 각 Active Directory 그룹에 맞는 AWS 역할을 생성하고, 이 역할들에 필요한 액세스 권한을 부여하는 정책을 연결합니다. 그런 다음, Active Directory 그룹과 AWS 역할을 매핑하여 해당 그룹의 모든 사용자가 자동으로 해당 역할의 권한을 갖게 됩니다.
 
-이 방법은 사용자가 별도의 AWS ID를 관리할 필요 없이 기존의 온프레미스 인증 시스템을 활용할 수 있게 해주므로, 회사의 요구 사항을 완벽하게 충족시킵니다. 다른 옵션들은 부분적인 해결책을 제공하거나 복잡성을 증가시킬 수 있어 적합하지 않습니다.
+  이 방법은 사용자가 별도의 AWS ID를 관리할 필요 없이 기존의 온프레미스 인증 시스템을 활용할 수 있게 해주므로, 회사의 요구 사항을 완벽하게 충족시킵니다. 다른 옵션들은 부분적인 해결책을 제공하거나 복잡성을 증가시킬 수 있어 적합하지 않습니다.
 
 625. A company hosts its website behind multiple Application Load Balancers. The company has varying distribution rights for content globally. The solution architect must ensure that users receive the correct content without violating distribution rights. What configuration should the solution architect choose to meet these requirements?
 ① A. Configure Amazon CloudFront with AWS WAF.
@@ -1594,13 +1593,13 @@ SAML 2.0 기반 페더레이션을 사용하면, 회사의 온프레미스 Activ
 ③ C. Configuring Amazon Route 53 with a Geolocation Policy
 ④ D. Configuring Amazon Route 53 with a Geoproximity Routing Policy
 
-지리적 위치 정책으로 Amazon Route 53을 구성합니다. 지리적 위치 정책으로 Amazon Route 53을 구성함으로써 솔루션 아키텍트는 지리적 위치에 따라 사용자를 다양한 Application Load Balancer로 안내할 수 있습니다. 이를 통해 회사는 배포권을 침해하지 않고 다양한 지역의 사용자에게 올바른 콘텐츠를 제공할 수 있습니다. 지리적 위치 라우팅 정책을 사용하면 사용자의 지리적 위치를 기반으로 트래픽을 라우팅하여 사용자가 위치를 기반으로 가장 가깝거나 가장 적절한 엔드포인트로 연결되도록 할 수 있습니다. 이 솔루션은 콘텐츠 배포 권한이 지역에 따라 다르며 이에 따라 시행되어야 하는 시나리오에 적합합니다.
+  지리적 위치 정책으로 Amazon Route 53을 구성합니다. 지리적 위치 정책으로 Amazon Route 53을 구성함으로써 솔루션 아키텍트는 지리적 위치에 따라 사용자를 다양한 Application Load Balancer로 안내할 수 있습니다. 이를 통해 회사는 배포권을 침해하지 않고 다양한 지역의 사용자에게 올바른 콘텐츠를 제공할 수 있습니다. 지리적 위치 라우팅 정책을 사용하면 사용자의 지리적 위치를 기반으로 트래픽을 라우팅하여 사용자가 위치를 기반으로 가장 가깝거나 가장 적절한 엔드포인트로 연결되도록 할 수 있습니다. 이 솔루션은 콘텐츠 배포 권한이 지역에 따라 다르며 이에 따라 시행되어야 하는 시나리오에 적합합니다.
 
-콘텐츠에 대한 다양한 배포권한을 지키면서 사용자에게 올바른 콘텐츠를 제공하기 위해서는 사용자들이 접근하는 지리적인 위치를 기준으로 콘텐츠를 제공해야 합니다. 이를 위해서는 지리적인 위치에 따라 콘텐츠를 분기해 줄 수 있는 기능이 필요합니다.
+  콘텐츠에 대한 다양한 배포권한을 지키면서 사용자에게 올바른 콘텐츠를 제공하기 위해서는 사용자들이 접근하는 지리적인 위치를 기준으로 콘텐츠를 제공해야 합니다. 이를 위해서는 지리적인 위치에 따라 콘텐츠를 분기해 줄 수 있는 기능이 필요합니다.
 
-Amazon Route 53의 지리적 위치 정책을 사용하면 사용자의 지리적 위치에 따라 다르게 콘텐츠를 제공할 수 있습니다. 따라서, 지리적으로 다른 위치에서 접근하는 사용자들에게 각기 다른 콘텐츠를 제공하여 배포 권한을 지킬 수 있습니다.
+  Amazon Route 53의 지리적 위치 정책을 사용하면 사용자의 지리적 위치에 따라 다르게 콘텐츠를 제공할 수 있습니다. 따라서, 지리적으로 다른 위치에서 접근하는 사용자들에게 각기 다른 콘텐츠를 제공하여 배포 권한을 지킬 수 있습니다.
 
-따라서, 이러한 요구 사항을 충족하기 위해 지리적 위치 정책으로 Amazon Route 53를 구성하는 것이 적절합니다.
+  따라서, 이러한 요구 사항을 충족하기 위해 지리적 위치 정책으로 Amazon Route 53를 구성하는 것이 적절합니다.
 
 626. A company stores its data on-premises. The volume of data is growing beyond the company's available capacity. The company wants to migrate the data from its on-premises location to an Amazon S3 bucket . The company needs a solution that automatically verifies the integrity of the data after transfer. Which solution meets these requirements?
 ① A. Order an AWS Snowball Edge device. Configure the Snowball Edge device to perform online data transfers to S3 buckets.
@@ -1608,16 +1607,16 @@ Amazon Route 53의 지리적 위치 정책을 사용하면 사용자의 지리�
 ③ C. Create an Amazon S3 File Gateway on-premises and configure the S3 File Gateway to perform online data transfers to an S3 bucket.
 ④ D. Configure an accelerator for Amazon S3 Transfer Acceleration on-premises. Configure the accelerator to perform online data transfers to S3 buckets.
 
-전송 중에 AWS DataSync는 항상 데이터의 무결성을 확인하지만 다음 옵션을 사용하여 이 확인이 수행되는 방법과 시기를 지정할 수 있습니다. 전송된 데이터만 확인(권장) - DataSync는 소스에서 전송된 파일 및 메타데이터의 체크섬을 계산합니다. 위치.
+  전송 중에 AWS DataSync는 항상 데이터의 무결성을 확인하지만 다음 옵션을 사용하여 이 확인이 수행되는 방법과 시기를 지정할 수 있습니다. 전송된 데이터만 확인(권장) - DataSync는 소스에서 전송된 파일 및 메타데이터의 체크섬을 계산합니다. 위치.
 
-회사의 요구 사항은 데이터 마이그레이션의 효율성과 전송 후 데이터 무결성 검증에 있다. AWS DataSync (보기 2)는 온프레미스 시스템과 클라우드 스토리지 간의 안정적이고 자동화된 데이터 전송을 지원한다. 특히, DataSync는 전송 프로세스 내에서 데이터의 일관성과 무결성을 자동으로 검증하는 기능을 제공한다. 이는 회사가 필요로 하는 핵심 요소이다.
+  회사의 요구 사항은 데이터 마이그레이션의 효율성과 전송 후 데이터 무결성 검증에 있다. AWS DataSync (보기 2)는 온프레미스 시스템과 클라우드 스토리지 간의 안정적이고 자동화된 데이터 전송을 지원한다. 특히, DataSync는 전송 프로세스 내에서 데이터의 일관성과 무결성을 자동으로 검증하는 기능을 제공한다. 이는 회사가 필요로 하는 핵심 요소이다.
 
-다른 옵션들을 살펴보면:
+  다른 옵션들을 살펴보면:
 
-AWS Snowball Edge (보기 1)는 대용량 데이터의 물리적 운송에 효과적이나, 주로 오프라인 환경에서 활용되고 자동 무결성 검증 기능은 제한적일 수 있다.
-S3 파일 게이트웨이 (보기 3)는 주로 가상화된 환경에서 파일 시스템 인터페이스로 S3에 액세스할 수 있게 해주지만, 대규모 마이그레이션 시의 자동 무결성 검증 기능은 포함되지 않는다.
-S3 Transfer Acceleration (보기 4)는 주로 전송 속도 향상에 초점을 맞추고 있어, 데이터 무결성 검증을 위한 내장 기능은 제공하지 않는다.
-따라서, 데이터의 자동 무결성 검증을 포함한 원활한 온라인 마이그레이션을 위해 가장 적합한 솔루션은 AWS DataSync (보기 2)이다.
+  AWS Snowball Edge (보기 1)는 대용량 데이터의 물리적 운송에 효과적이나, 주로 오프라인 환경에서 활용되고 자동 무결성 검증 기능은 제한적일 수 있다.
+  S3 파일 게이트웨이 (보기 3)는 주로 가상화된 환경에서 파일 시스템 인터페이스로 S3에 액세스할 수 있게 해주지만, 대규모 마이그레이션 시의 자동 무결성 검증 기능은 포함되지 않는다.
+  S3 Transfer Acceleration (보기 4)는 주로 전송 속도 향상에 초점을 맞추고 있어, 데이터 무결성 검증을 위한 내장 기능은 제공하지 않는다.
+  따라서, 데이터의 자동 무결성 검증을 포함한 원활한 온라인 마이그레이션을 위해 가장 적합한 솔루션은 AWS DataSync (보기 2)이다.
 
 627. A company is planning to migrate two DNS servers to AWS. The servers host approximately 200 zones and receive an average of 1 million requests per day. The company wants to maximize availability while minimizing the operational overhead associated with managing the two servers. What should the solution architect recommend to meet these requirements?
 ① A. Create 200 new hosted zones from the Amazon Route 53 console import zone file.
@@ -1625,25 +1624,25 @@ S3 Transfer Acceleration (보기 4)는 주로 전송 속도 향상에 초점을 
 ③ C. Migrate servers to AWS using AWS Server Migration Service (AWS SMS). Configure Amazon CloudWatch alarms and notifications to notify your company of any downtime.
 ④ D. Launch Amazon EC2 instances in an Auto Scaling group across two Availability Zones. Import the zone file. Set the desired capacity for the Auto Scaling group to 1 and the maximum capacity to 3. Configure a scaling alarm to adjust based on CPU utilization.
 
-회사에서 두 개의 DNS 서버를 AWS로 마이그레이션하려는 경우를 생각해 보자. 두 서버의 관리와 관련된 운영 오버헤드를 최소화하면서 가용성을 극대화하는 것이 목표다.
+  회사에서 두 개의 DNS 서버를 AWS로 마이그레이션하려는 경우를 생각해 보자. 두 서버의 관리와 관련된 운영 오버헤드를 최소화하면서 가용성을 극대화하는 것이 목표다.
 
-이러한 요구 사항을 충족하기 위해 Amazon Route 53을 사용하는 것이 좋다. Amazon Route 53은 클라우드 기반의 Domain Name System(DNS) 서비스로, 높은 가용성과 확장성을 제공한다.
+  이러한 요구 사항을 충족하기 위해 Amazon Route 53을 사용하는 것이 좋다. Amazon Route 53은 클라우드 기반의 Domain Name System(DNS) 서비스로, 높은 가용성과 확장성을 제공한다.
 
-Amazon Route 53을 사용하면 200개의 새로운 호스팅 영역을 생성할 수 있다. 이는 회사의 DNS 요구 사항을 충족하는 데 도움이 되며, 운영 오버헤드를 최소화할 수 있다. 또한, Amazon Route 53은 자동으로 트래픽을 여러 영역에 분산시켜 가용성을 극대화할 수 있다.
+  Amazon Route 53을 사용하면 200개의 새로운 호스팅 영역을 생성할 수 있다. 이는 회사의 DNS 요구 사항을 충족하는 데 도움이 되며, 운영 오버헤드를 최소화할 수 있다. 또한, Amazon Route 53은 자동으로 트래픽을 여러 영역에 분산시켜 가용성을 극대화할 수 있다.
 
-따라서, 정답은 1번인 Amazon Route 53 콘솔에서 200개의 새로운 호스팅 영역을 생성하는 것이다. 다른 옵션들은 DNS 서버를 마이그레이션하고 운영 오버헤드를 최소화하는 데 필요한 요구 사항을 충족하지 않는다.
+  따라서, 정답은 1번인 Amazon Route 53 콘솔에서 200개의 새로운 호스팅 영역을 생성하는 것이다. 다른 옵션들은 DNS 서버를 마이그레이션하고 운영 오버헤드를 최소화하는 데 필요한 요구 사항을 충족하지 않는다.
 
-정답은 1번입니다.
+  정답은 1번입니다.
 
-회사의 주요 목표는 DNS 서버의 운영 오버헤드를 줄이고 가용성을 극대화하는 것입니다.
+  회사의 주요 목표는 DNS 서버의 운영 오버헤드를 줄이고 가용성을 극대화하는 것입니다.
 
-1번 옵션은 Amazon Route 53을 활용하는 방법입니다. Route 53은 AWS의 고성능 DNS 서비스로, 자동 복제 및 고가용성을 제공하여 관리 부담을 최소화하고 안정성을 높입니다. 200개의 도메인을 효율적으로 관리하고 높은 요청 처리량을 지원할 수 있습니다. 또한, Route 53 자체적으로 레드언던시 기능을 갖추고 있어 별도의 복잡한 설정 없이도 높은 가용성을 보장합니다.
-다른 옵션들은 문제 상황에 적합하지 않습니다.
+  1번 옵션은 Amazon Route 53을 활용하는 방법입니다. Route 53은 AWS의 고성능 DNS 서비스로, 자동 복제 및 고가용성을 제공하여 관리 부담을 최소화하고 안정성을 높입니다. 200개의 도메인을 효율적으로 관리하고 높은 요청 처리량을 지원할 수 있습니다. 또한, Route 53 자체적으로 레드언던시 기능을 갖추고 있어 별도의 복잡한 설정 없이도 높은 가용성을 보장합니다.
+  다른 옵션들은 문제 상황에 적합하지 않습니다.
 
-2번은 단일 EC2 인스턴스에 의존하여 가용성을 확보하기 어렵고, 가동 중지 시간 발생 가능성이 높습니다.
-3번은 서버 마이그레이션 솔루션인 AWS SMS를 사용하는 것이지만, DNS 서비스 자체의 고가용성과 관리 효율성을 직접적으로 해결하지 않습니다.
-4번은 EC2 인스턴스 기반으로 DNS 서비스를 구현하려는 접근으로, 운영 오버헤드가 증가하고 Route 53 대비 가용성 및 확장성 측면에서 불리합니다.
-따라서, 최적의 솔루션은 AWS의 전문 DNS 서비스인 Amazon Route 53을 활용하는 1번 옵션입니다.
+  2번은 단일 EC2 인스턴스에 의존하여 가용성을 확보하기 어렵고, 가동 중지 시간 발생 가능성이 높습니다.
+  3번은 서버 마이그레이션 솔루션인 AWS SMS를 사용하는 것이지만, DNS 서비스 자체의 고가용성과 관리 효율성을 직접적으로 해결하지 않습니다.
+  4번은 EC2 인스턴스 기반으로 DNS 서비스를 구현하려는 접근으로, 운영 오버헤드가 증가하고 Route 53 대비 가용성 및 확장성 측면에서 불리합니다.
+  따라서, 최적의 솔루션은 AWS의 전문 DNS 서비스인 Amazon Route 53을 활용하는 1번 옵션입니다.
 
 628. A global company runs applications across multiple AWS accounts in AWS Organizations. The company's applications use multipart uploads to upload data to multiple Amazon S3 buckets in AWS Regions. The company wants to report on incomplete multipart uploads for cost compliance purposes.
 What solution can meet these requirements with minimal operational overhead?
@@ -1652,8 +1651,8 @@ What solution can meet these requirements with minimal operational overhead?
 ③ C. Configure the S3 storage lens to report the number of incomplete multipart upload objects.
 ④ D. Create an S3 multi-region access point to report the number of incomplete multipart upload objects.
 
-3번. 불완전한 멀티파트 업로드 객체 수를 보고하도록 S3 스토리지 렌즈를 구성합니다.
-S3 스토리지 렌즈는 S3 버킷의 불완전한 멀티파트 업로드를 분석하기 위한 4가지 비용 효율성 지표를 제공합니다. 이러한 지표는 무료이며 모든 S3 Storage Lens 대시보드에 대해 자동으로 구성됩니다. 불완전 멀티파트 업로드 스토리지 바이트 – 불완전 멀티파트 업로드가 포함된 범위 내 총 바이트 % 불완전 MPU 바이트 – 불완전 멀티파트 업로드의 결과인 범위 내 바이트 비율 불완전 멀티파트 업로드 객체 수 – 불완전 멀티파트 업로드인 범위 내 객체 수 불완전한 MPU 객체 % – 범위 내에서 불완전한 멀티파트 업로드인 객체의 비율
+  3번. 불완전한 멀티파트 업로드 객체 수를 보고하도록 S3 스토리지 렌즈를 구성합니다.
+  S3 스토리지 렌즈는 S3 버킷의 불완전한 멀티파트 업로드를 분석하기 위한 4가지 비용 효율성 지표를 제공합니다. 이러한 지표는 무료이며 모든 S3 Storage Lens 대시보드에 대해 자동으로 구성됩니다. 불완전 멀티파트 업로드 스토리지 바이트 – 불완전 멀티파트 업로드가 포함된 범위 내 총 바이트 % 불완전 MPU 바이트 – 불완전 멀티파트 업로드의 결과인 범위 내 바이트 비율 불완전 멀티파트 업로드 객체 수 – 불완전 멀티파트 업로드인 범위 내 객체 수 불완전한 MPU 객체 % – 범위 내에서 불완전한 멀티파트 업로드인 객체의 비율
 
 629. A company runs a production database on Amazon RDS for MySQL. The company wants to upgrade the database version to comply with security regulations. Because the database contains sensitive data, the company wants a quick solution that allows them to upgrade and test features without data loss.
 What solution can meet these requirements with minimal operational overhead?
@@ -1662,18 +1661,18 @@ What solution can meet these requirements with minimal operational overhead?
 ③ C. Replicate data to the new, upgraded version of Amazon RDS for MySQL using AWS Database Migration Service (AWS DMS).
 ④ D. Deploy and test production changes using Amazon RDS blue/green deployments.
 
-정답은 4. Amazon RDS 블루/그린 배포입니다.
+  정답은 4. Amazon RDS 블루/그린 배포입니다.
 
-블루/그린 배포는 최소 가동 중단과 위험 감소를 위해 프로덕션 환경을 복제하는 방법입니다. MySQL 버전 업그레이드 시에는 다음과 같은 이점이 있습니다:
+  블루/그린 배포는 최소 가동 중단과 위험 감소를 위해 프로덕션 환경을 복제하는 방법입니다. MySQL 버전 업그레이드 시에는 다음과 같은 이점이 있습니다:
 
-데이터 손실 방지: 기존 프로덕션 데이터베이스(블루 환경)를 유지한 채, 새로운 환경(그린 환경)에서 업그레이드된 버전으로 데이터베이스를 설정할 수 있습니다.
-빠른 테스트: 업그레이드된 버전에서의 기능 테스트를 그린 환경에서 진행 가능하여 실제 프로덕션에 영향을 주지 않고 검증할 수 있습니다.
-원활한 전환: 모든 테스트가 완료되면 트래픽을 그린 환경으로 스위칭하여 운영 오버헤드를 최소화합니다.
-다른 옵션들과 비교했을 때,
+  데이터 손실 방지: 기존 프로덕션 데이터베이스(블루 환경)를 유지한 채, 새로운 환경(그린 환경)에서 업그레이드된 버전으로 데이터베이스를 설정할 수 있습니다.
+  빠른 테스트: 업그레이드된 버전에서의 기능 테스트를 그린 환경에서 진행 가능하여 실제 프로덕션에 영향을 주지 않고 검증할 수 있습니다.
+  원활한 전환: 모든 테스트가 완료되면 트래픽을 그린 환경으로 스위칭하여 운영 오버헤드를 최소화합니다.
+  다른 옵션들과 비교했을 때,
 
-옵션 1과 2는 스냅샷이나 기본 백업 복원을 사용하므로 업그레이드 과정에서 일시적인 중단이 발생하거나 데이터 일관성 문제가 생길 위험이 있습니다.
-옵션 3 (AWS DMS)는 데이터 복제에 효과적이지만, 데이터베이스 버전 업그레이드 자체의 관리와 테스트 환경 구축에는 추가적인 복잡성이 따르게 됩니다.
-따라서 데이터 손실 없이 안전하고 빠르게 업그레이드와 테스트를 진행할 수 있는 최적의 선택은 Amazon RDS 블루/그린 배포입니다.
+  옵션 1과 2는 스냅샷이나 기본 백업 복원을 사용하므로 업그레이드 과정에서 일시적인 중단이 발생하거나 데이터 일관성 문제가 생길 위험이 있습니다.
+  옵션 3 (AWS DMS)는 데이터 복제에 효과적이지만, 데이터베이스 버전 업그레이드 자체의 관리와 테스트 환경 구축에는 추가적인 복잡성이 따르게 됩니다.
+  따라서 데이터 손실 없이 안전하고 빠르게 업그레이드와 테스트를 진행할 수 있는 최적의 선택은 Amazon RDS 블루/그린 배포입니다.
 
 630. A solution architect is creating a data processing job that runs once a day and can take up to two hours to complete . If the job is interrupted, it must be restarted from the beginning. How can the solution architect solve this problem in the most cost-effective way?
 ① A. Create a script that runs locally on an Amazon EC2 Reserved Instance triggered by a cron job.
@@ -1681,24 +1680,24 @@ What solution can meet these requirements with minimal operational overhead?
 ③ C. Use Amazon Elastic Container Service (Amazon ECS) Fargate tasks triggered by Amazon EventBridge scheduled events.
 ④ D. Use Amazon Elastic Container Service (Amazon ECS) tasks running on Amazon EC2 that are triggered by Amazon EventBridge scheduled events.
 
-솔루션 설계자는 비용 효과적인 방식으로 데이터 처리 작업을 수행해야 한다. 작업이 하루에 한 번 실행되고 최대 2시간이 걸릴 수 있으며 중단되면 처음부터 다시 시작해야 한다.
+  솔루션 설계자는 비용 효과적인 방식으로 데이터 처리 작업을 수행해야 한다. 작업이 하루에 한 번 실행되고 최대 2시간이 걸릴 수 있으며 중단되면 처음부터 다시 시작해야 한다.
 
-Amazon Elastic Container Service(Amazon ECS) Fargate 작업을 사용하면 서버 관리 부담 없이 작업을 실행할 수 있다. 또한 Fargate를 사용하면 작업이 완료된 후에 자동으로 종료되므로 비용을 절약할 수 있다.
+  Amazon Elastic Container Service(Amazon ECS) Fargate 작업을 사용하면 서버 관리 부담 없이 작업을 실행할 수 있다. 또한 Fargate를 사용하면 작업이 완료된 후에 자동으로 종료되므로 비용을 절약할 수 있다.
 
-이 경우 Amazon EventBridge 예약 이벤트에 의해 트리거되는 Amazon ECS Fargate 작업을 사용하는 것이 가장 비용 효과적인 방식이다. 이 방법을 사용하면 작업을 실행하는 데 필요한 인프라를 관리할 필요가 없으며, 작업이 완료된 후에 자동으로 종료되므로 비용을 절약할 수 있다.
+  이 경우 Amazon EventBridge 예약 이벤트에 의해 트리거되는 Amazon ECS Fargate 작업을 사용하는 것이 가장 비용 효과적인 방식이다. 이 방법을 사용하면 작업을 실행하는 데 필요한 인프라를 관리할 필요가 없으며, 작업이 완료된 후에 자동으로 종료되므로 비용을 절약할 수 있다.
 
-따라서 가장 비용 효과적인 방식은 Amazon EventBridge 예약 이벤트에 의해 트리거되는 Amazon ECS Fargate 작업을 사용하는 것이다.
+  따라서 가장 비용 효과적인 방식은 Amazon EventBridge 예약 이벤트에 의해 트리거되는 Amazon ECS Fargate 작업을 사용하는 것이다.
 
-이 문제는 매일 하루에 한 번 실행되고 최대 2시간 동안 완료될 수 있는 데이터 처리 작업을 만들 때 가장 비용 효과적인 방법을 찾는 것입니다.
+  이 문제는 매일 하루에 한 번 실행되고 최대 2시간 동안 완료될 수 있는 데이터 처리 작업을 만들 때 가장 비용 효과적인 방법을 찾는 것입니다.
 
-정답은 3번입니다. Amazon EventBridge 예약 이벤트에 의해 트리거되는 Amazon ECS Fargate 작업을 사용합니다. Fargate는 서버 관리가 필요 없고, 작업 완료 후 리소스를 자동으로 Scaling down 시켜 비용을 절감합니다. 작업이 완료되면 자동으로 종료되기 때문에 유휴 리소스를 방지합니다.
+  정답은 3번입니다. Amazon EventBridge 예약 이벤트에 의해 트리거되는 Amazon ECS Fargate 작업을 사용합니다. Fargate는 서버 관리가 필요 없고, 작업 완료 후 리소스를 자동으로 Scaling down 시켜 비용을 절감합니다. 작업이 완료되면 자동으로 종료되기 때문에 유휴 리소스를 방지합니다.
 
-다른 옵션은 다음과 같습니다.
+  다른 옵션은 다음과 같습니다.
 
-EC2 예약 인스턴스: 작업이 완료된 후에도 인스턴스가 계속 실행되기 때문에 비용 효율성이 떨어집니다.
-Lambda: 작업이 15분을 넘기 때문에 Lambda의 실행 시간 제한으로 인해 사용할 수 없습니다.
-ECS on EC2: EC2 인스턴스를 관리해야 하기 때문에 운영 부담과 비용이 증가합니다.
-Fargate는 작업 스케줄링과 리소스 관리를 자동화하고 비용을 가장 효율적으로 절감할 수 있습니다.
+  EC2 예약 인스턴스: 작업이 완료된 후에도 인스턴스가 계속 실행되기 때문에 비용 효율성이 떨어집니다.
+  Lambda: 작업이 15분을 넘기 때문에 Lambda의 실행 시간 제한으로 인해 사용할 수 없습니다.
+  ECS on EC2: EC2 인스턴스를 관리해야 하기 때문에 운영 부담과 비용이 증가합니다.
+  Fargate는 작업 스케줄링과 리소스 관리를 자동화하고 비용을 가장 효율적으로 절감할 수 있습니다.
 
 631. A social media company wants to store a database of user profiles, relationships, and interactions in the AWS Cloud. The company needs an application that monitors changes to the database. The application must analyze relationships between data entities and provide recommendations to users.
 What solution can meet these requirements with minimal operational overhead?
@@ -1707,12 +1706,12 @@ What solution can meet these requirements with minimal operational overhead?
 ③ C. Store information using Amazon Quantum Ledger Database (Amazon QLDB). Process database changes using Amazon Kinesis Data Streams.
 ④ D. Store information using Amazon Quantum Ledger Database (Amazon QLDB). Process database changes using Neptune Streams.
 
-Amazon Neptune 데이터베이스는 뛰어난 확장성과 가용성을 위해 설계된 서버리스 그래프 데이터베이스입니다. Neptune 데이터베이스는 내장된 보안, 지속적인 백업 및 다른 AWS 서비스와의 통합을 제공합니다. 소셜 미디어에 적합합니다.
-Neptune Streams 기능을 사용하면 그래프 데이터에 발생한 모든 변경 사항을 실시간으로 기록하는 변경 로그 항목의 전체 시퀀스를 생성할 수 있습니다.
+  Amazon Neptune 데이터베이스는 뛰어난 확장성과 가용성을 위해 설계된 서버리스 그래프 데이터베이스입니다. Neptune 데이터베이스는 내장된 보안, 지속적인 백업 및 다른 AWS 서비스와의 통합을 제공합니다. 소셜 미디어에 적합합니다.
+  Neptune Streams 기능을 사용하면 그래프 데이터에 발생한 모든 변경 사항을 실시간으로 기록하는 변경 로그 항목의 전체 시퀀스를 생성할 수 있습니다.
 
-이 문제에서는 소셜 미디어 회사의 요구 사항을 충족하기 위해 적합한 솔루션을 찾는 데 초점이 맞춰져 있습니다. 요약하면 회사는 사용자 프로필, 관계 및 상호 작용에 대한 데이터베이스를 저장하고, 데이터베이스의 변경 사항을 모니터링하고 분석하여 사용자에게 추천 사항을 제공해야 합니다.
+  이 문제에서는 소셜 미디어 회사의 요구 사항을 충족하기 위해 적합한 솔루션을 찾는 데 초점이 맞춰져 있습니다. 요약하면 회사는 사용자 프로필, 관계 및 상호 작용에 대한 데이터베이스를 저장하고, 데이터베이스의 변경 사항을 모니터링하고 분석하여 사용자에게 추천 사항을 제공해야 합니다.
 
-권장되는 솔루션은 Amazon Neptune을 사용하여 정보를 저장하고 Neptune Streams를 사용하여 데이터베이스의 변경 사항을 처리하는 것입니다. Amazon Neptune은 그래프 데이터베이스로 데이터 엔터티 간의 복잡한 관계를 저장하고 查询하는 데 적합합니다. Neptune Streams를 사용하면 데이터베이스의 사항을 스트리밍할 수 있어 애플리케이션이 실시간으로 분석과 추천을 제공할 수 있습니다. 이 솔루션은 최소한의 운영 오버헤드로 이러한 요구 사항을 충족할 수 있습니다.
+  권장되는 솔루션은 Amazon Neptune을 사용하여 정보를 저장하고 Neptune Streams를 사용하여 데이터베이스의 변경 사항을 처리하는 것입니다. Amazon Neptune은 그래프 데이터베이스로 데이터 엔터티 간의 복잡한 관계를 저장하고 查询하는 데 적합합니다. Neptune Streams를 사용하면 데이터베이스의 사항을 스트리밍할 수 있어 애플리케이션이 실시간으로 분석과 추천을 제공할 수 있습니다. 이 솔루션은 최소한의 운영 오버헤드로 이러한 요구 사항을 충족할 수 있습니다.
 
 632. A company is developing a new application that will store large amounts of data. The data will be analyzed hourly and modified by multiple Amazon EC2 Linux instances deployed across multiple Availability Zones. The amount of storage required will continue to increase over the next six months. What storage solution should the solution architect recommend to meet these requirements?
 ① A. Store your data in Amazon S3 Glacier. Update the S3 Glacier vault policy to allow access to your application instances.
@@ -1720,15 +1719,15 @@ Neptune Streams 기능을 사용하면 그래프 데이터에 발생한 모든 �
 ③ C. Store data in an Amazon Elastic File System (Amazon EFS) file system. Mount the file system on your application instances.
 ④ D. Store data on Amazon Elastic Block Store (Amazon EBS) provisioned IOPS volumes shared between application instances.
 
-Amazon EFS에서는 여러 Amazon EC2 인스턴스가 동일한 파일 시스템을 동시에 탑재할 수 있으므로 여러 인스턴스가 동시에 데이터에 쉽게 액세스하고 수정할 수 있습니다.
+  Amazon EFS에서는 여러 Amazon EC2 인스턴스가 동일한 파일 시스템을 동시에 탑재할 수 있으므로 여러 인스턴스가 동시에 데이터에 쉽게 액세스하고 수정할 수 있습니다.
 
-이 문제는 AWS에서 대량의 데이터를 저장하고 처리하는 솔루션을 찾는 것입니다. 데이터는 여러 가용 영역에 배포된 여러 Amazon EC2 인스턴스에 의해 수정되며, 저장 공간의 양은 계속 증가할 예정입니다.
+  이 문제는 AWS에서 대량의 데이터를 저장하고 처리하는 솔루션을 찾는 것입니다. 데이터는 여러 가용 영역에 배포된 여러 Amazon EC2 인스턴스에 의해 수정되며, 저장 공간의 양은 계속 증가할 예정입니다.
 
-솔루션 설계자는 여러 인스턴스에서 데이터에 액세스할 수 있도록 지원하는 스토리지 솔루션을 선택해야 합니다. Amazon S3 Glacier는 물리적인 보관을 위한 것으로, 데이터에 즉시 액세스할 수 없습니다. Amazon Elastic Block Store(Amazon EBS)는 인스턴스에_attach된 볼륨을 지원하지만 여러 인스턴스에서 동시에 액세스할 수는 없습니다.
+  솔루션 설계자는 여러 인스턴스에서 데이터에 액세스할 수 있도록 지원하는 스토리지 솔루션을 선택해야 합니다. Amazon S3 Glacier는 물리적인 보관을 위한 것으로, 데이터에 즉시 액세스할 수 없습니다. Amazon Elastic Block Store(Amazon EBS)는 인스턴스에_attach된 볼륨을 지원하지만 여러 인스턴스에서 동시에 액세스할 수는 없습니다.
 
-Amazon Elastic File System(Amazon EFS)은 여러 인스턴스에서 공유할 수 있는 파일 시스템을 제공하므로 데이터를 저장하고 처리하는 데 적합합니다. 또한 저장 공간의 양이 증가할 수록 자동으로 확장되므로 향후 늘어날 스토리지 양에도 대응할 수 있습니다.
+  Amazon Elastic File System(Amazon EFS)은 여러 인스턴스에서 공유할 수 있는 파일 시스템을 제공하므로 데이터를 저장하고 처리하는 데 적합합니다. 또한 저장 공간의 양이 증가할 수록 자동으로 확장되므로 향후 늘어날 스토리지 양에도 대응할 수 있습니다.
 
-따라서 필요한 스토리지 솔루션은 Amazon Elastic File System(Amazon EFS) 파일 시스템에 데이터를 저장하고 애플리케이션 인스턴스에 파일 시스템을 마운트하는 것입니다.
+  따라서 필요한 스토리지 솔루션은 Amazon Elastic File System(Amazon EFS) 파일 시스템에 데이터를 저장하고 애플리케이션 인스턴스에 파일 시스템을 마운트하는 것입니다.
 
 633. A company manages an application that stores data on an Amazon RDS for PostgreSQL multi-AZ DB instance. Performance issues are occurring due to increased traffic. The company determines that database queries are the primary cause of the performance degradation. What should a solutions architect do to improve application performance?
 ① A. Serve read traffic from multi-AZ standby replicas.
@@ -1736,21 +1735,21 @@ Amazon Elastic File System(Amazon EFS)은 여러 인스턴스에서 공유할 �
 ③ C. Create a read-only replica from the source DB instance. Serve read traffic from the read replica.
 ④ D. Use Amazon Kinesis Data Firehose between your application and Amazon RDS to increase the concurrency of database requests.
 
-읽기 트래픽에 대한 읽기 복제본 분할은 전체 로드를 분산하고 성능을 향상시킵니다.
-A: 대기 복제본은 트래픽을 처리할 수 없습니다. (틀렸다면 정정해 주십시오.)
-B: Transfer Accelerator는 S3 트래픽 속도를 높이는 것입니다.
-D: Kiensis는 동시성을 높이지만 DB 성능 문제는 해결하지 않습니다.
+  읽기 트래픽에 대한 읽기 복제본 분할은 전체 로드를 분산하고 성능을 향상시킵니다.
+  A: 대기 복제본은 트래픽을 처리할 수 없습니다. (틀렸다면 정정해 주십시오.)
+  B: Transfer Accelerator는 S3 트래픽 속도를 높이는 것입니다.
+  D: Kiensis는 동시성을 높이지만 DB 성능 문제는 해결하지 않습니다.
 
-정답은 3번입니다. 성능 저하의 주요 원인이 쿼리 처리에 있다고 판단되는 상황에서, 읽기 전용 복제본을 생성하는 것이 가장 효과적입니다. 이 방법은 다음과 같은 이점을 제공합니다:
+  정답은 3번입니다. 성능 저하의 주요 원인이 쿼리 처리에 있다고 판단되는 상황에서, 읽기 전용 복제본을 생성하는 것이 가장 효과적입니다. 이 방법은 다음과 같은 이점을 제공합니다:
 
-읽기 부하 분산: 원본 DB 인스턴스는 주로 쓰기 작업에 집중하게 되며, 읽기 트래픽은 복제본으로 분산됩니다. 이로 인해 원본 데이터베이스의 부하가 줄어들어 쓰기 및 복합적인 쿼리 성능이 향상됩니다.
-고가용성 유지: 복제본은 읽기 작업을 처리함으로써 추가적인 가용성을 제공할 수 있으며, 필요 시 주 데이터베이스를 대체할 수 있는 옵션으로도 활용 가능합니다.
-다른 옵션들에 대한 간단한 설명:
+  읽기 부하 분산: 원본 DB 인스턴스는 주로 쓰기 작업에 집중하게 되며, 읽기 트래픽은 복제본으로 분산됩니다. 이로 인해 원본 데이터베이스의 부하가 줄어들어 쓰기 및 복합적인 쿼리 성능이 향상됩니다.
+  고가용성 유지: 복제본은 읽기 작업을 처리함으로써 추가적인 가용성을 제공할 수 있으며, 필요 시 주 데이터베이스를 대체할 수 있는 옵션으로도 활용 가능합니다.
+  다른 옵션들에 대한 간단한 설명:
 
-1번: 다중 AZ 대기 복제본은 주로 고가용성과 재해 복구를 위해 사용되며, 읽기 부하 분산에는 적합하지 않습니다.
-2번: Transfer Acceleration은 주로 S3와 같은 스토리지 서비스에서 데이터 전송 속도를 높이는 데 효과적이지만, 데이터베이스 쿼리 성능 향상에는 직접적인 영향을 미치지 않습니다.
-4번: Amazon Kinesis Data Firehose는 주로 스트리밍 데이터를 처리하고 저장하는데 사용되며, 데이터베이스 요청의 동시성을 높이는 데는 적합하지 않습니다.
-따라서, 성능 문제 해결과 읽기 부하 분산을 위해 3번이 최적의 선택입니다.
+  1번: 다중 AZ 대기 복제본은 주로 고가용성과 재해 복구를 위해 사용되며, 읽기 부하 분산에는 적합하지 않습니다.
+  2번: Transfer Acceleration은 주로 S3와 같은 스토리지 서비스에서 데이터 전송 속도를 높이는 데 효과적이지만, 데이터베이스 쿼리 성능 향상에는 직접적인 영향을 미치지 않습니다.
+  4번: Amazon Kinesis Data Firehose는 주로 스트리밍 데이터를 처리하고 저장하는데 사용되며, 데이터베이스 요청의 동시성을 높이는 데는 적합하지 않습니다.
+  따라서, 성능 문제 해결과 읽기 부하 분산을 위해 3번이 최적의 선택입니다.
 
 635. A company uses Amazon FSx for NetApp ONTAP in its primary AWS region for CIFS and NFS file sharing. Applications running on Amazon EC2 instances access the file shares. The company needs a storage disaster recovery (DR) solution in a secondary region. Data replicated to the secondary region must be accessed using the same protocols as the primary region.
 What solution meets these requirements with minimal operational overhead?
@@ -1759,21 +1758,21 @@ What solution meets these requirements with minimal operational overhead?
 ③ C. Create an FSx for ONTAP instance in the secondary region. Replicate data from the primary region to the secondary region using NetApp SnapMirror.
 ④ D. Create an Amazon Elastic File System (Amazon EFS) volume. Migrate your current data to the volume. Replicate the volume to a secondary region.
 
-NetApp SnapMirror를 사용하여 FSx for ONTAP 파일 시스템과 두 번째 파일 시스템 간의 주기적인 복제를 예약할 수 있습니다. 이 기능은 지역 내 배포와 지역 간 배포 모두에 사용할 수 있습니다.
+  NetApp SnapMirror를 사용하여 FSx for ONTAP 파일 시스템과 두 번째 파일 시스템 간의 주기적인 복제를 예약할 수 있습니다. 이 기능은 지역 내 배포와 지역 간 배포 모두에 사용할 수 있습니다.
 
-필요한 요구 사항을 충족하는 솔루션은 NetApp SnapMirror를 사용하여 기본 지역에서 보조 지역으로 데이터를 복제하는 것입니다. 이렇게 하면 기본 지역과 동일한 프로토콜을 사용하여 복제된 데이터에 액세스할 수 있습니다. 운영 오버헤드를 최소화하면서 스토리지 재해 복구 솔루션을 제공하기 때문에 적절한 선택입니다. 다른 옵션은 동일한 프로토콜을 사용하여 데이터에 액세스할 수 없거나 너무 복잡하여 운영 오버헤드가 증가합니다. 따라서 NetApp SnapMirror를 사용하는 것이 가장 적합한 솔루션입니다.
+  필요한 요구 사항을 충족하는 솔루션은 NetApp SnapMirror를 사용하여 기본 지역에서 보조 지역으로 데이터를 복제하는 것입니다. 이렇게 하면 기본 지역과 동일한 프로토콜을 사용하여 복제된 데이터에 액세스할 수 있습니다. 운영 오버헤드를 최소화하면서 스토리지 재해 복구 솔루션을 제공하기 때문에 적절한 선택입니다. 다른 옵션은 동일한 프로토콜을 사용하여 데이터에 액세스할 수 없거나 너무 복잡하여 운영 오버헤드가 증가합니다. 따라서 NetApp SnapMirror를 사용하는 것이 가장 적합한 솔루션입니다.
 
-정답은 C입니다.
+  정답은 C입니다.
 
-NetApp SnapMirror 기술을 활용하면 기본 리전의 FSx for ONTAP에서 보조 리전의 FSx for ONTAP로 실시간 또는 증분 데이터 복제가 가능합니다. 이 방법은 다음과 같은 이점을 제공합니다:
+  NetApp SnapMirror 기술을 활용하면 기본 리전의 FSx for ONTAP에서 보조 리전의 FSx for ONTAP로 실시간 또는 증분 데이터 복제가 가능합니다. 이 방법은 다음과 같은 이점을 제공합니다:
 
-동일 프로토콜 유지: CIFS와 NFS 프로토콜을 그대로 유지하며, 애플리케이션 측의 변경 없이 보조 리전에서도 동일한 방식으로 파일 공유에 접근 가능.
-최소 운영 오버헤드: 자동화된 복제 프로세스 덕분에 수동 관리가 최소화되어 운영 부담이 적습니다.
-재해 복구 효과: 빠르고 안정적인 데이터 복제로 재해 복구 요구 사항을 충족시킵니다.
-다른 옵션들은 다음과 같은 한계가 있습니다:
+  동일 프로토콜 유지: CIFS와 NFS 프로토콜을 그대로 유지하며, 애플리케이션 측의 변경 없이 보조 리전에서도 동일한 방식으로 파일 공유에 접근 가능.
+  최소 운영 오버헤드: 자동화된 복제 프로세스 덕분에 수동 관리가 최소화되어 운영 부담이 적습니다.
+  재해 복구 효과: 빠르고 안정적인 데이터 복제로 재해 복구 요구 사항을 충족시킵니다.
+  다른 옵션들은 다음과 같은 한계가 있습니다:
 
-A, D 옵션: S3나 EFS는 파일 시스템의 네이티브 프로토콜(CIFS/NFS)을 직접 지원하지 않으므로, 애플리케이션 변경이 필요합니다.
-B 옵션: AWS Backup을 사용한 백업 및 복원 과정은 시간이 오래 걸리고, 재해 복구 시 수동 개입이 필요하며, 실시간 복제보다는 비효율적입니다.
+  A, D 옵션: S3나 EFS는 파일 시스템의 네이티브 프로토콜(CIFS/NFS)을 직접 지원하지 않으므로, 애플리케이션 변경이 필요합니다.
+  B 옵션: AWS Backup을 사용한 백업 및 복원 과정은 시간이 오래 걸리고, 재해 복구 시 수동 개입이 필요하며, 실시간 복제보다는 비효율적입니다.
 
 636. The development team is building an event-driven application using AWS Lambda functions. An event is generated when a file is added to an Amazon S3 bucket. The development team currently has an Amazon Simple Notification Service (Amazon SNS) configured as an event target for Amazon S3.
 What should a solutions architect do to handle events from Amazon S3 in a scalable manner?
@@ -1782,19 +1781,19 @@ What should a solutions architect do to handle events from Amazon S3 in a scalab
 ③ C. Create an SNS subscription that sends events to Amazon Simple Queue Service (Amazon SQS). Configure the SQS queue to trigger a Lambda function.
 ④ D. Create an SNS subscription that sends events to AWS Server Migration Service (AWS SMS). Configure a Lambda function to poll for SMS events.
 
-Amazon SQS는 이벤트 중심의 확장 가능한 메시지 처리를 위해 설계되었습니다. 대량의 메시지를 처리할 수 있으며 들어오는 워크로드에 따라 자동으로 확장됩니다. 이를 통해 직접 Lambda 호출에 비해 더 나은 로드 분산 및 확장이 가능합니다.
+  Amazon SQS는 이벤트 중심의 확장 가능한 메시지 처리를 위해 설계되었습니다. 대량의 메시지를 처리할 수 있으며 들어오는 워크로드에 따라 자동으로 확장됩니다. 이를 통해 직접 Lambda 호출에 비해 더 나은 로드 분산 및 확장이 가능합니다.
 
-정답은 3번입니다. Amazon S3의 이벤트를 확장 가능한 방식으로 처리하려면, Amazon Simple Queue Service(Amazon SQS)를 사용하여 이벤트를 버퍼링하고, Lambda 함수를 트리거하도록 SQS 대기열을 구성하는 것이 좋습니다.
+  정답은 3번입니다. Amazon S3의 이벤트를 확장 가능한 방식으로 처리하려면, Amazon Simple Queue Service(Amazon SQS)를 사용하여 이벤트를 버퍼링하고, Lambda 함수를 트리거하도록 SQS 대기열을 구성하는 것이 좋습니다.
 
-이러한 접근 방식은 다음과 같은 이유로 확장성이 뛰어나습니다:
+  이러한 접근 방식은 다음과 같은 이유로 확장성이 뛰어나습니다:
 
-Amazon S3의 이벤트가 많아져도 SQS 대기열이 버퍼링 역할을 하므로 Lambda 함수가 과부하되지 않습니다.
-Lambda 함수는 필요할 때만 실행되므로 비용을 절약할 수 있습니다.
-SQS 대기열은 높은 처리량을 처리할 수 있어 확장성이 뛰어납니다.
-반면에 다른 옵션들은 다음과 같은 이유로 적합하지 않습니다:
+  Amazon S3의 이벤트가 많아져도 SQS 대기열이 버퍼링 역할을 하므로 Lambda 함수가 과부하되지 않습니다.
+  Lambda 함수는 필요할 때만 실행되므로 비용을 절약할 수 있습니다.
+  SQS 대기열은 높은 처리량을 처리할 수 있어 확장성이 뛰어납니다.
+  반면에 다른 옵션들은 다음과 같은 이유로 적합하지 않습니다:
 
-1번과 2번 옵션은 Amazon ECS와 Amazon EKS를 사용하여 이벤트를 처리하지만, 이는 불필요한 복잡성과 추가 비용을 초래할 수 있습니다.
-4번 옵션은 AWS Server Migration Service(AWS SMS)를 사용하여 이벤트를 처리하지만, 이는 이벤트 처리와 관련이 없는 서비스입니다.
+  1번과 2번 옵션은 Amazon ECS와 Amazon EKS를 사용하여 이벤트를 처리하지만, 이는 불필요한 복잡성과 추가 비용을 초래할 수 있습니다.
+  4번 옵션은 AWS Server Migration Service(AWS SMS)를 사용하여 이벤트를 처리하지만, 이는 이벤트 처리와 관련이 없는 서비스입니다.
 
 637. A solutions architect is designing a new service based on Amazon API Gateway. The request pattern to the service is unpredictable, and can suddenly change from 0 requests per second to over 500 requests per second. The total size of the data to be maintained in the backend database is currently less than 1 GB, and future growth is unforeseen. The data can be queried using simple key-value requests.
 What combination of AWS services would meet these requirements? (Choose two.)
@@ -1804,24 +1803,24 @@ What combination of AWS services would meet these requirements? (Choose two.)
 ④ D. Amazon EC2 Auto Scaling
 ⑤ E. MySQL-compatible Amazon Aurora
 
-확장 가능하고 예측할 수 없는 요청 패턴
-= AWS Lambda 확장 가능, 키-값 데이터 = Amazon DynamoDB
+  확장 가능하고 예측할 수 없는 요청 패턴
+  = AWS Lambda 확장 가능, 키-값 데이터 = Amazon DynamoDB
 
-여기서 언급된 서비스는 예측할 수 없는 요청 패턴과 데이터 크기 증가에 대처하는 것에 중점을 두고 있습니다. 이런 요구사항에 잘 맞는 서비스가 필요합니다.
+  여기서 언급된 서비스는 예측할 수 없는 요청 패턴과 데이터 크기 증가에 대처하는 것에 중점을 두고 있습니다. 이런 요구사항에 잘 맞는 서비스가 필요합니다.
 
-Amazon API Gateway는 요청을 처리하고 라우팅하는 데 사용되며 이는 연결된 서비스와 함께 사용되어야 합니다. 언급된 서비스 중에서 이에 가장 적합한 것은 아마도 C. 아마존 DynamoDB입니다.
+  Amazon API Gateway는 요청을 처리하고 라우팅하는 데 사용되며 이는 연결된 서비스와 함께 사용되어야 합니다. 언급된 서비스 중에서 이에 가장 적합한 것은 아마도 C. 아마존 DynamoDB입니다.
 
-아마존 DynamoDB는 완전 관리형 NoSQL 키-값 및 문서 데이터베이스로, 높은 성능과 자동 크기 조정이 가능하므로 예측할 수 없는 요청 패턴과 데이터 크기 증가에 잘 대처할 수 있습니다. 이 서비스는 확장성과 탄력성이 뛰어나므로 작은 규모에서부터 큰 규모까지의 데이터를 처리하는 데 적합합니다.
+  아마존 DynamoDB는 완전 관리형 NoSQL 키-값 및 문서 데이터베이스로, 높은 성능과 자동 크기 조정이 가능하므로 예측할 수 없는 요청 패턴과 데이터 크기 증가에 잘 대처할 수 있습니다. 이 서비스는 확장성과 탄력성이 뛰어나므로 작은 규모에서부터 큰 규모까지의 데이터를 처리하는 데 적합합니다.
 
-さらに, 간단한 키-값 요청을 사용하여 데이터를 쿼리할 수 있는 기능도 제공하므로 문제에 언급된 요구사항에 부합합니다. 따라서, 이 경우 아마존 DynamoDB가 적합한 선택입니다.
+  간단한 키-값 요청을 사용하여 데이터를 쿼리할 수 있는 기능도 제공하므로 문제에 언급된 요구사항에 부합합니다. 따라서, 이 경우 아마존 DynamoDB가 적합한 선택입니다.
 
-주어진 요구 사항을 고려할 때, 주요 고려사항은 예측 불가능한 트래픽 변동과 유연한 데이터 관리입니다.
+  주어진 요구 사항을 고려할 때, 주요 고려사항은 예측 불가능한 트래픽 변동과 유연한 데이터 관리입니다.
 
-C. 아마존 DynamoDB: 키-값 저장소로서 높은 확장성과 자동 스케일링 기능을 제공하여 초당 0에서 500개 이상의 요청을 처리할 수 있습니다. 데이터베이스 크기가 현재 1GB 미만이고 향후 증가를 예측할 수 없음에도 불구하고, DynamoDB는 유연하게 확장 가능하며 성능 최적화에 적합합니다. 또한 간단한 키-값 쿼리를 지원합니다.
-정답 중 두 가지를 선택해야 하는 상황에서, DynamoDB가 필수적이지만 다른 적합한 옵션으로는:
+  C. 아마존 DynamoDB: 키-값 저장소로서 높은 확장성과 자동 스케일링 기능을 제공하여 초당 0에서 500개 이상의 요청을 처리할 수 있습니다. 데이터베이스 크기가 현재 1GB 미만이고 향후 증가를 예측할 수 없음에도 불구하고, DynamoDB는 유연하게 확장 가능하며 성능 최적화에 적합합니다. 또한 간단한 키-값 쿼리를 지원합니다.
+  정답 중 두 가지를 선택해야 하는 상황에서, DynamoDB가 필수적이지만 다른 적합한 옵션으로는:
 
-B. AWS Lambda: 이벤트 기반 컴퓨팅 서비스로, 트래픽 변동에 따라 자동으로 실행되는 함수를 통해 요청을 처리할 수 있습니다. API Gateway와 통합하면, 요청이 들어올 때마다 Lambda 함수가 동적으로 실행되어 백엔드 로직을 처리하고 DynamoDB와 통신할 수 있습니다. 이 조합은 트래픽의 불규칙성을 효과적으로 관리할 수 있습니다.
-따라서, 가장 적합한 답안은 C. 아마존 DynamoDB와 B. AWS Lambda입니다. 이들 서비스의 결합은 가변적인 트래픽과 유연한 데이터 관리 요구 사항을 잘 충족시킵니다. 하지만 문제의 정답이 단일로 지정되어 있다면, 핵심 데이터 관리 솔루션인 C. 아마존 DynamoDB가 핵심적입니다.
+  B. AWS Lambda: 이벤트 기반 컴퓨팅 서비스로, 트래픽 변동에 따라 자동으로 실행되는 함수를 통해 요청을 처리할 수 있습니다. API Gateway와 통합하면, 요청이 들어올 때마다 Lambda 함수가 동적으로 실행되어 백엔드 로직을 처리하고 DynamoDB와 통신할 수 있습니다. 이 조합은 트래픽의 불규칙성을 효과적으로 관리할 수 있습니다.
+  따라서, 가장 적합한 답안은 C. 아마존 DynamoDB와 B. AWS Lambda입니다. 이들 서비스의 결합은 가변적인 트래픽과 유연한 데이터 관리 요구 사항을 잘 충족시킵니다. 하지만 문제의 정답이 단일로 지정되어 있다면, 핵심 데이터 관리 솔루션인 C. 아마존 DynamoDB가 핵심적입니다.
 
 638. A company collects research data and shares it with employees around the world. The company wants to collect and store the data in an Amazon S3 bucket and process it in the AWS Cloud. The company shares this data with its employees. The company needs a secure solution for the AWS Cloud that minimizes operational overhead. Which solution meets these requirements?
 ① A. Use an AWS Lambda function to generate a pre-signed URL for S3. Instruct your employees to use the URL.
@@ -1829,19 +1828,19 @@ B. AWS Lambda: 이벤트 기반 컴퓨팅 서비스로, 트래픽 변동에 따�
 ③ C. Create an S3 file gateway. Create a share for uploads and a share for downloads. Allow employees to mount the shares on their local computers to use the S3 file gateway.
 ④ D. Configure the AWS Transfer Family SFTP endpoint. Select the Custom Identity Provider option. Manage user credentials using AWS Secrets Manager. Instruct your employees to use Transfer Family.
 
-AWS Transfer Family(옵션 D) AWS Transfer Family SFTP 엔드포인트를 구성하면 직원이 S3 버킷에 데이터에 액세스하고 데이터를 전송할 수 있는 안전하고 편리한 방법을 제공할 수 있습니다. 사용자 지정 자격 증명 공급자 옵션을 사용하면 기존 자격 증명 시스템과 통합할 수 있으며, AWS Secrets Manager를 사용하여 사용자 자격 증명을 안전하게 관리할 수 있습니다.
-A는 AWS Lambda 함수를 사용하여 S3의 미리 서명된 URL을 생성할 것을 제안합니다. 이것이 작동할 수는 있지만 수동으로 URL을 생성하고 공유해야 하기 때문에 확장성이 낮거나 사용자 친화적이지 않을 수 있습니다.
-B는 S3 액세스에 대한 IAM 정책을 사용하여 각 직원에 대해 IAM 사용자를 생성할 것을 제안합니다. 각 직원의 IAM 사용자를 관리하는 것이 번거롭고 확장성이 떨어질 수 있으므로 운영 오버헤드가 더 많이 발생합니다.
-C는 S3 파일 게이트웨이 사용을 제안합니다. 이것이 작동할 수는 있지만 추가 구성 요소가 필요하며 SFTP 액세스를 위해 AWS Transfer Family를 사용하는 것만큼 간단하거나 효율적이지 않을 수 있습니다.
+  AWS Transfer Family(옵션 D) AWS Transfer Family SFTP 엔드포인트를 구성하면 직원이 S3 버킷에 데이터에 액세스하고 데이터를 전송할 수 있는 안전하고 편리한 방법을 제공할 수 있습니다. 사용자 지정 자격 증명 공급자 옵션을 사용하면 기존 자격 증명 시스템과 통합할 수 있으며, AWS Secrets Manager를 사용하여 사용자 자격 증명을 안전하게 관리할 수 있습니다.
+  A는 AWS Lambda 함수를 사용하여 S3의 미리 서명된 URL을 생성할 것을 제안합니다. 이것이 작동할 수는 있지만 수동으로 URL을 생성하고 공유해야 하기 때문에 확장성이 낮거나 사용자 친화적이지 않을 수 있습니다.
+  B는 S3 액세스에 대한 IAM 정책을 사용하여 각 직원에 대해 IAM 사용자를 생성할 것을 제안합니다. 각 직원의 IAM 사용자를 관리하는 것이 번거롭고 확장성이 떨어질 수 있으므로 운영 오버헤드가 더 많이 발생합니다.
+  C는 S3 파일 게이트웨이 사용을 제안합니다. 이것이 작동할 수는 있지만 추가 구성 요소가 필요하며 SFTP 액세스를 위해 AWS Transfer Family를 사용하는 것만큼 간단하거나 효율적이지 않을 수 있습니다.
 
-정답은 D번입니다.
+  정답은 D번입니다.
 
-회사의 요구 사항은 데이터 공유의 편의성과 동시에 운영 오버헤드를 최소화하는 보안 솔루션을 찾는 것입니다.
+  회사의 요구 사항은 데이터 공유의 편의성과 동시에 운영 오버헤드를 최소화하는 보안 솔루션을 찾는 것입니다.
 
-A번은 미리 서명된 URL을 사용하여 일시적인 접근 권한을 부여하지만, 관리와 보안 측면에서 수동적인 개입이 필요하며 대규모로 관리하기 어려울 수 있습니다.
-B번은 IAM 사용자와 정책을 통해 세밀한 액세스 제어가 가능하지만, 각 직원에게 개별 계정을 생성하고 관리해야 하므로 운영 오버헤드가 증가할 수 있습니다.
-C번의 S3 파일 게이트웨이는 직원들이 로컬 환경에서 S3를 마치 파일 시스템처럼 사용할 수 있게 하지만, 복잡한 설정과 유지 관리가 필요하며 모든 직원이 이를 효과적으로 사용할 수 있는지 보장하기 어렵습니다.
-D번의 AWS Transfer Family는 SFTP 엔드포인트를 통해 중앙 집중식으로 데이터 전송을 관리할 수 있어 보안과 운영 효율성을 동시에 높일 수 있습니다. 사용자 정의 ID 공급자와 AWS Secrets Manager를 활용하면 인증과 자격 증명 관리가 자동화되어 운영 오버헤드를 최소화하고, 보안성을 강화할 수 있습니다. 따라서, 운영 효율성과 보안을 모두 충족시키는 최적의 솔루션은 D번입니다.
+  A번은 미리 서명된 URL을 사용하여 일시적인 접근 권한을 부여하지만, 관리와 보안 측면에서 수동적인 개입이 필요하며 대규모로 관리하기 어려울 수 있습니다.
+  B번은 IAM 사용자와 정책을 통해 세밀한 액세스 제어가 가능하지만, 각 직원에게 개별 계정을 생성하고 관리해야 하므로 운영 오버헤드가 증가할 수 있습니다.
+  C번의 S3 파일 게이트웨이는 직원들이 로컬 환경에서 S3를 마치 파일 시스템처럼 사용할 수 있게 하지만, 복잡한 설정과 유지 관리가 필요하며 모든 직원이 이를 효과적으로 사용할 수 있는지 보장하기 어렵습니다.
+  D번의 AWS Transfer Family는 SFTP 엔드포인트를 통해 중앙 집중식으로 데이터 전송을 관리할 수 있어 보안과 운영 효율성을 동시에 높일 수 있습니다. 사용자 정의 ID 공급자와 AWS Secrets Manager를 활용하면 인증과 자격 증명 관리가 자동화되어 운영 오버헤드를 최소화하고, 보안성을 강화할 수 있습니다. 따라서, 운영 효율성과 보안을 모두 충족시키는 최적의 솔루션은 D번입니다.
 
 639. A company is building a new furniture inventory application. The company has deployed the application on a fleet of Amazon EC2 instances across multiple Availability Zones. The EC2 instances run behind an Application Load Balancer (ALB) in a VPC.
 The solution architect has determined that incoming traffic appears to favor one EC2 instance, causing latency for some requests
@@ -1851,24 +1850,24 @@ The solution architect has determined that incoming traffic appears to favor one
 ③ C. Increase the number of EC2 instances in each Availability Zone.
 ④ D. Adjust the health check frequency for ALB target groups
 
-고정 세션을 사용하면 동일한 클라이언트가 로드 밸런서 뒤의 동일한 인스턴스로 항상 리디렉션하는 데 도움이 되므로 고정을 활성화하면 백엔드 EC2 인스턴스에 대한 로드 불균형이 발생할 수 있습니다.
+  고정 세션을 사용하면 동일한 클라이언트가 로드 밸런서 뒤의 동일한 인스턴스로 항상 리디렉션하는 데 도움이 되므로 고정을 활성화하면 백엔드 EC2 인스턴스에 대한 로드 불균형이 발생할 수 있습니다.
 
-애플리케이션이 여러 가용 영역에 걸쳐 EC2 인스턴스에 배포되었고 ALB 뒤에서 실행되는 경우, 트래픽이 하나의 EC2 인스턴스를 선호하여 지연 시간이 발생하는 문제를 해결하려면 세션 선호도(고정 세션)를 비활성화하는 것이 좋습니다.
+  애플리케이션이 여러 가용 영역에 걸쳐 EC2 인스턴스에 배포되었고 ALB 뒤에서 실행되는 경우, 트래픽이 하나의 EC2 인스턴스를 선호하여 지연 시간이 발생하는 문제를 해결하려면 세션 선호도(고정 세션)를 비활성화하는 것이 좋습니다.
 
-ALB의 세션 선호도 기능은 동일한 클라이언트의 요청을 항상 같은 EC2 인스턴스로 전달하게 합니다. 이 기능이 활성화된 경우, 일부 EC2 인스턴스의 부하가 높아질 수 있고 지연 시간을 발생시킬 수 있습니다. 따라서 이 기능을 비활성화하면 ALB가 들어오는 트래픽을 여러 EC2 인스턴스에 분산시켜 부하를 더 равномер하게 분배할 수 있습니다.
+  ALB의 세션 선호도 기능은 동일한 클라이언트의 요청을 항상 같은 EC2 인스턴스로 전달하게 합니다. 이 기능이 활성화된 경우, 일부 EC2 인스턴스의 부하가 높아질 수 있고 지연 시간을 발생시킬 수 있습니다. 따라서 이 기능을 비활성화하면 ALB가 들어오는 트래픽을 여러 EC2 인스턴스에 분산시켜 부하를 더 равномер하게 분배할 수 있습니다.
 
-따라서 이 문제를 해결하려면 ALB에서 세션 선호도(고정 세션)를 비활성화하는 것이 좋습니다. 다른 옵션들은 이 문제를 직접 해결하지 않습니다. Network Load Balancer로 교체하는 것은 다른 유형의 로드 밸랜서를 사용하지만 세션 선호도 문제를 해결하지는 않습니다. EC2 인스턴스 수를 늘리는 것은 처리 능력을 증가시키지만 지연 시간 문제를 직접 해결하지는 않습니다. 또한 ALB 대상 그룹에 대한 상태 확인 빈도 조정은 대상 그룹의 상태를 더 자주 확인하지만 세션 선호도 문제를 해결하지는 않습니다.
+  따라서 이 문제를 해결하려면 ALB에서 세션 선호도(고정 세션)를 비활성화하는 것이 좋습니다. 다른 옵션들은 이 문제를 직접 해결하지 않습니다. Network Load Balancer로 교체하는 것은 다른 유형의 로드 밸랜서를 사용하지만 세션 선호도 문제를 해결하지는 않습니다. EC2 인스턴스 수를 늘리는 것은 처리 능력을 증가시키지만 지연 시간 문제를 직접 해결하지는 않습니다. 또한 ALB 대상 그룹에 대한 상태 확인 빈도 조정은 대상 그룹의 상태를 더 자주 확인하지만 세션 선호도 문제를 해결하지는 않습니다.
 
-수신한 트래픽이 특정 EC2 인스턴스에만 집중되는 현상은 세션 선호도 또는 고정 세션 설정 때문일 가능성이 큽니다. 이 설정이 활성화되어 있으면 클라이언트의 요청이 동일한 인스턴스로 계속 라우팅되어 부하 분산이 제대로 이루어지지 않으며, 그 결과 일부 인스턴스 과부하로 요청 지연이 발생합니다.
+  수신한 트래픽이 특정 EC2 인스턴스에만 집중되는 현상은 세션 선호도 또는 고정 세션 설정 때문일 가능성이 큽니다. 이 설정이 활성화되어 있으면 클라이언트의 요청이 동일한 인스턴스로 계속 라우팅되어 부하 분산이 제대로 이루어지지 않으며, 그 결과 일부 인스턴스 과부하로 요청 지연이 발생합니다.
 
-따라서 문제 해결을 위해 가장 적절한 방법은 ALB에서 세션 선호도를 비활성화하는 것입니다. 이렇게 하면 클라이언트 요청이 다양한 EC2 인스턴스로 균형 있게 분산되어 부하 분산이 개선되고, 결과적으로 요청 지연 시간이 줄어들게 됩니다.
+  따라서 문제 해결을 위해 가장 적절한 방법은 ALB에서 세션 선호도를 비활성화하는 것입니다. 이렇게 하면 클라이언트 요청이 다양한 EC2 인스턴스로 균형 있게 분산되어 부하 분산이 개선되고, 결과적으로 요청 지연 시간이 줄어들게 됩니다.
 
-다른 옵션들은 다음과 같은 이유로 적합하지 않습니다:
+  다른 옵션들은 다음과 같은 이유로 적합하지 않습니다:
 
-B 옵션: Network Load Balancer는 프로토콜 특성상 성능 향상이 있을 수 있지만, 현재 문제의 핵심인 트래픽 분산 문제 해결에는 직접적인 영향을 미치지 않습니다.
-C 옵션: 인스턴스 수를 늘리는 것은 부하 분산을 도울 수 있지만, 이미 있는 인스턴스들 간의 부하 균형이 이루어지지 않는 한 근본적인 해결책은 아닙니다.
-D 옵션: 상태 확인 빈도 조정은 주로 서비스의 가용성 모니터링과 관련된 설정으로, 트래픽과 부하 분산 문제 해결에는 직접적인 연관성이 적습니다.
-결론적으로, 정답은 1번입니다.
+  B 옵션: Network Load Balancer는 프로토콜 특성상 성능 향상이 있을 수 있지만, 현재 문제의 핵심인 트래픽 분산 문제 해결에는 직접적인 영향을 미치지 않습니다.
+  C 옵션: 인스턴스 수를 늘리는 것은 부하 분산을 도울 수 있지만, 이미 있는 인스턴스들 간의 부하 균형이 이루어지지 않는 한 근본적인 해결책은 아닙니다.
+  D 옵션: 상태 확인 빈도 조정은 주로 서비스의 가용성 모니터링과 관련된 설정으로, 트래픽과 부하 분산 문제 해결에는 직접적인 연관성이 적습니다.
+  결론적으로, 정답은 1번입니다.
 
 884. A solutions architect is designing a three-tier web application. The architecture consists of an internet-facing Application Load Balancer (ALB) and a web tier hosted on Amazon EC2 instances in a private subnet. The application tier, containing the business logic, runs on EC2 instances in the private subnet. The database tier consists of Microsoft SQL Server running on EC2 instances in the private subnet. Security is the company's top priority.
 What combination of security group configurations should the solutions architect use? (Choose three.)
@@ -1879,26 +1878,26 @@ What combination of security group configurations should the solutions architect
 ⑤ E. Configure the security group for the application tier to allow inbound HTTPS traffic from the security group for the web tier.
 ⑥ F. Configure the application tier security group to allow outbound HTTPS traffic and Microsoft SQL Server traffic to the web tier security group.
 
-웹 계층과 애플리케이션 계층, 데이터베이스 계층은 각각 별도의 보안 그룹을 가지고 있기 때문에 이들 사이의 통신을 허용하기 위해 적절한 보안 그룹을 구성해야합니다.
+  웹 계층과 애플리케이션 계층, 데이터베이스 계층은 각각 별도의 보안 그룹을 가지고 있기 때문에 이들 사이의 통신을 허용하기 위해 적절한 보안 그룹을 구성해야합니다.
 
-웹 계층의 보안 그룹은 ALB에서 오는 HTTPS 요청을 허용하도록 구성해야 합니다. 애플리케이션 계층의 보안 그룹은 웹 계층에서 오는 HTTPS 요청을 허용하도록 구성해야 합니다. 이 경우 5번이 적합합니다.
+  웹 계층의 보안 그룹은 ALB에서 오는 HTTPS 요청을 허용하도록 구성해야 합니다. 애플리케이션 계층의 보안 그룹은 웹 계층에서 오는 HTTPS 요청을 허용하도록 구성해야 합니다. 이 경우 5번이 적합합니다.
 
-또한 데이터베이스 계층은 애플리케이션 계층에서 오는 Microsoft SQL Server 트래픽을 허용하도록 구성해야 합니다.
+  또한 데이터베이스 계층은 애플리케이션 계층에서 오는 Microsoft SQL Server 트래픽을 허용하도록 구성해야 합니다.
 
-이러한 설정으로 인해 웹 계층은 ALB의 HTTPS 요청을 받을 수 있고, 애플리케이션 계층은 웹 계층의 HTTPS 요청을 받을 수 있으며, 데이터베이스 계층은 애플리케이션 계층의 Microsoft SQL Server 트래픽을 받을 수 있습니다.
+  이러한 설정으로 인해 웹 계층은 ALB의 HTTPS 요청을 받을 수 있고, 애플리케이션 계층은 웹 계층의 HTTPS 요청을 받을 수 있으며, 데이터베이스 계층은 애플리케이션 계층의 Microsoft SQL Server 트래픽을 받을 수 있습니다.
 
-따라서_company의 최우선 과제인 보안도 유지할 수 있습니다.
+  따라서_company의 최우선 과제인 보안도 유지할 수 있습니다.
 
-정답은 1번, 5번, 그리고 보안 관점에서 보다 안전한 구성을 위해 간접적으로 언급되지 않았지만 합리적인 선택으로 2번을 포함할 수 있으나, 주어진 정답에 따라 주요 세 가지는 다음과 같습니다:
+  정답은 1번, 5번, 그리고 보안 관점에서 보다 안전한 구성을 위해 간접적으로 언급되지 않았지만 합리적인 선택으로 2번을 포함할 수 있으나, 주어진 정답에 따라 주요 세 가지는 다음과 같습니다:
 
-A (ALB에 대한 보안 그룹의 인바운드 HTTPS 트래픽 허용): 웹 계층의 ALB는 외부에서의 HTTPS 트래픽을 처리해야 하므로, 이 설정은 외부 사용자의 안전한 접근을 보장합니다. 웹 서버로의 안전한 트래픽 유입을 위해 필수적입니다.
+  A (ALB에 대한 보안 그룹의 인바운드 HTTPS 트래픽 허용): 웹 계층의 ALB는 외부에서의 HTTPS 트래픽을 처리해야 하므로, 이 설정은 외부 사용자의 안전한 접근을 보장합니다. 웹 서버로의 안전한 트래픽 유입을 위해 필수적입니다.
 
-E (애플리케이션 계층의 보안 그룹에 웹 계층 HTTPS 트래픽 허용): 애플리케이션 계층은 웹 계층으로부터 적절히 통신해야 합니다. 따라서 웹 계층에서 애플리케이션 계층으로의 HTTPS 또는 필요한 프로토콜 트래픽을 허용하는 설정이 필요합니다. 이는 비즈니스 로직의 정상적인 작동을 위해 중요합니다.
+  E (애플리케이션 계층의 보안 그룹에 웹 계층 HTTPS 트래픽 허용): 애플리케이션 계층은 웹 계층으로부터 적절히 통신해야 합니다. 따라서 웹 계층에서 애플리케이션 계층으로의 HTTPS 또는 필요한 프로토콜 트래픽을 허용하는 설정이 필요합니다. 이는 비즈니스 로직의 정상적인 작동을 위해 중요합니다.
 
-비록 주어진 정답에 명시되지 않았지만, 보안과 실제 운영의 관점에서 고려할 만한 추가적인 선택으로 2번 (웹 계층의 아웃바운드 HTTPS 트래픽 허용)을 언급할 수 있습니다:
+  비록 주어진 정답에 명시되지 않았지만, 보안과 실제 운영의 관점에서 고려할 만한 추가적인 선택으로 2번 (웹 계층의 아웃바운드 HTTPS 트래픽 허용)을 언급할 수 있습니다:
 
-B (비슷한 맥락의 아웃바운드 허용) 대신, 2번을 선택적으로 고려할 수 있는 이유는 웹 서버가 외부와의 HTTPS 통신이 필요한 경우가 많기 때문입니다. 하지만 이는 과도한 허용으로 인해 보안 위험을 증가시킬 수 있으므로, 필요한 특정 아웃바운드 트래픽만을 허용하도록 세밀하게 제한하는 것이 이상적입니다.
-주어진 정답에 따라 가장 적절한 세 가지는 1번, 5번이며, 보안과 실제 운영의 균형을 위해 2번의 개념적 이해는 중요하지만, 주어진 정답에서는 명시되지 않았습니다.
+  B (비슷한 맥락의 아웃바운드 허용) 대신, 2번을 선택적으로 고려할 수 있는 이유는 웹 서버가 외부와의 HTTPS 통신이 필요한 경우가 많기 때문입니다. 하지만 이는 과도한 허용으로 인해 보안 위험을 증가시킬 수 있으므로, 필요한 특정 아웃바운드 트래픽만을 허용하도록 세밀하게 제한하는 것이 이상적입니다.
+  주어진 정답에 따라 가장 적절한 세 가지는 1번, 5번이며, 보안과 실제 운영의 균형을 위해 2번의 개념적 이해는 중요하지만, 주어진 정답에서는 명시되지 않았습니다.
 
 885. A company has released a new version of its production application. The company's workload uses Amazon EC2, AWS Lambda, AWS Fargate, and Amazon SageMaker.
 Now that usage has stabilized, the company wants to optimize workload costs. The company wants to guarantee the most services with the fewest savings plans.
@@ -1909,24 +1908,24 @@ What combination of savings plans would meet these requirements? (Choose two.)
 ④ D. Purchase Compute Savings Plans for Lambda, Fargate, and Amazon EC2.
 ⑤ E. Purchase an EC2 Instance Savings Plan for Amazon EC2 and Fargate.
 
-이 회사의 워크로드는 Amazon EC2, AWS Lambda, AWS Fargate 및 Amazon SageMaker를 사용합니다. 여기서 EC2, Lambda, Fargate는 컴퓨팅 서비스에 해당합니다.
+  이 회사의 워크로드는 Amazon EC2, AWS Lambda, AWS Fargate 및 Amazon SageMaker를 사용합니다. 여기서 EC2, Lambda, Fargate는 컴퓨팅 서비스에 해당합니다.
 
-이러한 요구 사항을 충족하는 저축 계획 조합은 Lambda, Fargate 및 Amazon EC2에 대한 Compute Savings Plan을 구매하는 것입니다.
+  이러한 요구 사항을 충족하는 저축 계획 조합은 Lambda, Fargate 및 Amazon EC2에 대한 Compute Savings Plan을 구매하는 것입니다.
 
-Compute Savings Plan은 EC2 인스턴스, Lambda 함수 및 Fargate와 같은 컴퓨팅 서비스에서 사용량이 안정된 경우에 비용을 최적화하는 데 도움을 주는 저축 계획입니다.
+  Compute Savings Plan은 EC2 인스턴스, Lambda 함수 및 Fargate와 같은 컴퓨팅 서비스에서 사용량이 안정된 경우에 비용을 최적화하는 데 도움을 주는 저축 계획입니다.
 
-따라서 이 조건에 부합하는 가장 적합한 저축 계획은 Lambda, Fargate 및 Amazon EC2에 대한 Compute Savings Plan입니다.
+  따라서 이 조건에 부합하는 가장 적합한 저축 계획은 Lambda, Fargate 및 Amazon EC2에 대한 Compute Savings Plan입니다.
 
-정답은 4번입니다.
+  정답은 4번입니다.
 
-회사는 EC2, Lambda, Fargate, SageMaker 네 가지 서비스를 사용하며, 비용 최적화를 목표로 합니다. Savings Plan은 사용량이 예측 가능할 때 비용 절감 효과를 극대화할 수 있습니다.
+  회사는 EC2, Lambda, Fargate, SageMaker 네 가지 서비스를 사용하며, 비용 최적화를 목표로 합니다. Savings Plan은 사용량이 예측 가능할 때 비용 절감 효과를 극대화할 수 있습니다.
 
-Compute Savings Plan (4번)은 EC2, Lambda, Fargate와 같이 컴퓨팅 기반 서비스에 적용 가능하며, 이 세 서비스를 모두 포함하고 있어 넓은 범위의 워크로드를 보장합니다.
-다른 옵션들은 다음과 같은 이유로 적합하지 않습니다.
+  Compute Savings Plan (4번)은 EC2, Lambda, Fargate와 같이 컴퓨팅 기반 서비스에 적용 가능하며, 이 세 서비스를 모두 포함하고 있어 넓은 범위의 워크로드를 보장합니다.
+  다른 옵션들은 다음과 같은 이유로 적합하지 않습니다.
 
-1번, 5번 (EC2 인스턴스 Savings Plan): SageMaker는 EC2 인스턴스 기반으로도 실행될 수 있지만, Savings Plan은 특정 인스턴스 유형에만 적용됩니다. 모든 SageMaker 워크로드를 커버하기 어렵습니다.
-2번: EC2, Lambda에 최적화되었지만 Fargate는 포함되지 않습니다.
-3번: SageMaker만 커버하며, 다른 중요한 서비스 (EC2, Lambda, Fargate)는 제외됩니다.
+  1번, 5번 (EC2 인스턴스 Savings Plan): SageMaker는 EC2 인스턴스 기반으로도 실행될 수 있지만, Savings Plan은 특정 인스턴스 유형에만 적용됩니다. 모든 SageMaker 워크로드를 커버하기 어렵습니다.
+  2번: EC2, Lambda에 최적화되었지만 Fargate는 포함되지 않습니다.
+  3번: SageMaker만 커버하며, 다른 중요한 서비스 (EC2, Lambda, Fargate)는 제외됩니다.
 
 886. The company uses a Microsoft SQL Server database. The company's applications connect to the database. The company wants to migrate to an Amazon Aurora PostgreSQL database with minimal changes to the application code. What combination of steps would meet these requirements? (Choose two.)
 ① A. Rewrite the SQL queries in your application using AWS Schema Conversion Tool (AWS SCT).
@@ -1935,17 +1934,17 @@ Compute Savings Plan (4번)은 EC2, Lambda, Fargate와 같이 컴퓨팅 기반 �
 ④ D. Connect your application to Aurora PostgreSQL using Amazon RDS Proxy.
 ⑤ E. Rewrite SQL queries in your application using AWS Database Migration Service (AWS DMS).
 
-정답은 3번과 B번입니다.
+  정답은 3번과 B번입니다.
 
-3번 (C): AWS SCT는 SQL Server 스키마를 Aurora PostgreSQL로 변환하는데 효과적입니다. AWS DMS는 이러한 변환된 스키마와 함께 데이터를 안전하게 마이그레이션하는 데 사용됩니다. 애플리케이션 코드 변경을 최소화하려는 요구 사항에 정확히 부합합니다.
+  3번 (C): AWS SCT는 SQL Server 스키마를 Aurora PostgreSQL로 변환하는데 효과적입니다. AWS DMS는 이러한 변환된 스키마와 함께 데이터를 안전하게 마이그레이션하는 데 사용됩니다. 애플리케이션 코드 변경을 최소화하려는 요구 사항에 정확히 부합합니다.
 
-B번: Babelfish는 Aurora PostgreSQL에 통합된 기능으로, T-SQL (SQL Server의 쿼리 언어)을 지원하여 애플리케이션이 SQL Server 쿼리를 그대로 사용하면서도 PostgreSQL에서 실행될 수 있게 합니다. 이는 코드 수정을 최소화하는 데 매우 유용합니다.
+  B번: Babelfish는 Aurora PostgreSQL에 통합된 기능으로, T-SQL (SQL Server의 쿼리 언어)을 지원하여 애플리케이션이 SQL Server 쿼리를 그대로 사용하면서도 PostgreSQL에서 실행될 수 있게 합니다. 이는 코드 수정을 최소화하는 데 매우 유용합니다.
 
-다른 옵션들은 왜 적합하지 않은가요?
+  다른 옵션들은 왜 적합하지 않은가요?
 
-1번 (A): 애플리케이션 내 SQL 쿼리를 직접 다시 작성하는 것은 요구 사항인 코드 변경 최소화와 충돌합니다.
-4번 (D): RDS Proxy는 연결 관리에 도움이 되지만, 마이그레이션 자체를 해결하지 않습니다.
-5번 (E): AWS DMS는 데이터 마이그레이션에 탁월하지만, SQL 쿼리 재작성을 위한 도구가 아닙니다.
+  1번 (A): 애플리케이션 내 SQL 쿼리를 직접 다시 작성하는 것은 요구 사항인 코드 변경 최소화와 충돌합니다.
+  4번 (D): RDS Proxy는 연결 관리에 도움이 되지만, 마이그레이션 자체를 해결하지 않습니다.
+  5번 (E): AWS DMS는 데이터 마이그레이션에 탁월하지만, SQL 쿼리 재작성을 위한 도구가 아닙니다.
 
 887. A company plans to rehost its applications on Amazon EC2 instances that use Amazon Elastic Block Store (Amazon EBS) as attached storage.
 The solution architect must design the solution so that all newly created Amazon EBS volumes are encrypted by default. The solution must also prevent the creation of unencrypted EBS volumes.
@@ -1955,25 +1954,25 @@ Which solution meets these requirements?
 ③ C. Configure AWS Systems Manager to create encrypted copies of EBS volumes. Reconfigure EC2 instances to use encrypted volumes.
 ④ D. Create a customer-managed key in AWS Key Management Service (AWS KMS). Configure AWS Migration Hub to use the key when migrating your company's workloads.
 
-Amazon Elastic Block Store(Amazon EBS) 볼륨의 암호화를 기본으로 설정하려면 EC2 계정 속성을 구성하는 것이 가장 간단한 방법입니다.
+  Amazon Elastic Block Store(Amazon EBS) 볼륨의 암호화를 기본으로 설정하려면 EC2 계정 속성을 구성하는 것이 가장 간단한 방법입니다.
 
-이렇게 설정하면 모든 새로 생성되는 EBS 볼륨이 자동으로 암호화되므로, 암호화되지 않은 볼륨이 생성되는 것을 방지할 수 있습니다.
+  이렇게 설정하면 모든 새로 생성되는 EBS 볼륨이 자동으로 암호화되므로, 암호화되지 않은 볼륨이 생성되는 것을 방지할 수 있습니다.
 
-이 방법은 AWS에서 제공하는 기본 기능이며, 추가적인 리소스나 서비스를 사용할 필요가 없습니다. 따라서, 이 요구 사항을 충족하는 가장 эффектив한 솔루션은 항상 새 EBS 볼륨을 암호화하도록 EC2 계정 속성을 구성하는 것입니다.
+  이 방법은 AWS에서 제공하는 기본 기능이며, 추가적인 리소스나 서비스를 사용할 필요가 없습니다. 따라서, 이 요구 사항을 충족하는 가장 эффектив한 솔루션은 항상 새 EBS 볼륨을 암호화하도록 EC2 계정 속성을 구성하는 것입니다.
 
-정답은 1번입니다.
+  정답은 1번입니다.
 
-회사의 요구 사항은 모든 새 Amazon EBS 볼륨이 기본적으로 암호화되어 생성되며, 암호화되지 않은 볼륨의 생성을 방지하는 것입니다.
+  회사의 요구 사항은 모든 새 Amazon EBS 볼륨이 기본적으로 암호화되어 생성되며, 암호화되지 않은 볼륨의 생성을 방지하는 것입니다.
 
-1번 옵션은 EC2 계정 설정을 통해 모든 EBS 볼륨이 자동으로 암호화되도록 할 수 있습니다. AWS에서는 특정 KMS 키와 연계된 옵션을 통해 EBS 볼륨의 기본 암호화 설정을 계정 수준에서 관리할 수 있습니다. 이렇게 설정하면 새로운 볼륨이 생성될 때 자동으로 암호화되어 생성되므로, 요구 사항을 완벽하게 충족합니다.
+  1번 옵션은 EC2 계정 설정을 통해 모든 EBS 볼륨이 자동으로 암호화되도록 할 수 있습니다. AWS에서는 특정 KMS 키와 연계된 옵션을 통해 EBS 볼륨의 기본 암호화 설정을 계정 수준에서 관리할 수 있습니다. 이렇게 설정하면 새로운 볼륨이 생성될 때 자동으로 암호화되어 생성되므로, 요구 사항을 완벽하게 충족합니다.
 
-2번 옵션의 AWS Config는 주로 규정 준수와 리소스 상태 모니터링에 초점을 맞추며, 즉시 생성 시점의 암호화를 강제하는 기능은 제공하지 않습니다.
+  2번 옵션의 AWS Config는 주로 규정 준수와 리소스 상태 모니터링에 초점을 맞추며, 즉시 생성 시점의 암호화를 강제하는 기능은 제공하지 않습니다.
 
-3번 옵션은 이미 존재하는 EBS 볼륨을 암호화된 복사본으로 만드는 방식으로, 새 볼륨 생성 시점의 암호화 요구를 직접 해결하지 못합니다.
+  3번 옵션은 이미 존재하는 EBS 볼륨을 암호화된 복사본으로 만드는 방식으로, 새 볼륨 생성 시점의 암호화 요구를 직접 해결하지 못합니다.
 
-4번 옵션은 고객 관리형 키를 생성하고 마이그레이션 과정에서 사용하는 것에 초점을 맞추고 있어, 신규 볼륨 생성 시의 기본 암호화 설정을 직접적으로 다루지 않습니다.
+  4번 옵션은 고객 관리형 키를 생성하고 마이그레이션 과정에서 사용하는 것에 초점을 맞추고 있어, 신규 볼륨 생성 시의 기본 암호화 설정을 직접적으로 다루지 않습니다.
 
-따라서, 모든 새 EBS 볼륨이 기본적으로 암호화되도록 하는 가장 효과적이고 직접적인 방법은 1번 옵션인 계정 설정을 통해 암호화를 강제하는 것입니다.
+  따라서, 모든 새 EBS 볼륨이 기본적으로 암호화되도록 하는 가장 효과적이고 직접적인 방법은 1번 옵션인 계정 설정을 통해 암호화를 강제하는 것입니다.
 
 888. An e-commerce company wants to collect user clickstream data from its website for real-time analytics. The website experiences fluctuating traffic patterns throughout the day. The company needs a scalable solution that can adapt to varying levels of traffic. Which solution meets these requirements?
 ① A. Capture clickstream data using a data stream from Amazon Kinesis Data Streams in on-demand mode. Process the data in real time using AWS Lambda.
@@ -1981,28 +1980,28 @@ Amazon Elastic Block Store(Amazon EBS) 볼륨의 암호화를 기본으로 설�
 ③ C. Capture clickstream data using Amazon Kinesis Video Streams. Process the data in real time using AWS Glue.
 ④ D. Capture clickstream data using Amazon Managed Service for Apache Flink (formerly Amazon Kinesis Data Analytics). Process the data in real time using AWS Lambda.
 
-전자상거래 회사의 요구 사항을 충족하는 솔루션은 1번입니다.
+  전자상거래 회사의 요구 사항을 충족하는 솔루션은 1번입니다.
 
-온디맨드 모드에서 Amazon Kinesis Data Streams의 데이터 스트림을 사용하여 클릭스트림 데이터를 캡처하는 이유는 다음과 같습니다.
+  온디맨드 모드에서 Amazon Kinesis Data Streams의 데이터 스트림을 사용하여 클릭스트림 데이터를 캡처하는 이유는 다음과 같습니다.
 
-데이터 스트림: Amazon Kinesis Data Streams는 대규모의 데이터 스트림을 수집, 처리 및 분석할 수 있는 완전 관리형 서비스입니다.
-실시간 처리: AWS Lambda를 사용하여 실시간으로 데이터를 처리할 수 있습니다.
-확장성: 온디맨드 모드에서 실행하면 트래픽 패턴에 따라 자동으로 확장 및 축소할 수 있습니다.
-따라서, 1번 솔루션이 전자상거래 회사의 요구 사항을 충족하며, 확장성이 뛰어나고 실시간 분석이 가능합니다.
+  데이터 스트림: Amazon Kinesis Data Streams는 대규모의 데이터 스트림을 수집, 처리 및 분석할 수 있는 완전 관리형 서비스입니다.
+  실시간 처리: AWS Lambda를 사용하여 실시간으로 데이터를 처리할 수 있습니다.
+  확장성: 온디맨드 모드에서 실행하면 트래픽 패턴에 따라 자동으로 확장 및 축소할 수 있습니다.
+  따라서, 1번 솔루션이 전자상거래 회사의 요구 사항을 충족하며, 확장성이 뛰어나고 실시간 분석이 가능합니다.
 
-정답은 1번입니다.
+  정답은 1번입니다.
 
-전자상거래 플랫폼의 실시간 클릭스트림 데이터 처리에는 확장성과 실시간 처리 능력이 필수적입니다.
+  전자상거래 플랫폼의 실시간 클릭스트림 데이터 처리에는 확장성과 실시간 처리 능력이 필수적입니다.
 
-Amazon Kinesis Data Streams는 변동하는 트래픽 패턴에 유연하게 대응하는 수직 및 수평 확장이 가능한 스트리밍 서비스입니다. 이는 높은 처리량과 낮은 지연 시간을 제공하여 실시간 분석에 적합합니다.
+  Amazon Kinesis Data Streams는 변동하는 트래픽 패턴에 유연하게 대응하는 수직 및 수평 확장이 가능한 스트리밍 서비스입니다. 이는 높은 처리량과 낮은 지연 시간을 제공하여 실시간 분석에 적합합니다.
 
-AWS Lambda는 이벤트 기반 컴퓨팅 서비스로, Kinesis Data Streams에서 데이터가 도착할 때 자동으로 트리거되어 실시간 데이터 처리 로직을 실행합니다. 이는 서버 관리 없이 효율적인 실시간 분석 파이프라인 구축을 가능하게 합니다.
+  AWS Lambda는 이벤트 기반 컴퓨팅 서비스로, Kinesis Data Streams에서 데이터가 도착할 때 자동으로 트리거되어 실시간 데이터 처리 로직을 실행합니다. 이는 서버 관리 없이 효율적인 실시간 분석 파이프라인 구축을 가능하게 합니다.
 
-다른 옵션들은 왜 적절하지 않은가요?
+  다른 옵션들은 왜 적절하지 않은가요?
 
-2번: Kinesis Data Firehose는 주로 데이터를 저장소(예: S3)로 안정적으로 전달하는 데 초점을 맞추며, 실시간 처리보다는 배치 처리에 더 적합합니다. AWS Glue는 데이터 카탈로그링 및 ETL 작업에 강점을 가지고 있지만, 실시간 처리에는 오버헤드가 있습니다.
-3번: Kinesis Video Streams는 비디오 스트리밍 데이터에 최적화된 서비스입니다. 클릭스트림 데이터 처리에는 불필요한 기능과 비용이 발생합니다.
-4번: Apache Flink용 Amazon Managed Service는 강력한 스트리밍 처리 기능을 제공하지만, 문제에서 제시된 단순한 실시간 처리 요구 사항에는 AWS Lambda와 Kinesis Data Streams의 조합이 더 간결하고 효율적입니다.
+  2번: Kinesis Data Firehose는 주로 데이터를 저장소(예: S3)로 안정적으로 전달하는 데 초점을 맞추며, 실시간 처리보다는 배치 처리에 더 적합합니다. AWS Glue는 데이터 카탈로그링 및 ETL 작업에 강점을 가지고 있지만, 실시간 처리에는 오버헤드가 있습니다.
+  3번: Kinesis Video Streams는 비디오 스트리밍 데이터에 최적화된 서비스입니다. 클릭스트림 데이터 처리에는 불필요한 기능과 비용이 발생합니다.
+  4번: Apache Flink용 Amazon Managed Service는 강력한 스트리밍 처리 기능을 제공하지만, 문제에서 제시된 단순한 실시간 처리 요구 사항에는 AWS Lambda와 Kinesis Data Streams의 조합이 더 간결하고 효율적입니다.
 
 889. A global company runs workloads on AWS. The company's applications use Amazon S3 buckets across AWS regions for sensitive data storage and analysis. The company stores millions of objects in multiple S3 buckets every day. The company wants to identify all S3 buckets that do not have versioning enabled.
 Which solution meets these requirements?
@@ -2011,17 +2010,17 @@ Which solution meets these requirements?
 ③ C. Enable IAM Access Analyzer for S3 to identify all S3 buckets that do not have versioning enabled across regions.
 ④ D. Create an S3 multi-region access point to identify all S3 buckets that do not have versioning enabled across regions.
 
-글로벌 기업은 AWS에서 워크로드를 실행하고 있으며, 여러 S3 버킷에 매일 수백만 개의 객체를 저장합니다. 버전 관리가 활성화되지 않은 모든 S3 버킷을 식별하려고 하는데, Amazon S3 Storage Lens를 사용하면 이러한 요구 사항을 충족할 수 있습니다. Amazon S3 Storage Lens는.centralized-dashboard와 몇 가지 메트릭을 제공하여 버전 yönetim 상태를 포함한 S3 버킷에 대한 정보를 제공합니다. 이를 통해 버전 관리가 활성화되지 않은 버킷을 쉽게 식별할 수 있습니다. 따라서, 정답은 Amazon S3 Storage Lens를 사용하는 것입니다.
+  글로벌 기업은 AWS에서 워크로드를 실행하고 있으며, 여러 S3 버킷에 매일 수백만 개의 객체를 저장합니다. 버전 관리가 활성화되지 않은 모든 S3 버킷을 식별하려고 하는데, Amazon S3 Storage Lens를 사용하면 이러한 요구 사항을 충족할 수 있습니다. Amazon S3 Storage Lens는.centralized-dashboard와 몇 가지 메트릭을 제공하여 버전 yönetim 상태를 포함한 S3 버킷에 대한 정보를 제공합니다. 이를 통해 버전 관리가 활성화되지 않은 버킷을 쉽게 식별할 수 있습니다. 따라서, 정답은 Amazon S3 Storage Lens를 사용하는 것입니다.
 
-정답은 B. Amazon S3 Storage Lens입니다.
+  정답은 B. Amazon S3 Storage Lens입니다.
 
-Amazon S3 Storage Lens는 AWS 계정 내 여러 S3 버킷의 스토리지 사용 현황을 모니터링하고 분석하는 서비스입니다. 공간 사용량, 액세스 패턴, 객체 수명, 성능 지표 등 다양한 메트릭을 제공하며, 버전 관리 설정 여부를 포함한 버킷 설정 정보도 포함합니다. 따라서 글로벌 기업은 Storage Lens를 통해 리전 전체의 S3 버킷 중 버전 관리 기능이 활성화되지 않은 버킷들을 효율적으로 식별하고 분석할 수 있습니다.
+  Amazon S3 Storage Lens는 AWS 계정 내 여러 S3 버킷의 스토리지 사용 현황을 모니터링하고 분석하는 서비스입니다. 공간 사용량, 액세스 패턴, 객체 수명, 성능 지표 등 다양한 메트릭을 제공하며, 버전 관리 설정 여부를 포함한 버킷 설정 정보도 포함합니다. 따라서 글로벌 기업은 Storage Lens를 통해 리전 전체의 S3 버킷 중 버전 관리 기능이 활성화되지 않은 버킷들을 효율적으로 식별하고 분석할 수 있습니다.
 
-다른 옵션들은 요구 사항을 완전히 충족하지 못합니다:
+  다른 옵션들은 요구 사항을 완전히 충족하지 못합니다:
 
-A. AWS CloudTrail: 이벤트 로그를 기록하지만, 버전 관리 상태를 직접 분석하는데는 제한적입니다.
-C. IAM 액세스 분석기: 주로 IAM 정책과 접근 권한을 분석하기 위한 도구로, S3 버킷의 버전 관리 상태를 탐지하는 데 적합하지 않습니다.
-D. 다중 지역 액세스 포인트: 주로 데이터 접근성을 개선하는 데 목적이 있으며, 버킷 설정 분석에는 사용되지 않습니다.
+  A. AWS CloudTrail: 이벤트 로그를 기록하지만, 버전 관리 상태를 직접 분석하는데는 제한적입니다.
+  C. IAM 액세스 분석기: 주로 IAM 정책과 접근 권한을 분석하기 위한 도구로, S3 버킷의 버전 관리 상태를 탐지하는 데 적합하지 않습니다.
+  D. 다중 지역 액세스 포인트: 주로 데이터 접근성을 개선하는 데 목적이 있으며, 버킷 설정 분석에는 사용되지 않습니다.
 
 890. A company needs to optimize Amazon S3 storage costs for an application that generates a large number of irreproducible files. Each file is approximately 5 MB and is stored in Amazon S3 Standard storage.
 The company must retain these files for four years before deleting them. The files must be immediately accessible. The files are frequently accessed during the first 30 days after object creation, but rarely accessed after that.
@@ -2031,23 +2030,23 @@ What is the most cost-effective solution to meet these requirements?
 ③ C. Create an S3 lifecycle policy that moves files to S3 Standard-Infrequent Access (S3 Standard-IA) 30 days after object creation. Delete files 4 years after object creation.
 ④ D. Create an S3 lifecycle policy that moves files to S3 Standard-Infrequent Access (S3 Standard-IA) 30 days after object creation. Move files to S3 Glacier Flexible Retrieval 4 years after object creation.
 
-이 문제는 Amazon S3 스토리지 비용을 최적화하는 방법을 묻고 있습니다. 회사의 요구 사항은 파일을 삭제하기 전에 4년 동안 보관해야 하며, 파일에 즉시 액세스할 수 있어야 합니다. 또한 파일은 처음 30일 동안 자주 액세스되지만 이후에는 거의 액세스되지 않습니다.
+  이 문제는 Amazon S3 스토리지 비용을 최적화하는 방법을 묻고 있습니다. 회사의 요구 사항은 파일을 삭제하기 전에 4년 동안 보관해야 하며, 파일에 즉시 액세스할 수 있어야 합니다. 또한 파일은 처음 30일 동안 자주 액세스되지만 이후에는 거의 액세스되지 않습니다.
 
-이 요구 사항을 충족하는 가장 비용 효율적인 솔루션은 객체 생성 후 30일이 지나면 파일을 S3 Glacier Instant Retrieval로 이동하는 S3 수명 주기 정책을 생성하고, 객체 생성 후 4년이 지나면 파일을 삭제하는 것입니다. S3 Glacier Instant Retrieval는 자주 액세스하지 않는 데이터를 저장하기 위한 것으로, 데이터에 즉시 액세스할 수 있으며 비용이 저렴합니다.
+  이 요구 사항을 충족하는 가장 비용 효율적인 솔루션은 객체 생성 후 30일이 지나면 파일을 S3 Glacier Instant Retrieval로 이동하는 S3 수명 주기 정책을 생성하고, 객체 생성 후 4년이 지나면 파일을 삭제하는 것입니다. S3 Glacier Instant Retrieval는 자주 액세스하지 않는 데이터를 저장하기 위한 것으로, 데이터에 즉시 액세스할 수 있으며 비용이 저렴합니다.
 
-다른 옵션들은 다음과 같은 이유로 적합하지 않습니다. S3 One Zone-Infrequent Access는 장애가 발생할 경우 데이터를 잃을 수 있기 때문에 적합하지 않습니다. S3 Standard-Infrequent Access는 즉시 액세스가 가능하지만, 비용이 더 높습니다. S3 Glacier 유연한 검색은 데이터에 즉시 액세스할 수 없기 때문에 적합하지 않습니다. 따라서 정답은 1번입니다.
+  다른 옵션들은 다음과 같은 이유로 적합하지 않습니다. S3 One Zone-Infrequent Access는 장애가 발생할 경우 데이터를 잃을 수 있기 때문에 적합하지 않습니다. S3 Standard-Infrequent Access는 즉시 액세스가 가능하지만, 비용이 더 높습니다. S3 Glacier 유연한 검색은 데이터에 즉시 액세스할 수 없기 때문에 적합하지 않습니다. 따라서 정답은 1번입니다.
 
-주어진 상황에서 가장 비용 효율적인 솔루션은 옵션 1입니다.
+  주어진 상황에서 가장 비용 효율적인 솔루션은 옵션 1입니다.
 
-파일은 초기 30일 동안 자주 액세스되지만 그 이후로는 액세스 빈도가 현저히 줄어듭니다. 이때, S3 Standard 스토리지는 높은 액세스 비용을 수반하므로, 초기 액세스 빈도가 낮아지는 시점에 비용 효율적인 저장 옵션으로 전환하는 것이 중요합니다.
+  파일은 초기 30일 동안 자주 액세스되지만 그 이후로는 액세스 빈도가 현저히 줄어듭니다. 이때, S3 Standard 스토리지는 높은 액세스 비용을 수반하므로, 초기 액세스 빈도가 낮아지는 시점에 비용 효율적인 저장 옵션으로 전환하는 것이 중요합니다.
 
-옵션 1은 30일이 지나면 파일을 S3 Glacier Instant Retrieval로 이동합니다. S3 Glacier Instant Retrieval은 높은 접근성을 유지하면서도 Standard 스토리지보다 훨씬 저렴한 비용으로 보관할 수 있습니다. 즉시 액세스가 필요한 상황에서도 빠르게 파일을 불러올 수 있는 장점이 있습니다. 4년 후 파일 삭제는 장기 보관 비용을 최소화합니다.
+  옵션 1은 30일이 지나면 파일을 S3 Glacier Instant Retrieval로 이동합니다. S3 Glacier Instant Retrieval은 높은 접근성을 유지하면서도 Standard 스토리지보다 훨씬 저렴한 비용으로 보관할 수 있습니다. 즉시 액세스가 필요한 상황에서도 빠르게 파일을 불러올 수 있는 장점이 있습니다. 4년 후 파일 삭제는 장기 보관 비용을 최소화합니다.
 
-옵션 2와 3 (S3 One Zone-IA, S3 Standard-IA)은 액세스 비용이 여전히 Standard보다 낮지만, Glacier Instant Retrieval에 비해 액세스 비용이 더 높을 수 있습니다. 특히 거의 액세스되지 않는 장기 보관 파일에 대해서는 비용 효율성이 떨어집니다.
+  옵션 2와 3 (S3 One Zone-IA, S3 Standard-IA)은 액세스 비용이 여전히 Standard보다 낮지만, Glacier Instant Retrieval에 비해 액세스 비용이 더 높을 수 있습니다. 특히 거의 액세스되지 않는 장기 보관 파일에 대해서는 비용 효율성이 떨어집니다.
 
-옵션 4는 중간 단계로 Standard-IA를 사용한 후 4년 후에 Glacier로 이동하는 방식으로, 초기 비용 절감 효과가 제한적일 수 있고, 4년 후 Glacier로의 이동은 추가적인 복잡성과 비용을 초래할 수 있습니다.
+  옵션 4는 중간 단계로 Standard-IA를 사용한 후 4년 후에 Glacier로 이동하는 방식으로, 초기 비용 절감 효과가 제한적일 수 있고, 4년 후 Glacier로의 이동은 추가적인 복잡성과 비용을 초래할 수 있습니다.
 
-따라서, 초기 액세스 빈도 감소 후 즉시 액세스가 필요하면서도 장기 보관 비용을 최소화하려는 요구 사항을 충족시키는 가장 적합한 선택은 옵션 1입니다.
+  따라서, 초기 액세스 빈도 감소 후 즉시 액세스가 필요하면서도 장기 보관 비용을 최소화하려는 요구 사항을 충족시키는 가장 적합한 선택은 옵션 1입니다.
 
 891. A company runs a critical storage application in the AWS Cloud. The application uses Amazon S3 in two AWS regions. The company wants the application to send remote user data to the nearest S3 bucket without public network congestion. The company also wants application failover with minimal Amazon S3 management.
 Which solution meets these requirements?
@@ -2056,18 +2055,18 @@ Which solution meets these requirements?
 ③ C. Send user data to the regional S3 endpoint closest to the user. Configure S3 cross-account replication rules to keep S3 buckets synchronized.
 ④ D. Set up Amazon S3 to use multi-region access points in an active-active configuration with a single global endpoint. Configure S3 cross-region replication.
 
-회사가 요구하는 조건은 공용 네트워크 정체 없이 원격 사용자 데이터를 가장 가까운 S3 버킷으로 보내는 것이며, 최소한의 Amazon S3 관리로 애플리케이션 장애 조치를 원합니다.
+  회사가 요구하는 조건은 공용 네트워크 정체 없이 원격 사용자 데이터를 가장 가까운 S3 버킷으로 보내는 것이며, 최소한의 Amazon S3 관리로 애플리케이션 장애 조치를 원합니다.
 
-4번은 단일 글로벌 엔드포인트가 있는 활성-활성 구성에서 다중 지역 액세스 포인트를 사용하도록 Amazon S3를 설정하며, S3 교차 리전 복제를 구성합니다. 따라서 정답은 4번입니다.
+  4번은 단일 글로벌 엔드포인트가 있는 활성-활성 구성에서 다중 지역 액세스 포인트를 사용하도록 Amazon S3를 설정하며, S3 교차 리전 복제를 구성합니다. 따라서 정답은 4번입니다.
 
-이 방법은 사용자의 요청을 가장 가까운 리전에自動으로 라우팅하는 다중 지역 액세스 포인트를 사용하여 공용 네트워크 정체를 최소화하며, S3 교차 리전 복제를 사용하여 데이터 일관성을 유지하고 최소한의 관리로 장애 조치를 제공합니다.
+  이 방법은 사용자의 요청을 가장 가까운 리전에自動으로 라우팅하는 다중 지역 액세스 포인트를 사용하여 공용 네트워크 정체를 최소화하며, S3 교차 리전 복제를 사용하여 데이터 일관성을 유지하고 최소한의 관리로 장애 조치를 제공합니다.
 
-정답인 4번 솔루션이 요구 사항을 가장 잘 충족합니다.
+  정답인 4번 솔루션이 요구 사항을 가장 잘 충족합니다.
 
-사용자 근접성: 단일 글로벌 엔드포인트를 통해 사용자는 항상 가장 가까운 AWS 리전의 S3에 연결되므로 네트워크 지연과 정체를 최소화할 수 있습니다.
-장애 조치: 활성-활성 구성 덕분에 한 리전에 문제가 발생하더라도 다른 리전에서 서비스를 계속 제공할 수 있어 가용성이 향상됩니다.
-관리 간소화: S3 교차 리전 복제를 설정하면 데이터의 동기화를 자동화할 수 있어 수동 관리 부담을 줄입니다. 이로써 두 리전의 S3 버킷이 일관된 상태를 유지하면서도, 복잡한 다중 관리 없이 장애 상황에 대비할 수 있습니다.
-따라서 4번 옵션이 공용 네트워크 효율성, 장애 대비 능력, 그리고 관리 효율성을 모두 만족시킵니다.
+  사용자 근접성: 단일 글로벌 엔드포인트를 통해 사용자는 항상 가장 가까운 AWS 리전의 S3에 연결되므로 네트워크 지연과 정체를 최소화할 수 있습니다.
+  장애 조치: 활성-활성 구성 덕분에 한 리전에 문제가 발생하더라도 다른 리전에서 서비스를 계속 제공할 수 있어 가용성이 향상됩니다.
+  관리 간소화: S3 교차 리전 복제를 설정하면 데이터의 동기화를 자동화할 수 있어 수동 관리 부담을 줄입니다. 이로써 두 리전의 S3 버킷이 일관된 상태를 유지하면서도, 복잡한 다중 관리 없이 장애 상황에 대비할 수 있습니다.
+  따라서 4번 옵션이 공용 네트워크 효율성, 장애 대비 능력, 그리고 관리 효율성을 모두 만족시킵니다.
 
 892. A company is migrating its data center from an on-premises location to AWS. The company has several legacy applications hosted on individual virtual servers. The application design cannot be changed.
 Each individual virtual server currently runs on its own EC2 instance. The solutions architect must ensure the application's stability and fault tolerance after the migration to AWS. The application runs on Amazon EC2 instances.
@@ -2077,23 +2076,23 @@ Which solution meets these requirements?
 ③ C. Create an Amazon Machine Image (AMI) for each application instance. Launch two new EC2 instances from the AMI. Place each EC2 instance in a separate Availability Zone. Configure a Network Load Balancer targeting the EC2 instances.
 ④ D. Use AWS Mitigation Hub Refactor Spaces to migrate each application from an EC2 instance. Break down each application's functionality into individual components. Host each application on Amazon Elastic Container Service (Amazon ECS) using the AWS Fargate launch type.
 
-각 애플리케이션은 개별 가상 서버에서 호스팅되며 AWS로 마이그레이션한 후 안정성과 내결함성을 보장해야 합니다. 현재는 각 가상 서버가 자체 EC2 인스턴스로 실행되고 있습니다.
+  각 애플리케이션은 개별 가상 서버에서 호스팅되며 AWS로 마이그레이션한 후 안정성과 내결함성을 보장해야 합니다. 현재는 각 가상 서버가 자체 EC2 인스턴스로 실행되고 있습니다.
 
-각 애플리케이션 인스턴스의 Amazon 머신 이미지를 생성하고 AMI에서 2개의 새로운 EC2 인스턴스를 시작합니다. 이후 각 EC2 인스턴스를 별도의 가용 영역에 배치하고 EC2 인스턴스를 대상으로 하는 Network Load Balancer를 구성하면 안정성과 내결함성을 보장할 수 있습니다.
+  각 애플리케이션 인스턴스의 Amazon 머신 이미지를 생성하고 AMI에서 2개의 새로운 EC2 인스턴스를 시작합니다. 이후 각 EC2 인스턴스를 별도의 가용 영역에 배치하고 EC2 인스턴스를 대상으로 하는 Network Load Balancer를 구성하면 안정성과 내결함성을 보장할 수 있습니다.
 
-이러한 요구 사항을 충족하는 솔루션은 C입니다.
+  이러한 요구 사항을 충족하는 솔루션은 C입니다.
 
-정답은 3번입니다. 각 애플리케이션의 내결함성과 안정성을 보장하기 위해 주요 요구 사항은 고가용성과 재해 복구를 포함한 중복성입니다.
+  정답은 3번입니다. 각 애플리케이션의 내결함성과 안정성을 보장하기 위해 주요 요구 사항은 고가용성과 재해 복구를 포함한 중복성입니다.
 
-3번 옵션은 다음과 같은 방식으로 이 요구 사항을 충족합니다:
+  3번 옵션은 다음과 같은 방식으로 이 요구 사항을 충족합니다:
 
-고가용성: 각 애플리케이션을 위한 AMI를 생성한 후, 두 개의 EC2 인스턴스를 별도의 가용 영역에 배포합니다. 이는 하나의 가용 영역에 문제가 발생하더라도 다른 가용 영역에서 서비스가 계속되도록 합니다.
-로드 밸런싱: Network Load Balancer를 통해 트래픽을 두 인스턴스 사이에 분산시킵니다. 이는 요청의 효율적인 처리와 장애 시 자동 전환 기능을 제공하여 시스템의 안정성을 높입니다.
-다른 옵션들은 다음과 같은 이유로 적합하지 않습니다:
+  고가용성: 각 애플리케이션을 위한 AMI를 생성한 후, 두 개의 EC2 인스턴스를 별도의 가용 영역에 배포합니다. 이는 하나의 가용 영역에 문제가 발생하더라도 다른 가용 영역에서 서비스가 계속되도록 합니다.
+  로드 밸런싱: Network Load Balancer를 통해 트래픽을 두 인스턴스 사이에 분산시킵니다. 이는 요청의 효율적인 처리와 장애 시 자동 전환 기능을 제공하여 시스템의 안정성을 높입니다.
+  다른 옵션들은 다음과 같은 이유로 적합하지 않습니다:
 
-1번: Auto Scaling 그룹은 확장성과 부하 분산에 유용하지만, 고가용성을 위해 최소 두 개 이상의 인스턴스를 별도의 가용 영역에 배치하는 명시적인 언급이 없습니다.
-2번: 백업과 재해 복구는 중요한 요소이지만, 실시간 안정성과 내결함성을 즉시 보장하는 솔루션은 아닙니다. 백업 복원은 재해 발생 후 복구 과정에 초점을 맞춥니다.
-4번: 애플리케이션을 컨테이너화하고 Fargate를 사용하는 것은 현대적인 접근법이지만, 문제 조건에서 애플리케이션 디자인 변경을 피하고 현재 EC2 기반 구조를 유지해야 한다는 점을 고려할 때 적합하지 않습니다. 또한, 이 방법은 질문의 핵심 요구 사항인 고가용성과 직접적인 연결성이 덜 명확합니다.
+  1번: Auto Scaling 그룹은 확장성과 부하 분산에 유용하지만, 고가용성을 위해 최소 두 개 이상의 인스턴스를 별도의 가용 영역에 배치하는 명시적인 언급이 없습니다.
+  2번: 백업과 재해 복구는 중요한 요소이지만, 실시간 안정성과 내결함성을 즉시 보장하는 솔루션은 아닙니다. 백업 복원은 재해 발생 후 복구 과정에 초점을 맞춥니다.
+  4번: 애플리케이션을 컨테이너화하고 Fargate를 사용하는 것은 현대적인 접근법이지만, 문제 조건에서 애플리케이션 디자인 변경을 피하고 현재 EC2 기반 구조를 유지해야 한다는 점을 고려할 때 적합하지 않습니다. 또한, 이 방법은 질문의 핵심 요구 사항인 고가용성과 직접적인 연결성이 덜 명확합니다.
 
 893. A company wants to isolate workloads by creating AWS accounts for each workload. The company needs a solution that centrally manages networking components for the workloads. The solution also needs to create accounts with automated security controls (guardrails). What solution can meet these requirements with minimal operational overhead?
 ① A. Deploy accounts using AWS Control Tower. Create a networking account with a VPC with private and public subnets. Use AWS Resource Access Manager (AWS RAM) to share the subnets with workload accounts.
@@ -2101,21 +2100,21 @@ Which solution meets these requirements?
 ③ C. Deploy accounts using AWS Control Tower. Deploy a VPC for each workload account. Configure each VPC to route through the inspection VPC using a transit gateway connection.
 ④ D. Distribute accounts using AWS Organizations. Deploy a VPC for each workload account. Configure each VPC to route through the inspection VPC using a transit gateway connection.
 
-회사는 워크로드 격리 및 중앙 집중식 네트워크 구성 요소 관리를 목표로 하고 있습니다. 자동 보안 제어도 포함되어야 합니다.
+  회사는 워크로드 격리 및 중앙 집중식 네트워크 구성 요소 관리를 목표로 하고 있습니다. 자동 보안 제어도 포함되어야 합니다.
 
-AWS Organizations를 사용하면 중앙 집중식으로 계정을 관리할 수 있으며 워크로드 격리를 제공해 줍니다. 네트워킹 계정을 생성하여 프라이빗 서브넷과 퍼블릭 서브넷이 있는 VPC를 관리할 수 있습니다. AWS Resource Access Manager(AWS RAM)를 사용하여 워크로드 계정과 서브넷을 공유할 수 있습니다.
+  AWS Organizations를 사용하면 중앙 집중식으로 계정을 관리할 수 있으며 워크로드 격리를 제공해 줍니다. 네트워킹 계정을 생성하여 프라이빗 서브넷과 퍼블릭 서브넷이 있는 VPC를 관리할 수 있습니다. AWS Resource Access Manager(AWS RAM)를 사용하여 워크로드 계정과 서브넷을 공유할 수 있습니다.
 
-自動 보안 제어를 포함한 계정을 생성할 수 있기 때문에AWS Organizations를 사용하여 계정을 배포하고, 프라이빗 서브넷과 퍼블릭 서브넷이 있는 VPC가 있는 네트워킹 계정을 생성하여, AWS Resource Access Manager(AWS RAM)를 사용하여 워크로드 계정과 서브넷을 공유하는 것이 적절한 솔루션입니다.
+  自動 보안 제어를 포함한 계정을 생성할 수 있기 때문에AWS Organizations를 사용하여 계정을 배포하고, 프라이빗 서브넷과 퍼블릭 서브넷이 있는 VPC가 있는 네트워킹 계정을 생성하여, AWS Resource Access Manager(AWS RAM)를 사용하여 워크로드 계정과 서브넷을 공유하는 것이 적절한 솔루션입니다.
 
-정답은 2번입니다. AWS Organizations를 사용하는 것이 최적의 솔루션입니다. 이 접근법은 다음과 같은 이유로 적합합니다:
+  정답은 2번입니다. AWS Organizations를 사용하는 것이 최적의 솔루션입니다. 이 접근법은 다음과 같은 이유로 적합합니다:
 
-중앙화된 관리: AWS Organizations는 여러 AWS 계정을 중앙에서 관리할 수 있게 해줍니다. 이로 인해 네트워킹 구성 요소와 보안 정책을 효율적으로 일관성 있게 적용할 수 있습니다.
+  중앙화된 관리: AWS Organizations는 여러 AWS 계정을 중앙에서 관리할 수 있게 해줍니다. 이로 인해 네트워킹 구성 요소와 보안 정책을 효율적으로 일관성 있게 적용할 수 있습니다.
 
-중앙 보안 제어: AWS Organizations는 자동 보안 제어 기능을 통해 계정 생성 시 기본적인 가드레일을 설정할 수 있습니다. 이를 통해 각 워크로드 계정이 기본적인 보안 기준을 충족하도록 할 수 있습니다.
+  중앙 보안 제어: AWS Organizations는 자동 보안 제어 기능을 통해 계정 생성 시 기본적인 가드레일을 설정할 수 있습니다. 이를 통해 각 워크로드 계정이 기본적인 보안 기준을 충족하도록 할 수 있습니다.
 
-VPC 활용: 각 워크로드에 독립적인 VPC를 생성하되, 단일 네트워킹 계정을 통해 중앙에서 VPC의 기본 구조(프라이빗 및 퍼블릭 서브넷)를 관리할 수 있습니다. 이는 AWS Resource Access Manager (AWS RAM)를 통해 공유 리소스를 효율적으로 관리할 수 있음을 의미하지만, 각 워크로드의 격리성을 유지하는 데 있어 직접적인 서브넷 공유보다는 개별 VPC 관리가 더 적합합니다.
+  VPC 활용: 각 워크로드에 독립적인 VPC를 생성하되, 단일 네트워킹 계정을 통해 중앙에서 VPC의 기본 구조(프라이빗 및 퍼블릭 서브넷)를 관리할 수 있습니다. 이는 AWS Resource Access Manager (AWS RAM)를 통해 공유 리소스를 효율적으로 관리할 수 있음을 의미하지만, 각 워크로드의 격리성을 유지하는 데 있어 직접적인 서브넷 공유보다는 개별 VPC 관리가 더 적합합니다.
 
-1번과 4번은 서브넷 공유를 제안하는데, 이는 워크로드 간의 격리성을 저하시킬 수 있습니다. 3번은 각 워크로드에 독립 VPC를 생성하지만, 중앙 네트워킹 관리와 자동 보안 제어 측면에서 AWS Organizations의 강점을 완전히 활용하지 못합니다. 따라서, 최소한의 운영 오버헤드로 중앙 관리와 보안 제어를 동시하게 충족시키는 가장 적합한 솔루션은 2번입니다.
+  1번과 4번은 서브넷 공유를 제안하는데, 이는 워크로드 간의 격리성을 저하시킬 수 있습니다. 3번은 각 워크로드에 독립 VPC를 생성하지만, 중앙 네트워킹 관리와 자동 보안 제어 측면에서 AWS Organizations의 강점을 완전히 활용하지 못합니다. 따라서, 최소한의 운영 오버헤드로 중앙 관리와 보안 제어를 동시하게 충족시키는 가장 적합한 솔루션은 2번입니다.
 
 894. The company hosts its website on Amazon EC2 instances behind an Application Load Balancer (ALB). The website serves static content. Website traffic is increasing. The company wants to minimize website hosting costs. Which solution meets these requirements?
 ① A. Move your website to an Amazon S3 bucket. Configure an Amazon CloudFront distribution for the S3 bucket.
@@ -2123,23 +2122,23 @@ VPC 활용: 각 워크로드에 독립적인 VPC를 생성하되, 단일 네트�
 ③ C. Move your website to AWS Amplify. Configure ALB to view your Amplify website.
 ④ D. Move your website to AWS Amplify. Configure your EC2 instance to cache your website.
 
-회사는 웹사이트 호스팅 비용을 최소화하려고 합니다. 이를 위해서는 정적 콘텐츠를 제공하는 웹사이트를 적절한 서비스로 이전하여 비용을ลด 가입해야 합니다.
+  회사는 웹사이트 호스팅 비용을 최소화하려고 합니다. 이를 위해서는 정적 콘텐츠를 제공하는 웹사이트를 적절한 서비스로 이전하여 비용을ลด 가입해야 합니다.
 
-Amazon S3 버킷은 정적 콘텐츠를 저장하고 제공하기 적합한 서비스입니다. 또한 Amazon CloudFront를 사용하면 임시저장된 콘텐츠를 캐시하여 엣지 로케이션에 배포할 수 있습니다. 이렇게 하면 사용자에게 더 빠른 콘텐츠 제공과 더 낮은 비용이 가능합니다.
+  Amazon S3 버킷은 정적 콘텐츠를 저장하고 제공하기 적합한 서비스입니다. 또한 Amazon CloudFront를 사용하면 임시저장된 콘텐츠를 캐시하여 엣지 로케이션에 배포할 수 있습니다. 이렇게 하면 사용자에게 더 빠른 콘텐츠 제공과 더 낮은 비용이 가능합니다.
 
-따라서 정적 콘텐츠를 제공하는 웹사이트를 Amazon S3 버킷으로 이동시키고 S3 버킷에 대한 Amazon CloudFront 배포를 구성하는 것이 최선의 솔루션입니다. 이 접근 방식은 비용을 절감하고 웹 사이트 성능을 cải善하는 데 도움이 됩니다.
+  따라서 정적 콘텐츠를 제공하는 웹사이트를 Amazon S3 버킷으로 이동시키고 S3 버킷에 대한 Amazon CloudFront 배포를 구성하는 것이 최선의 솔루션입니다. 이 접근 방식은 비용을 절감하고 웹 사이트 성능을 cải善하는 데 도움이 됩니다.
 
-정답은 1번입니다.
+  정답은 1번입니다.
 
-정적 콘텐츠를 제공하는 웹사이트의 경우, 직접적인 서버 인스턴스 관리 없이도 효율적으로 배포하고 비용을 절감할 수 있는 방법이 필요합니다.
+  정적 콘텐츠를 제공하는 웹사이트의 경우, 직접적인 서버 인스턴스 관리 없이도 효율적으로 배포하고 비용을 절감할 수 있는 방법이 필요합니다.
 
-Amazon S3 버킷 사용: 정적 콘텐츠는 S3에 저장하면 저렴한 저장 비용과 높은 가용성을 얻을 수 있습니다.
-Amazon CloudFront 활용: S3 버킷을 CloudFront 배포와 연계하면, 전 세계적으로 캐싱 및 콘텐츠 배포를 통해 트래픽 부하를 분산시키고, 네트워크 지연 시간을 줄일 수 있습니다. 이는 추가적인 서버 비용을 최소화하고 성능을 향상시킵니다.
-다른 옵션들은 요구 사항에 부합하지 않습니다:
+  Amazon S3 버킷 사용: 정적 콘텐츠는 S3에 저장하면 저렴한 저장 비용과 높은 가용성을 얻을 수 있습니다.
+  Amazon CloudFront 활용: S3 버킷을 CloudFront 배포와 연계하면, 전 세계적으로 캐싱 및 콘텐츠 배포를 통해 트래픽 부하를 분산시키고, 네트워크 지연 시간을 줄일 수 있습니다. 이는 추가적인 서버 비용을 최소화하고 성능을 향상시킵니다.
+  다른 옵션들은 요구 사항에 부합하지 않습니다:
 
-B 옵션은 ElastiCache는 주로 데이터베이스 캐싱에 사용되며, 정적 콘텐츠 최적화에는 적합하지 않습니다.
-C와 D 옵션에서 AWS Amplify는 웹 애플리케이션 개발에 유용하지만, 정적 콘텐츠 최적화에 있어서 CloudFront와 S3의 조합만큼 비용 효율적이지 않을 수 있습니다. 특히 D 옵션은 여전히 EC2 인스턴스를 사용하므로 관리 비용과 운영 복잡성이 증가할 수 있습니다.
-따라서, 비용 최소화와 성능 최적화를 동시에 추구하는 가장 효과적인 방법은 정적 콘텐츠를 S3에 저장하고 CloudFront를 통해 배포하는 1번 옵션입니다.
+  B 옵션은 ElastiCache는 주로 데이터베이스 캐싱에 사용되며, 정적 콘텐츠 최적화에는 적합하지 않습니다.
+  C와 D 옵션에서 AWS Amplify는 웹 애플리케이션 개발에 유용하지만, 정적 콘텐츠 최적화에 있어서 CloudFront와 S3의 조합만큼 비용 효율적이지 않을 수 있습니다. 특히 D 옵션은 여전히 EC2 인스턴스를 사용하므로 관리 비용과 운영 복잡성이 증가할 수 있습니다.
+  따라서, 비용 최소화와 성능 최적화를 동시에 추구하는 가장 효과적인 방법은 정적 콘텐츠를 S3에 저장하고 CloudFront를 통해 배포하는 1번 옵션입니다.
 
 895. A company is implementing a shared storage solution for its media application hosted on AWS. The company needs the ability to access stored data using SMB clients. What solution meets these requirements with minimal management overhead?
 ① A. Create an AWS Storage Gateway volume gateway. Create a file share using the required client protocol. Connect your application server to the file share.
@@ -2147,18 +2146,18 @@ C와 D 옵션에서 AWS Amplify는 웹 애플리케이션 개발에 유용하지
 ③ C. Create an Amazon EC2 Windows instance. Install and configure the Windows File Sharing role on the instance. Connect the application server to the file share.
 ④ D. Create an Amazon FSx file system for your Windows file server. Connect your application servers to the file system.
 
-최소한의 관리 오버헤드로 SMB 클라이언트를 사용하여 저장된 데이터에 액세스할 수 있는 기능을 제공하는 솔루션은 Windows 파일 서버용 Amazon FSx 파일 시스템을 생성하여 애플리케이션 서버를 파일 시스템에 연결하는 것입니다. 이 방법은 관리 오버헤드를 줄여주면서도 SMB 클라이언트를 사용하여 데이터에 액세스할 수 있는 기능을 제공합니다. 다른 방법들은 관리 오버헤드가 더 클 수 있으며, 필요한 기능을 제공하지 않을 수 있습니다. 따라서 Windows 파일 서버용 Amazon FSx 파일 시스템을 사용하는 것이 최적의 솔루션입니다.
+  최소한의 관리 오버헤드로 SMB 클라이언트를 사용하여 저장된 데이터에 액세스할 수 있는 기능을 제공하는 솔루션은 Windows 파일 서버용 Amazon FSx 파일 시스템을 생성하여 애플리케이션 서버를 파일 시스템에 연결하는 것입니다. 이 방법은 관리 오버헤드를 줄여주면서도 SMB 클라이언트를 사용하여 데이터에 액세스할 수 있는 기능을 제공합니다. 다른 방법들은 관리 오버헤드가 더 클 수 있으며, 필요한 기능을 제공하지 않을 수 있습니다. 따라서 Windows 파일 서버용 Amazon FSx 파일 시스템을 사용하는 것이 최적의 솔루션입니다.
 
-정답은 4번입니다. Amazon FSx for Windows File Server는 AWS에서 관리되는 완전 관리형 서비스로, SMB 프로토콜을 지원하여 기존 Windows 환경과 원활한 호환성을 제공합니다. 이 솔루션은 다음과 같은 이유로 적합합니다:
+  정답은 4번입니다. Amazon FSx for Windows File Server는 AWS에서 관리되는 완전 관리형 서비스로, SMB 프로토콜을 지원하여 기존 Windows 환경과 원활한 호환성을 제공합니다. 이 솔루션은 다음과 같은 이유로 적합합니다:
 
-최소화된 관리 오버헤드: FSx는 AWS가 직접 관리하므로, 파일 시스템의 패치, 업데이트, 성능 최적화 등 복잡한 관리 작업이 필요 없습니다.
-SMB 액세스: 애플리케이션에서 요구하는 대로 SMB 클라이언트를 통한 직접적인 파일 액세스가 가능합니다.
-고가용성 및 확장성: 내장된 고가용성 기능과 쉽게 확장 가능한 용량으로 안정적이고 유연한 스토리지 환경을 제공합니다.
-다른 옵션들과 비교했을 때:
+  최소화된 관리 오버헤드: FSx는 AWS가 직접 관리하므로, 파일 시스템의 패치, 업데이트, 성능 최적화 등 복잡한 관리 작업이 필요 없습니다.
+  SMB 액세스: 애플리케이션에서 요구하는 대로 SMB 클라이언트를 통한 직접적인 파일 액세스가 가능합니다.
+  고가용성 및 확장성: 내장된 고가용성 기능과 쉽게 확장 가능한 용량으로 안정적이고 유연한 스토리지 환경을 제공합니다.
+  다른 옵션들과 비교했을 때:
 
-1번의 AWS Storage Gateway는 주로 온프레미스 스토리지와 AWS 클라우드 스토리지 간의 중개 역할을 하는데 초점을 맞추고 있어, 직접적인 SMB 액세스와 관리 편의성 측면에서 제한적입니다.
-2번의 테이프 게이트웨이는 백업 및 아카이브 용도에 더 적합하며, 실시간 SMB 액세스를 제공하지 않습니다.
-3번의 EC2 인스턴스 기반 파일 공유는 수동 관리가 필요하며, 인스턴스의 유지보수와 보안 설정 등 추가적인 오버헤드가 발생합니다.
+  1번의 AWS Storage Gateway는 주로 온프레미스 스토리지와 AWS 클라우드 스토리지 간의 중개 역할을 하는데 초점을 맞추고 있어, 직접적인 SMB 액세스와 관리 편의성 측면에서 제한적입니다.
+  2번의 테이프 게이트웨이는 백업 및 아카이브 용도에 더 적합하며, 실시간 SMB 액세스를 제공하지 않습니다.
+  3번의 EC2 인스턴스 기반 파일 공유는 수동 관리가 필요하며, 인스턴스의 유지보수와 보안 설정 등 추가적인 오버헤드가 발생합니다.
 
 896. A company is designing a disaster recovery (DR) strategy for its production application. The application is supported by a MySQL database on an Amazon Aurora cluster in the us-east-1 region. The company has selected the us-west-1 region as its DR region.
 The company's target recovery point objective (RPO) is 5 minutes and its target recovery time objective (RTO) is 20 minutes. The company wants to minimize configuration changes.
@@ -2168,22 +2167,22 @@ What solution will meet these requirements with the most efficient operational e
 ③ C. Create a new Aurora cluster in us-west-1 with cross-region replication.
 ④ D. Create a new Aurora cluster in us-west-1. Synchronize both clusters using AWS Database Migration Service (AWS DMS).
 
-회사의 목표는 5분의 RPO와 20분의 RTO를 달성하면서 구성 변경을 최소화하는 것입니다. 이 요구 사항을 충족하는 가장 효율적인 솔루션은 Aurora 클러스터를 Aurora 글로벌 데이터베이스로 변환하고 관리형 장애 조치를 구성하는 것입니다.
+  회사의 목표는 5분의 RPO와 20분의 RTO를 달성하면서 구성 변경을 최소화하는 것입니다. 이 요구 사항을 충족하는 가장 효율적인 솔루션은 Aurora 클러스터를 Aurora 글로벌 데이터베이스로 변환하고 관리형 장애 조치를 구성하는 것입니다.
 
-이러한 접근 방식은 장애가 발생할 경우 us-west-1 지역에서 자동으로 장애 조치를 수행할 수 있으므로 RTO 요구 사항을 충족할 수 있습니다. 또한 글로벌 데이터베이스는 데이터를 실시간으로 복제하므로 RPO 요구 사항도 충족할 수 있습니다.
+  이러한 접근 방식은 장애가 발생할 경우 us-west-1 지역에서 자동으로 장애 조치를 수행할 수 있으므로 RTO 요구 사항을 충족할 수 있습니다. 또한 글로벌 데이터베이스는 데이터를 실시간으로 복제하므로 RPO 요구 사항도 충족할 수 있습니다.
 
-他の 옵션은 이러한 요구 사항을 충족하지 못하거나 구성 변경이 더 많이 필요할 수 있습니다. 예를 들어, 읽기 전용 복제본을 생성하거나 교차 리전 복제를 사용하는 경우 데이터를 수동으로 동기화하거나 구성 변경이 더 많이 필요할 수 있습니다.
+  他の 옵션은 이러한 요구 사항을 충족하지 못하거나 구성 변경이 더 많이 필요할 수 있습니다. 예를 들어, 읽기 전용 복제본을 생성하거나 교차 리전 복제를 사용하는 경우 데이터를 수동으로 동기화하거나 구성 변경이 더 많이 필요할 수 있습니다.
 
-따라서 Aurora 클러스터를 Aurora 글로벌 데이터베이스로 변환하고 관리형 장애 조치를 구성하는 것이 가장 효율적인 솔루션입니다.
+  따라서 Aurora 클러스터를 Aurora 글로벌 데이터베이스로 변환하고 관리형 장애 조치를 구성하는 것이 가장 효율적인 솔루션입니다.
 
-회사의 재해 복구 목표인 RPO 5분과 RTO 20분을 효과적으로 달성하고 구성 변경을 최소화하려면, B 옵션이 가장 적합합니다.
+  회사의 재해 복구 목표인 RPO 5분과 RTO 20분을 효과적으로 달성하고 구성 변경을 최소화하려면, B 옵션이 가장 적합합니다.
 
-B 옵션은 Aurora 글로벌 데이터베이스를 활용하는 방법입니다. 이 솔루션은 다음과 같은 이점을 제공합니다:
+  B 옵션은 Aurora 글로벌 데이터베이스를 활용하는 방법입니다. 이 솔루션은 다음과 같은 이점을 제공합니다:
 
-실시간 복제: Aurora 글로벌 데이터베이스는 자동으로 리전 간성 실시간 복제를 지원하므로 RPO 5분을 쉽게 만족시킵니다.
-자동 장애 조치: 내장된 관리형 장애 조치 기능 덕분에 DR 상황 발생 시 수동 개입 없이 문제 지역에서 복구 지역으로 빠르게 전환이 가능해 RTO 20분을 충족할 수 있습니다.
-구성 최소화: 기존 구성을 크게 변경하지 않고 글로벌 데이터베이스로 업그레이드만 하면 되므로, 회사의 요구 사항인 구성 변경 최소화를 실현할 수 있습니다.
-A 옵션은 읽기 전용 복제본만 제공해 DR 상황에서 데이터 동기화 지연이 발생할 수 있습니다. C 옵션과 D 옵션은 별도의 클러스터 생성 및 추가적인 동기화 서비스 필요로 인해 복잡성과 관리 부담이 증가하며, RTO와 RPO 목표 달성에 대한 보안이 덜합니다. 따라서, 가장 효율적이고 간단한 솔루션은 B 옵션입니다.
+  실시간 복제: Aurora 글로벌 데이터베이스는 자동으로 리전 간성 실시간 복제를 지원하므로 RPO 5분을 쉽게 만족시킵니다.
+  자동 장애 조치: 내장된 관리형 장애 조치 기능 덕분에 DR 상황 발생 시 수동 개입 없이 문제 지역에서 복구 지역으로 빠르게 전환이 가능해 RTO 20분을 충족할 수 있습니다.
+  구성 최소화: 기존 구성을 크게 변경하지 않고 글로벌 데이터베이스로 업그레이드만 하면 되므로, 회사의 요구 사항인 구성 변경 최소화를 실현할 수 있습니다.
+  A 옵션은 읽기 전용 복제본만 제공해 DR 상황에서 데이터 동기화 지연이 발생할 수 있습니다. C 옵션과 D 옵션은 별도의 클러스터 생성 및 추가적인 동기화 서비스 필요로 인해 복잡성과 관리 부담이 증가하며, RTO와 RPO 목표 달성에 대한 보안이 덜합니다. 따라서, 가장 효율적이고 간단한 솔루션은 B 옵션입니다.
 
 897. The company runs a critical data analysis task every week before the first day of the week. The task requires at least an hour to complete the analysis. The task is stateful and cannot be interrupted. The company needs a solution to run the task on AWS. Which solution meets these requirements?
 ① A. Create a container for the task. Use Amazon EventBridge Scheduler to schedule the task to run as an AWS Fargate task on an Amazon Elastic Container Service (Amazon ECS) cluster.
@@ -2191,20 +2190,20 @@ A 옵션은 읽기 전용 복제본만 제공해 DR 상황에서 데이터 동�
 ③ C. Configure an Auto Scaling group of Amazon EC2 Spot Instances running Amazon Linux. Configure a crontab entry on the instances to run the analysis.
 ④ D. Configure an AWS DataSync task to run the task. Configure a cron expression to run the task on a schedule.
 
-정답인 1번은 상태를 저장하며 중단을 허용할 수 없는 작업에 적합합니다. Amazon ECS 클러스터에서 AWS Fargate 작업으로 실행되도록 예약하기 때문입니다. 이론상으로는 상태를 저장할 수 없는 AWS Lambda에서 실행하거나 Auto Scaling 그룹을 구성하여 EC2 인스턴스에서 실행하는것 보다 가장 적합한 방법으로 보입니다. AWS DataSync 작업은 주로 데이터 동기화에 사용되므로 이러한 작업에는 적합하지 않습니다.
+  정답인 1번은 상태를 저장하며 중단을 허용할 수 없는 작업에 적합합니다. Amazon ECS 클러스터에서 AWS Fargate 작업으로 실행되도록 예약하기 때문입니다. 이론상으로는 상태를 저장할 수 없는 AWS Lambda에서 실행하거나 Auto Scaling 그룹을 구성하여 EC2 인스턴스에서 실행하는것 보다 가장 적합한 방법으로 보입니다. AWS DataSync 작업은 주로 데이터 동기화에 사용되므로 이러한 작업에는 적합하지 않습니다.
 
-회사의 요구 사항은 중단 없이 실행되어야 하며, 고정된 시간(최소 1시간)이 필요한 데이터 분석 작업을 매주 일정한 시간에 자동으로 실행하는 것입니다. 각 옵션을 살펴보면:
+  회사의 요구 사항은 중단 없이 실행되어야 하며, 고정된 시간(최소 1시간)이 필요한 데이터 분석 작업을 매주 일정한 시간에 자동으로 실행하는 것입니다. 각 옵션을 살펴보면:
 
-B 옵션 (AWS Lambda): Lambda 함수는 일반적으로 짧은 실행 시간을 목표로 하며, 설정된 시간 제한(예: 15분 이상의 확장 가능하지만 여전히 제한적)을 초과하는 장시간 작업에 적합하지 않습니다.
-C 옵션 (EC2 스팟 인스턴스): EC2 인스턴스는 유연하지만, 스팟 인스턴스의 가용성 불안정성과 관리 복잡성은 요구 사항에 맞지 않습니다. 또한, Spot 인스턴스의 중단 가능성은 작업의 중단 없는 실행을 보장하지 않습니다.
-D 옵션 (AWS DataSync): DataSync는 주로 대용량 데이터의 동기화에 사용되며, 복잡한 분석 작업을 직접 실행하는 데 적합하지 않습니다.
-정답: 1번 등은 다음과 같이 적합합니다:
+  B 옵션 (AWS Lambda): Lambda 함수는 일반적으로 짧은 실행 시간을 목표로 하며, 설정된 시간 제한(예: 15분 이상의 확장 가능하지만 여전히 제한적)을 초과하는 장시간 작업에 적합하지 않습니다.
+  C 옵션 (EC2 스팟 인스턴스): EC2 인스턴스는 유연하지만, 스팟 인스턴스의 가용성 불안정성과 관리 복잡성은 요구 사항에 맞지 않습니다. 또한, Spot 인스턴스의 중단 가능성은 작업의 중단 없는 실행을 보장하지 않습니다.
+  D 옵션 (AWS DataSync): DataSync는 주로 대용량 데이터의 동기화에 사용되며, 복잡한 분석 작업을 직접 실행하는 데 적합하지 않습니다.
+  정답: 1번 등은 다음과 같이 적합합니다:
 
-Amazon ECS와 AWS Fargate:
-상태 저장 및 중단 불가능성: Fargate는 컨테이너 기반으로 작업의 상태를 유지하고 전체 작업이 완료되는 동안 실행될 수 있어 중단 없이 작업을 보장합니다.
-예약 및 자동화: Amazon EventBridge Scheduler를 사용하면 정확한 일정에 맞춰 작업을 예약할 수 있습니다. 이는 매주 일정 시간에 분석 작업을 자동으로 시작하도록 설정하는 데 이상적입니다.
-시간 요구 사항: Fargate는 장시간 작업을 지원하므로 최소 1시간이 필요한 분석 작업을 처리할 수 있습니다.
-따라서, 주어진 조건을 가장 잘 충족하는 솔루션은 1번 옵션입니다.
+  Amazon ECS와 AWS Fargate:
+  상태 저장 및 중단 불가능성: Fargate는 컨테이너 기반으로 작업의 상태를 유지하고 전체 작업이 완료되는 동안 실행될 수 있어 중단 없이 작업을 보장합니다.
+  예약 및 자동화: Amazon EventBridge Scheduler를 사용하면 정확한 일정에 맞춰 작업을 예약할 수 있습니다. 이는 매주 일정 시간에 분석 작업을 자동으로 시작하도록 설정하는 데 이상적입니다.
+  시간 요구 사항: Fargate는 장시간 작업을 지원하므로 최소 1시간이 필요한 분석 작업을 처리할 수 있습니다.
+  따라서, 주어진 조건을 가장 잘 충족하는 솔루션은 1번 옵션입니다.
 
 898. A company runs workloads in the AWS cloud. It wants to centrally collect security data to assess company-wide security and improve workload protection. What solution can meet these requirements with minimal development effort?
 ① A. Build a data lake in AWS Lake Formation. Use AWS Glue crawlers to ingest security data into the data lake.
@@ -2212,17 +2211,17 @@ Amazon ECS와 AWS Fargate:
 ③ C. Configure a data lake in Amazon Security Lake to collect security data. Upload the data to an Amazon S3 bucket.
 ④ D. Configure an AWS Database Migration Service (AWS DMS) replication instance to load security data into an Amazon RDS cluster.
 
-회사는 보안 데이터를 중앙에서 수집하여 회사 전체의 보안을 평가하고 워크로드 보호를 개선하고자 합니다. 이를 위해 최소한의 개발 노력으로 이러한 요구 사항을 충족하는 솔루션을 찾고 있습니다.
+  회사는 보안 데이터를 중앙에서 수집하여 회사 전체의 보안을 평가하고 워크로드 보호를 개선하고자 합니다. 이를 위해 최소한의 개발 노력으로 이러한 요구 사항을 충족하는 솔루션을 찾고 있습니다.
 
-이 경우, Amazon Security Lake를 사용하여 보안 데이터를 수집하고 데이터 레이크를 구성하는 것이 적절한 솔루션입니다. Amazon Security Lake는 보안 관련 데이터를 한 곳에集中하여 분석하고 평가할 수 있는 서비스로, 회사의 보안을 평가하고 워크로드 보호를 개선하는 데 도움이 됩니다.
+  이 경우, Amazon Security Lake를 사용하여 보안 데이터를 수집하고 데이터 레이크를 구성하는 것이 적절한 솔루션입니다. Amazon Security Lake는 보안 관련 데이터를 한 곳에集中하여 분석하고 평가할 수 있는 서비스로, 회사의 보안을 평가하고 워크로드 보호를 개선하는 데 도움이 됩니다.
 
-따라서, 정답은 C입니다. 다른 옵션은 회사의 요구 사항을 충족하지 않거나, 더 많은 개발 노력이 필요하여 적절한 솔루션이 아닙니다.
+  따라서, 정답은 C입니다. 다른 옵션은 회사의 요구 사항을 충족하지 않거나, 더 많은 개발 노력이 필요하여 적절한 솔루션이 아닙니다.
 
-Amazon Security Lake는 보안 관련 데이터를 중앙 집중적으로 수집하고 관리하도록 설계된 서비스입니다. 이 서비스는 여러 AWS 서비스와 외부 소스에서 보안 데이터를 자동으로 수집하여 분석과 모니터링을 용이하게 합니다. 이를 통해 회사는 최소한의 개발 노력으로 보안 데이터를 효율적으로 통합하고 분석할 수 있습니다.
+  Amazon Security Lake는 보안 관련 데이터를 중앙 집중적으로 수집하고 관리하도록 설계된 서비스입니다. 이 서비스는 여러 AWS 서비스와 외부 소스에서 보안 데이터를 자동으로 수집하여 분석과 모니터링을 용이하게 합니다. 이를 통해 회사는 최소한의 개발 노력으로 보안 데이터를 효율적으로 통합하고 분석할 수 있습니다.
 
-1번 옵션의 AWS Lake Formation과 AWS Glue는 데이터 레이크 구축에 유용하지만, 보안 특화 기능이 부족합니다. 2번 옵션의 AWS Lambda와 S3는 데이터 저장에 적합하지만, 중앙 집중적 보안 데이터 관리와 분석을 위한 특화된 기능이 부족합니다. 4번 옵션의 AWS DMS와 RDS는 주로 데이터베이스 마이그레이션과 관리에 초점을 맞추고 있어 보안 데이터의 중앙집합 및 분석에는 적합하지 않습니다.
+  1번 옵션의 AWS Lake Formation과 AWS Glue는 데이터 레이크 구축에 유용하지만, 보안 특화 기능이 부족합니다. 2번 옵션의 AWS Lambda와 S3는 데이터 저장에 적합하지만, 중앙 집중적 보안 데이터 관리와 분석을 위한 특화된 기능이 부족합니다. 4번 옵션의 AWS DMS와 RDS는 주로 데이터베이스 마이그레이션과 관리에 초점을 맞추고 있어 보안 데이터의 중앙집합 및 분석에는 적합하지 않습니다.
 
-따라서, 보안 데이터의 중앙 집중적 수집과 관리, 그리고 향상된 보안 평가와 워크로드 보호를 위한 가장 적합한 솔루션은 Amazon Security Lake (C 옵션)입니다.
+  따라서, 보안 데이터의 중앙 집중적 수집과 관리, 그리고 향상된 보안 평가와 워크로드 보호를 위한 가장 적합한 솔루션은 Amazon Security Lake (C 옵션)입니다.
 
 899. A company is migrating five on-premises applications to a VPC in the AWS Cloud. Each application is currently deployed in an isolated virtual network on-premises and needs to be similarly deployed in the AWS Cloud. The applications must be connected to a shared services VPC. All applications must be able to communicate with each other.
 If the migration is successful, the company plans to repeat the migration process for over 100 applications.
@@ -2232,19 +2231,19 @@ What solution can meet these requirements with minimal management overhead?
 ③ C. Deploy an AWS Direct Connect connection that routes from the application VPC to the shared services VPC and application VPC in the shared services VPC subnet. Add a route from the shared services VPC subnet to the application VPC.
 ④ D. Deploy a transit gateway with connections between the application VPC and the shared services VPC. Add a route between the application VPC and the shared services VPC for the corresponding subnet through the transit gateway.
 
-회사는 온프레미스 애플리케이션을 AWS 클라우드의 VPC로 마이그레이션하고 있습니다. 각 애플리케이션은 현재 격리된 가상 네트워크에 배포되어 있습니다. 따라서 AWS 클라우드에도 유사한 배포가 필요하며, 애플리케이션은 공유 서비스 VPC에 연결되어야 합니다.
+  회사는 온프레미스 애플리케이션을 AWS 클라우드의 VPC로 마이그레이션하고 있습니다. 각 애플리케이션은 현재 격리된 가상 네트워크에 배포되어 있습니다. 따라서 AWS 클라우드에도 유사한 배포가 필요하며, 애플리케이션은 공유 서비스 VPC에 연결되어야 합니다.
 
-이러한 요구 사항을 충족하는 최소한의 관리 오버헤드 솔루션은 전송 게이트웨이를 사용하는 것입니다. 전송 게이트웨이는 중앙의 허브 역할을 하여 여러 VPC와 공유 서비스 VPC 간의 통신을 가능하게 합니다. 따라서 각 애플리케이션 VPC와 공유 서비스 VPC에 대한 경로를 추가하여 모든 애플리케이션이 서로 통신할 수 있게 합니다.
+  이러한 요구 사항을 충족하는 최소한의 관리 오버헤드 솔루션은 전송 게이트웨이를 사용하는 것입니다. 전송 게이트웨이는 중앙의 허브 역할을 하여 여러 VPC와 공유 서비스 VPC 간의 통신을 가능하게 합니다. 따라서 각 애플리케이션 VPC와 공유 서비스 VPC에 대한 경로를 추가하여 모든 애플리케이션이 서로 통신할 수 있게 합니다.
 
-적용 예로, 전송 게이트웨이를 배포하면 각 애플리케이션 VPC와 공유 서비스 VPC 간의 연결을 설정할 수 있으며, 이는 관리 오버헤드를 최소화하는 솔루션입니다. 또한, 전송 게이트웨이는 하나의 중앙 허브로 여러 VPC를 연결해 줌으로써, Scalability와 관리 효율성을 제공합니다.
+  적용 예로, 전송 게이트웨이를 배포하면 각 애플리케이션 VPC와 공유 서비스 VPC 간의 연결을 설정할 수 있으며, 이는 관리 오버헤드를 최소화하는 솔루션입니다. 또한, 전송 게이트웨이는 하나의 중앙 허브로 여러 VPC를 연결해 줌으로써, Scalability와 관리 효율성을 제공합니다.
 
-따라서, 정답은 4번입니다. 전송 게이트웨이를 사용하면 여러 애플리케이션 VPC와 공유 서비스 VPC 간의 통신을 효율적으로 관리할 수 있습니다.
+  따라서, 정답은 4번입니다. 전송 게이트웨이를 사용하면 여러 애플리케이션 VPC와 공유 서비스 VPC 간의 통신을 효율적으로 관리할 수 있습니다.
 
-정답은 4번입니다. A회사가 요구하는 아키텍처는 확장성과 관리 오버헤드 최소화를 중요시합니다.
+  정답은 4번입니다. A회사가 요구하는 아키텍처는 확장성과 관리 오버헤드 최소화를 중요시합니다.
 
-1번 옵션의 소프트웨어 VPN은 수동 설정이 필요하고, 많은 VPC 간 연결을 관리하기 어렵습니다. 2번의 VPC 피어링은 VPC 간 직접 연결을 제공하지만, 대규모 확장성과 중앙 관리 기능이 부족합니다. 3번의 AWS Direct Connect는 고정된 연결을 제공하지만, 여러 VPC 간의 동적 관리와 확장성 측면에서 제약이 있습니다.
+  1번 옵션의 소프트웨어 VPN은 수동 설정이 필요하고, 많은 VPC 간 연결을 관리하기 어렵습니다. 2번의 VPC 피어링은 VPC 간 직접 연결을 제공하지만, 대규모 확장성과 중앙 관리 기능이 부족합니다. 3번의 AWS Direct Connect는 고정된 연결을 제공하지만, 여러 VPC 간의 동적 관리와 확장성 측면에서 제약이 있습니다.
 
-4번 옵션인 전송 게이트웨이(Transit Gateway)는 이러한 문제를 해결합니다. Transit Gateway는 여러 VPC와 온프레미스 환경을 중앙에서 관리할 수 있어, 애플리케이션 VPC들과 공유 서비스 VPC 간의 통신을 간편하게 처리하고 확장이 용이합니다. 또한, 중앙 집중식 라우팅 관리로 인해 오버헤드를 최소화하며, 100개 이상의 애플리케이션에 대한 반복적인 마이그레이션 프로세스에도 효과적입니다. 이는 회사의 장기적인 확장 전략에 가장 적합한 솔루션입니다.
+  4번 옵션인 전송 게이트웨이(Transit Gateway)는 이러한 문제를 해결합니다. Transit Gateway는 여러 VPC와 온프레미스 환경을 중앙에서 관리할 수 있어, 애플리케이션 VPC들과 공유 서비스 VPC 간의 통신을 간편하게 처리하고 확장이 용이합니다. 또한, 중앙 집중식 라우팅 관리로 인해 오버헤드를 최소화하며, 100개 이상의 애플리케이션에 대한 반복적인 마이그레이션 프로세스에도 효과적입니다. 이는 회사의 장기적인 확장 전략에 가장 적합한 솔루션입니다.
 
 900. A company wants to run an on-premises application in a hybrid environment using Amazon Elastic Container Service (Amazon ECS). The application currently runs in an on-premises container.
 The company needs a single container solution that can scale across on-premises, hybrid, or cloud environments. The company needs to run the new application container in the AWS Cloud and use a load balancer for HTTP traffic.
@@ -2255,25 +2254,25 @@ What combination of actions would meet these requirements? (Choose two.)
 ④ D. Set up an ECS cluster using the AWS Fargate launch type. Use Fargate for both cloud application containers and on-premises application containers.
 ⑤ E. Set up an ECS cluster using the Amazon EC2 launch type for cloud application containers. Use Amazon ECS Anywhere with the AWS Fargate launch type for on-premises application containers.
 
-회사는 온프레미스와 하이브리드 또는 클라우드 환경에서 확장할 수 있는 단일 컨테이너 솔루션이 필요합니다. 회사는 AWS 클라우드에서 새로운 애플리케이션 컨테이너를 실행해야 하며 HTTP 트래픽용 로드 밸런서를 사용해야 합니다.
+  회사는 온프레미스와 하이브리드 또는 클라우드 환경에서 확장할 수 있는 단일 컨테이너 솔루션이 필요합니다. 회사는 AWS 클라우드에서 새로운 애플리케이션 컨테이너를 실행해야 하며 HTTP 트래픽용 로드 밸런서를 사용해야 합니다.
 
-이러한 요구 사항을 충족하는 작업 조합을 찾는 데 있습니다. 2개의 작업을 선택해야 하는데 다음 두 가지 방법이 있습니다.
+  이러한 요구 사항을 충족하는 작업 조합을 찾는 데 있습니다. 2개의 작업을 선택해야 하는데 다음 두 가지 방법이 있습니다.
 
-첫 번째 방법은 클라우드 애플리케이션 컨테이너에 대해 AWS Fargate 시작 유형을 사용하는 ECS 클러스터를 설정하고 온프레미스 애플리케이션 컨테이너에는 Amazon ECS Anywhere 외부 시작 유형을 사용하는 것입니다.
+  첫 번째 방법은 클라우드 애플리케이션 컨테이너에 대해 AWS Fargate 시작 유형을 사용하는 ECS 클러스터를 설정하고 온프레미스 애플리케이션 컨테이너에는 Amazon ECS Anywhere 외부 시작 유형을 사용하는 것입니다.
 
-두 번째 방법은 클라우드 ECS 서비스를 위한 Application Load Balancer를 설정하는 것인데 이는 HTTP 트래픽용 로드 밸런서를 사용해야 한다는 요구 사항을 충족합니다.
+  두 번째 방법은 클라우드 ECS 서비스를 위한 Application Load Balancer를 설정하는 것인데 이는 HTTP 트래픽용 로드 밸런서를 사용해야 한다는 요구 사항을 충족합니다.
 
-따라서 두 번째 방법이 더 적절한 선택입니다. 다른 방법을 사용할 경우 AWS 클라우드에서 새로운 애플리케이션 컨테이너를 실행해야 한다는 요구 사항을 만족시키지 못합니다.
+  따라서 두 번째 방법이 더 적절한 선택입니다. 다른 방법을 사용할 경우 AWS 클라우드에서 새로운 애플리케이션 컨테이너를 실행해야 한다는 요구 사항을 만족시키지 못합니다.
 
-따라서 정답은 클라우드 애플리케이션 컨테이너에 대해 AWS Fargate 시작 유형을 사용하는 ECS 클러스터를 설정하고 온프레미스 애플리케이션 컨테이너에는 Amazon ECS Anywhere 외부 시작 유형을 사용하며 클라우드 ECS 서비스를 위한 Application Load Balancer를 설정하는 것입니다.
+  따라서 정답은 클라우드 애플리케이션 컨테이너에 대해 AWS Fargate 시작 유형을 사용하는 ECS 클러스터를 설정하고 온프레미스 애플리케이션 컨테이너에는 Amazon ECS Anywhere 외부 시작 유형을 사용하며 클라우드 ECS 서비스를 위한 Application Load Balancer를 설정하는 것입니다.
 
-문제의 핵심은 하이브리드 환경에서 온프레미스와 클라우드 양쪽의 애플리케이션 컨테이너를 확장 가능하게 실행하면서, 클라우드 측에는 HTTP 트래픽을 처리할 수 있는 로드 밸런서를 구축하는 방법을 찾는 것입니다.
+  문제의 핵심은 하이브리드 환경에서 온프레미스와 클라우드 양쪽의 애플리케이션 컨테이너를 확장 가능하게 실행하면서, 클라우드 측에는 HTTP 트래픽을 처리할 수 있는 로드 밸런서를 구축하는 방법을 찾는 것입니다.
 
-옵션 B는 클라우드 내 ECS 서비스에 Application Load Balancer를 설정하는 방법을 제시합니다. 이는 HTTP 트래픽을 효과적으로 분산시키고 관리하는 데 필요한 조건을 충족합니다.
-옵션 A와 D는 온프레미스와 클라우드 모두에 Fargate 또는 ECS 클러스터를 사용하는 방법을 제시하지만, 문제에서 명시적으로 요구한 HTTP 트래픽을 위한 로드 밸런서 설정에 대한 직접적인 해결책을 제공하지 않습니다. 특히 온프레미스 환경에서의 Fargate 지원은 제한적입니다.
-옵션 C는 Network Load Balancer를 제시하지만, 이는 주로 TCP/UDP 트래픽에 더 적합하며 문제에서 요구하는 HTTP 트래픽 처리에는 적합하지 않습니다.
-옵션 E는 EC2와 Fargate를 혼합 사용하는 방법을 제시하지만, 역시 HTTP 트래픽을 위한 로드 밸런서 설정에 대한 명확한 해결책을 제공하지 않으며, 온프레미스 환경에서의 구현도 복잡합니다.
-따라서, 주어진 요구 사항 중 특히 HTTP 트래픽을 위한 로드 밸런서 설정이라는 핵심 요소를 충족시키는 작업 조합은 2번 (클라우드 ECS 서비스를 위한 Application Load Balancer 설정)입니다. 다른 요구 사항들을 충족시키기 위한 추가적인 구성이 필요할 수 있으나, 주어진 보기 중에서는 이 옵션이 가장 적합합니다.
+  옵션 B는 클라우드 내 ECS 서비스에 Application Load Balancer를 설정하는 방법을 제시합니다. 이는 HTTP 트래픽을 효과적으로 분산시키고 관리하는 데 필요한 조건을 충족합니다.
+  옵션 A와 D는 온프레미스와 클라우드 모두에 Fargate 또는 ECS 클러스터를 사용하는 방법을 제시하지만, 문제에서 명시적으로 요구한 HTTP 트래픽을 위한 로드 밸런서 설정에 대한 직접적인 해결책을 제공하지 않습니다. 특히 온프레미스 환경에서의 Fargate 지원은 제한적입니다.
+  옵션 C는 Network Load Balancer를 제시하지만, 이는 주로 TCP/UDP 트래픽에 더 적합하며 문제에서 요구하는 HTTP 트래픽 처리에는 적합하지 않습니다.
+  옵션 E는 EC2와 Fargate를 혼합 사용하는 방법을 제시하지만, 역시 HTTP 트래픽을 위한 로드 밸런서 설정에 대한 명확한 해결책을 제공하지 않으며, 온프레미스 환경에서의 구현도 복잡합니다.
+  따라서, 주어진 요구 사항 중 특히 HTTP 트래픽을 위한 로드 밸런서 설정이라는 핵심 요소를 충족시키는 작업 조합은 2번 (클라우드 ECS 서비스를 위한 Application Load Balancer 설정)입니다. 다른 요구 사항들을 충족시키기 위한 추가적인 구성이 필요할 수 있으나, 주어진 보기 중에서는 이 옵션이 가장 적합합니다.
 
 901. A company is migrating its workloads to AWS. The company has sensitive and critical data in its on-premises relational database running on a SQL Server instance. The company wants to use the AWS Cloud to enhance security and reduce database operational overhead. Which solution meets these requirements?
 ① A. Migrate the database to an Amazon EC2 instance. Use AWS Key Management Service (AWS KMS) AWS-managed keys for encryption.
@@ -2281,17 +2280,17 @@ What combination of actions would meet these requirements? (Choose two.)
 ③ C. Migrate data to an Amazon S3 bucket. Use Amazon Macie to ensure data security.
 ④ D. Migrate your database to an Amazon DynamoDB table. Use Amazon CloudWatch Logs to ensure data security.
 
-회사가 보안을 강화하고 운영 오버헤드를 줄일 수 있는 솔루션은 관계형 데이터베이스를 SQL Server DB 인스턴스용 다중 AZ Amazon RDS로 마이그레이션하는 것입니다. 암호화를 위해 AWS Key Management Service(AWS KMS) AWS 관리형 키를 사용하여 데이터를 보호할 수 있습니다. 이렇게 하면 데이터베이스의 가용성과 내구성을 높일 수 있으며, 자동 백업과 패치 같은 관리 기능을 이용할 수 있습니다. 또한 다중 AZ를 사용하면 고가용성을 제공할 수 있으므로 데이터베이스의 운영 오버헤드를 줄일 수 있습니다.
+  회사가 보안을 강화하고 운영 오버헤드를 줄일 수 있는 솔루션은 관계형 데이터베이스를 SQL Server DB 인스턴스용 다중 AZ Amazon RDS로 마이그레이션하는 것입니다. 암호화를 위해 AWS Key Management Service(AWS KMS) AWS 관리형 키를 사용하여 데이터를 보호할 수 있습니다. 이렇게 하면 데이터베이스의 가용성과 내구성을 높일 수 있으며, 자동 백업과 패치 같은 관리 기능을 이용할 수 있습니다. 또한 다중 AZ를 사용하면 고가용성을 제공할 수 있으므로 데이터베이스의 운영 오버헤드를 줄일 수 있습니다.
 
-회사의 요구 사항은 민감한 데이터의 보안 강화와 운영 오버헤드 감소입니다. 이에 따라 가장 적합한 솔루션은:
+  회사의 요구 사항은 민감한 데이터의 보안 강화와 운영 오버헤드 감소입니다. 이에 따라 가장 적합한 솔루션은:
 
-2번: SQL Server 데이터베이스를 다중 AZ(Availability Zone) 설정의 Amazon RDS 인스턴스로 마이그레이션하는 것입니다. RDS는 관리형 서비스이므로 운영 오버헤드를 크게 줄일 수 있습니다. 또한, AWS KMS를 활용한 암호화는 데이터 보안을 강화합니다. 다중 AZ 옵션은 고가용성과 재해 복구를 지원하여 데이터의 안정성과 신뢰성을 높입니다.
-다른 옵션들은 다음과 같은 이유로 적합하지 않습니다:
+  2번: SQL Server 데이터베이스를 다중 AZ(Availability Zone) 설정의 Amazon RDS 인스턴스로 마이그레이션하는 것입니다. RDS는 관리형 서비스이므로 운영 오버헤드를 크게 줄일 수 있습니다. 또한, AWS KMS를 활용한 암호화는 데이터 보안을 강화합니다. 다중 AZ 옵션은 고가용성과 재해 복구를 지원하여 데이터의 안정성과 신뢰성을 높입니다.
+  다른 옵션들은 다음과 같은 이유로 적합하지 않습니다:
 
-1번: EC2 인스턴스로 직접 관리하는 방식은 여전히 높은 운영 오버헤드를 수반합니다.
-3번: S3는 객체 스토리지이며, 관계형 데이터베이스의 복잡한 트랜잭션 처리와 직접적인 SQL 지원이 부족합니다. Macie는 데이터 탐지 및 보호에 도움이 되지만, 데이터베이스 운영 자체의 효율성은 크게 개선되지 않습니다.
-4번: DynamoDB는 NoSQL 데이터베이스로, 기존 SQL Server의 관계형 데이터베이스 특성을 완전히 대체하기 어렵습니다. 또한, CloudWatch Logs는 모니터링과 로깅에 중점을 두며, 직접적인 데이터 보안 강화에는 한계가 있습니다.
-따라서, 보안과 운영 효율성을 동시에 만족시키는 최적의 선택은 2번입니다.
+  1번: EC2 인스턴스로 직접 관리하는 방식은 여전히 높은 운영 오버헤드를 수반합니다.
+  3번: S3는 객체 스토리지이며, 관계형 데이터베이스의 복잡한 트랜잭션 처리와 직접적인 SQL 지원이 부족합니다. Macie는 데이터 탐지 및 보호에 도움이 되지만, 데이터베이스 운영 자체의 효율성은 크게 개선되지 않습니다.
+  4번: DynamoDB는 NoSQL 데이터베이스로, 기존 SQL Server의 관계형 데이터베이스 특성을 완전히 대체하기 어렵습니다. 또한, CloudWatch Logs는 모니터링과 로깅에 중점을 두며, 직접적인 데이터 보안 강화에는 한계가 있습니다.
+  따라서, 보안과 운영 효율성을 동시에 만족시키는 최적의 선택은 2번입니다.
 
 902. My company is planning to migrate its applications to AWS. The company wants to improve the current availability of its applications. The company plans to use AWS WAF in its application architecture. Which solution meets these requirements?
 ① A. Create an Auto Scaling group containing multiple Amazon EC2 instances that host your application across two Availability Zones. Configure an Application Load Balancer (ALB) and set the Auto Scaling group as the target. Connect WAF to the ALB.
@@ -2299,20 +2298,20 @@ What combination of actions would meet these requirements? (Choose two.)
 ③ C. Create two Amazon EC2 instances to host the application across two Availability Zones. Configure the EC2 instances as targets for an Application Load Balancer (ALB). Connect the WAF to the ALB.
 ④ D. Create an Auto Scaling group containing multiple Amazon EC2 instances that host the application across two Availability Zones. Configure an Application Load Balancer (ALB) and set the Auto Scaling group as the target. Attach WAF to the Auto Scaling group.
 
-애플리케이션의 가용성을 높이기 위해 여러 개의 가용 영역에서 실행되는 인스턴스를 사용해야 한다. 또한 Auto Scaling 그룹을 사용하여 인스턴스의 수를 자동으로 조정할 수 있어야 한다. 또한 Application Load Balancer를 사용하여 트래픽을 분산하고, WAF를 연결하여 보안을 강화할 수 있어야 한다.
-이러한 요구 사항을 충족하는 솔루션은 두 개의 가용 영역에 걸쳐 애플리케이션을 호스팅하는 여러 Amazon EC2 인스턴스를 포함하는 Auto Scaling 그룹을 생성하고, Application Load Balancer를 구성하여 Auto Scaling 그룹을 대상으로 설정한 후, WAF를 ALB에 연결하는 것이다. 이 솔루션은 가용성과 확장성을 제공同时 보안도 강화한다.
+  애플리케이션의 가용성을 높이기 위해 여러 개의 가용 영역에서 실행되는 인스턴스를 사용해야 한다. 또한 Auto Scaling 그룹을 사용하여 인스턴스의 수를 자동으로 조정할 수 있어야 한다. 또한 Application Load Balancer를 사용하여 트래픽을 분산하고, WAF를 연결하여 보안을 강화할 수 있어야 한다.
+  이러한 요구 사항을 충족하는 솔루션은 두 개의 가용 영역에 걸쳐 애플리케이션을 호스팅하는 여러 Amazon EC2 인스턴스를 포함하는 Auto Scaling 그룹을 생성하고, Application Load Balancer를 구성하여 Auto Scaling 그룹을 대상으로 설정한 후, WAF를 ALB에 연결하는 것이다. 이 솔루션은 가용성과 확장성을 제공同时 보안도 강화한다.
 
-정답은 1번입니다. 회사의 요구 사항을 충족하는 가장 효과적인 방법은 다음과 같은 이유들로 인해 1번 옵션이 적합합니다:
+  정답은 1번입니다. 회사의 요구 사항을 충족하는 가장 효과적인 방법은 다음과 같은 이유들로 인해 1번 옵션이 적합합니다:
 
-다중 가용 영역 활용: 두 개의 가용 영역에 걸쳐 EC2 인스턴스를 배치하여 자연스러운 재해 복구와 높은 가용성을 달성합니다. 이는 단일 영역의 장애로 인한 서비스 중단을 방지합니다.
+  다중 가용 영역 활용: 두 개의 가용 영역에 걸쳐 EC2 인스턴스를 배치하여 자연스러운 재해 복구와 높은 가용성을 달성합니다. 이는 단일 영역의 장애로 인한 서비스 중단을 방지합니다.
 
-Auto Scaling 그룹: 자동 확장 기능을 통해 트래픽 변동에 따라 동적으로 리소스를 조정할 수 있어, 효율적인 자원 관리와 성능 최적화를 제공합니다.
+  Auto Scaling 그룹: 자동 확장 기능을 통해 트래픽 변동에 따라 동적으로 리소스를 조정할 수 있어, 효율적인 자원 관리와 성능 최적화를 제공합니다.
 
-Application Load Balancer (ALB): 여러 인스턴스로 트래픽을 분산시켜 부하를 균형 있게 분배하고, 고가용성과 확장성을 보장합니다.
+  Application Load Balancer (ALB): 여러 인스턴스로 트래픽을 분산시켜 부하를 균형 있게 분배하고, 고가용성과 확장성을 보장합니다.
 
-AWS WAF 연결: WAF를 ALB에 직접 연결함으로써, 애플리케이션 레벨에서의 악성 요청 필터링과 보안 강화를 실현합니다. 이렇게 하면 보안과 가용성이 동시에 향상됩니다.
+  AWS WAF 연결: WAF를 ALB에 직접 연결함으로써, 애플리케이션 레벨에서의 악성 요청 필터링과 보안 강화를 실현합니다. 이렇게 하면 보안과 가용성이 동시에 향상됩니다.
 
-옵션 2와 3은 클러스터 배치 그룹이나 고정된 수의 인스턴스를 사용하여 유연성과 확장성 측면에서 한계가 있으며, 옵션 4는 WAF를 Auto Scaling 그룹이 아닌 ALB에 연결해야 하므로 잘못 구성되었습니다. 따라서, 가용성과 보안을 동시에 최적화하는 가장 적합한 해결책은 1번입니다.
+  옵션 2와 3은 클러스터 배치 그룹이나 고정된 수의 인스턴스를 사용하여 유연성과 확장성 측면에서 한계가 있으며, 옵션 4는 WAF를 Auto Scaling 그룹이 아닌 ALB에 연결해야 하므로 잘못 구성되었습니다. 따라서, 가용성과 보안을 동시에 최적화하는 가장 적합한 해결책은 1번입니다.
 
 903. A company manages a data lake in an Amazon S3 bucket accessed by numerous applications. Each S3 bucket contains a unique prefix for each application. The company wants to restrict each application to a specific prefix and have granular control over the objects under each prefix. What solution can meet these requirements with minimal operational overhead?
 ① A. Create a dedicated S3 access point and access point policy for each application.
@@ -2320,23 +2319,23 @@ AWS WAF 연결: WAF를 ALB에 직접 연결함으로써, 애플리케이션 레�
 ③ C. Replicate objects from the S3 bucket to new S3 buckets for each application. Create replication rules for each prefix.
 ④ D. Replicate objects in the S3 bucket to a new S3 bucket for each application. Create a dedicated S3 access point for each application.
 
-이 회사의 요구 사항은 액세스 제한과 세부적인 개체 제어입니다. 각 애플리케이션을 특정 접두사로 제한하고, 접두사 아래의 개체를 세부적으로 제어하는 최소한의 운영 오버헤드를 가진 솔루션을 찾기 위해 다음과 같은 방법을 생각할 수 있습니다.
+  이 회사의 요구 사항은 액세스 제한과 세부적인 개체 제어입니다. 각 애플리케이션을 특정 접두사로 제한하고, 접두사 아래의 개체를 세부적으로 제어하는 최소한의 운영 오버헤드를 가진 솔루션을 찾기 위해 다음과 같은 방법을 생각할 수 있습니다.
 
-S3 배치 작업은 대량의 객체에 동일한 작업을 수행하는 좋은 방법입니다. ACL 권한을 설정하여 각 애플리케이션에 대한 접근을 제한할 수 있습니다.ACL은 객체 수준에서 사용자와 그룹에 대한 읽기 및 쓰기 권한을 정의하는 데 사용할 수 있습니다.
+  S3 배치 작업은 대량의 객체에 동일한 작업을 수행하는 좋은 방법입니다. ACL 권한을 설정하여 각 애플리케이션에 대한 접근을 제한할 수 있습니다.ACL은 객체 수준에서 사용자와 그룹에 대한 읽기 및 쓰기 권한을 정의하는 데 사용할 수 있습니다.
 
-따라서 S3 배치 작업을 사용하여 각 객체에 대한 ACL 권한을 설정하여 각 애플리케이션을 특정 접두사로 제한하고, 접두사 아래의 개체를 세부적으로 제어할 수 있습니다. 다른 방법은 운영 오버헤드가 더 크거나, 불필요한 복제나 추가 설정이 필요하므로, 최소한의 운영 오버헤드로 요구 사항을 충족하는 솔루션은 S3 배치 작업을 사용하는 것입니다.
+  따라서 S3 배치 작업을 사용하여 각 객체에 대한 ACL 권한을 설정하여 각 애플리케이션을 특정 접두사로 제한하고, 접두사 아래의 개체를 세부적으로 제어할 수 있습니다. 다른 방법은 운영 오버헤드가 더 크거나, 불필요한 복제나 추가 설정이 필요하므로, 최소한의 운영 오버헤드로 요구 사항을 충족하는 솔루션은 S3 배치 작업을 사용하는 것입니다.
 
-주어진 문제에서 회사는 최소한의 운영 오버헤드로 애플리케이션별 데이터 접근을 세분화하고 제어하려 합니다. 각 애플리케이션에 고유 접두사를 사용하는 상황에서 가장 효율적인 방법은 다음과 같습니다:
+  주어진 문제에서 회사는 최소한의 운영 오버헤드로 애플리케이션별 데이터 접근을 세분화하고 제어하려 합니다. 각 애플리케이션에 고유 접두사를 사용하는 상황에서 가장 효율적인 방법은 다음과 같습니다:
 
-정답: B
+  정답: B
 
-B 옵션: S3 배치 작업을 통해 각 객체에 대한 ACL(Access Control List) 권한을 설정하는 방법은, 일괄 처리로 접근 제어를 구현할 수 있어 운영 오버헤드를 최소화합니다. 각 애플리케이션의 접두사 아래에 있는 객체에 대해 세밀한 권한 설정이 가능하며, 기존 버킷 구조를 변경하거나 복잡한 복제 과정 없이도 요구 사항을 충족시킬 수 있습니다.
-다른 옵션 분석:
+  B 옵션: S3 배치 작업을 통해 각 객체에 대한 ACL(Access Control List) 권한을 설정하는 방법은, 일괄 처리로 접근 제어를 구현할 수 있어 운영 오버헤드를 최소화합니다. 각 애플리케이션의 접두사 아래에 있는 객체에 대해 세밀한 권한 설정이 가능하며, 기존 버킷 구조를 변경하거나 복잡한 복제 과정 없이도 요구 사항을 충족시킬 수 있습니다.
+  다른 옵션 분석:
 
-A 옵션: 액세스 포인트와 정책을 각 애플리케이션별로 생성하면 관리 복잡성이 증가하고, 운영 오버헤드가 늘어납니다.
-C 옵션: 객체를 애플리케이션별로 다른 버킷에 복제하면 데이터 관리와 복제 유지 관리에 상당한 리소스가 필요합니다.
-D 옵션: 이 옵션도 C와 유사하게 복제 과정이 필요하여 운영 비용과 복잡성이 증가합니다. 또한, 액세스 포인트 생성만으로는 접두사 기반의 세밀한 제어가 제한적일 수 있습니다.
-따라서, 최소한의 관리 노력으로 애플리케이션별 데이터 접근을 효과적으로 제어하려면 S3 배치 작업을 활용한 ACL 설정이 가장 적합합니다.
+  A 옵션: 액세스 포인트와 정책을 각 애플리케이션별로 생성하면 관리 복잡성이 증가하고, 운영 오버헤드가 늘어납니다.
+  C 옵션: 객체를 애플리케이션별로 다른 버킷에 복제하면 데이터 관리와 복제 유지 관리에 상당한 리소스가 필요합니다.
+  D 옵션: 이 옵션도 C와 유사하게 복제 과정이 필요하여 운영 비용과 복잡성이 증가합니다. 또한, 액세스 포인트 생성만으로는 접두사 기반의 세밀한 제어가 제한적일 수 있습니다.
+  따라서, 최소한의 관리 노력으로 애플리케이션별 데이터 접근을 효과적으로 제어하려면 S3 배치 작업을 활용한 ACL 설정이 가장 적합합니다.
 
 904. A company has an application that allows customers to upload images to an Amazon S3 bucket. Every night, the company launches an Amazon EC2 Spot Fleet to process all the images it receives that day. Each image takes two minutes to process and requires 512 MB of memory.
 The solution architect needs to modify the application to process images as they are uploaded.
@@ -2347,26 +2346,26 @@ What change would most cost-effectively meet this requirement?
 ③ C. Use S3 event notifications to post a message containing image details to an Amazon SNS (Amazon SNS) topic. Subscribe to the topic and configure a container instance in Amazon Elastic Container Service (Amazon ECS) to process the image.
 ④ D. Use S3 event notifications to post a message containing image details to an Amazon SNS topic. Configure your AWS Elastic Beanstalk application to subscribe to the topic and process the image.
 
-정답은 1번입니다.
+  정답은 1번입니다.
 
-S3 이벤트 알림을 사용하여 Amazon SQS 대기열에 이미지 세부 정보가 포함된 메시지를 쓰고, AWS Lambda 함수를 사용하여 이미지를 처리하는 것이 가장 비용 효율적인 방법입니다.
+  S3 이벤트 알림을 사용하여 Amazon SQS 대기열에 이미지 세부 정보가 포함된 메시지를 쓰고, AWS Lambda 함수를 사용하여 이미지를 처리하는 것이 가장 비용 효율적인 방법입니다.
 
-이러한 이유로 인해 1번이 정답입니다:
+  이러한 이유로 인해 1번이 정답입니다:
 
-AWS Lambda 함수는 서버리스 컴퓨팅 서비스로, 이미지 처리 시에만 비용이 발생합니다.
-EC2 예약 인스턴스, Amazon ECS, Elastic Beanstalk은 서버가 항상 실행 중인 경우 비용이 발생합니다.
-따라서, 이미지를 처리하는 데 사용되는 컴퓨팅 리소스를 최적화하여 비용을 절감할 수 있습니다.
-또한, SQS와 Lambda를 사용하면 이미지 처리가 자동으로 수행되므로, 수동으로 EC2 스팟 인스턴스를 시작하고 종료할 필요가 없습니다.
+  AWS Lambda 함수는 서버리스 컴퓨팅 서비스로, 이미지 처리 시에만 비용이 발생합니다.
+  EC2 예약 인스턴스, Amazon ECS, Elastic Beanstalk은 서버가 항상 실행 중인 경우 비용이 발생합니다.
+  따라서, 이미지를 처리하는 데 사용되는 컴퓨팅 리소스를 최적화하여 비용을 절감할 수 있습니다.
+  또한, SQS와 Lambda를 사용하면 이미지 처리가 자동으로 수행되므로, 수동으로 EC2 스팟 인스턴스를 시작하고 종료할 필요가 없습니다.
 
-정답은 1번입니다. 이유는 다음과 같습니다:
+  정답은 1번입니다. 이유는 다음과 같습니다:
 
-비용 효율성: AWS Lambda는 서버리스 아키텍처를 제공하므로, 실제 실행 시간에만 비용이 발생합니다. 이미지 처리가 필요할 때만 자동으로 실행되어, 기존의 EC2 스팟 인스턴스나 예약 인스턴스처럼 지속적인 비용이 발생하지 않습니다. 이는 특히 이미지 처리가 간헐적으로 발생하는 경우에 매우 경제적입니다.
+  비용 효율성: AWS Lambda는 서버리스 아키텍처를 제공하므로, 실제 실행 시간에만 비용이 발생합니다. 이미지 처리가 필요할 때만 자동으로 실행되어, 기존의 EC2 스팟 인스턴스나 예약 인스턴스처럼 지속적인 비용이 발생하지 않습니다. 이는 특히 이미지 처리가 간헐적으로 발생하는 경우에 매우 경제적입니다.
 
-자동 확장: Lambda는 요청량에 따라 자동으로 확장됩니다. 즉, 이미지 업로드가 급증하더라도 추가 설정 없이도 처리 능력을 동적으로 늘릴 수 있습니다. 이는 EC2 기반 솔루션(옵션 B, C, D)에 비해 관리 부담을 줄이고 효율성을 높입니다.
+  자동 확장: Lambda는 요청량에 따라 자동으로 확장됩니다. 즉, 이미지 업로드가 급증하더라도 추가 설정 없이도 처리 능력을 동적으로 늘릴 수 있습니다. 이는 EC2 기반 솔루션(옵션 B, C, D)에 비해 관리 부담을 줄이고 효율성을 높입니다.
 
-간결성과 유지보수: SQS와 Lambda의 조합은 간단하고 유지보수가 용이합니다. 메시지 큐(SQS)를 통해 안정적인 메시지 전달이 보장되며, Lambda 함수는 단일 목적(이미지 처리)에 최적화되어 있어 복잡성을 최소화합니다.
+  간결성과 유지보수: SQS와 Lambda의 조합은 간단하고 유지보수가 용이합니다. 메시지 큐(SQS)를 통해 안정적인 메시지 전달이 보장되며, Lambda 함수는 단일 목적(이미지 처리)에 최적화되어 있어 복잡성을 최소화합니다.
 
-옵션 B(EC2 예약 인스턴스)는 예측 가능한 워크로드에 더 적합하고, C와 D(ECS, Elastic Beanstalk)는 컨테이너 관리와 추가적인 오버헤드를 필요로 하므로, 요구 사항에 비해 비용과 복잡성이 높아집니다. 따라서 1번이 가장 비용 효율적이고 적합한 솔루션입니다.
+  옵션 B(EC2 예약 인스턴스)는 예측 가능한 워크로드에 더 적합하고, C와 D(ECS, Elastic Beanstalk)는 컨테이너 관리와 추가적인 오버헤드를 필요로 하므로, 요구 사항에 비해 비용과 복잡성이 높아집니다. 따라서 1번이 가장 비용 효율적이고 적합한 솔루션입니다.
 
 ## 문제
 - <https://www.examtopics.com/exams/amazon/aws-certified-solutions-architect-associate-saa-c03/view/>
