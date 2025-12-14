@@ -13,35 +13,26 @@ mermaid: true
 ② B. Deploy your entire website on Amazon EC2 instances running in an Auto Scaling group across multiple Availability Zones. Add an Application Load Balancer (ALB) to distribute website traffic. Add another ALB for your backend API. Store your data in Amazon RDS for MySQL.
 ③ C. Migrate the entire application to run in containers. Host the containers on Amazon Elastic Kubernetes Service (Amazon EKS). Use Kubernetes Cluster Autoscaler to increase or decrease the number of pods to handle traffic bursts. Store data in Amazon RDS for MySQL.
 **④ D. Host your website's static content using an Amazon S3 bucket. Deploy an Amazon CloudFront distribution. Set the S3 bucket as the origin. Use Amazon API Gateway and AWS Lambda functions for the backend API. Store data in Amazon DynamoDB.**
-```
   최소한의 운영 오버헤드로 하루에 수백만 건의 요청을 처리할 수 있는 솔루션은 AWS의 서버리스 아키텍처를 사용하는 것이다. 정적 콘텐츠는 Amazon S3 버킷에 호스팅되고, Amazon CloudFront 배포를 사용하여 콘텐츠를 캐시하고 전달한다. 백엔드 API에는 Amazon API Gateway와 AWS Lambda 함수를 사용하여 서버리스로 구축하고, 데이터는 Amazon DynamoDB에 저장한다.这样하면 피크 시간에도 밀리초의 대기 시간으로 요청을 처리할 수 있고, 운영 오버헤드도 최소화할 수 있다.
-
   1번 (S3 + CloudFront): 정적 콘텐츠에 적합하지만, 실시간 주문 처리와 같은 동적 기능을 지원하기에는 부족합니다.
   2번 (EC2 + RDS): 높은 성능을 위해 EC2와 RDS를 사용할 수 있지만, Auto Scaling 설정 및 관리에 오버헤드가 발생합니다.
   3번 (EKS + RDS): 컨테이너 기반 접근 방식은 유연성이 높지만, 복잡한 배포 및 관리가 필요합니다.
   정답인 4번 (S3 + CloudFront + API Gateway + Lambda + DynamoDB)은 다음과 같은 이유로 최적입니다.
-
   Amazon S3와 CloudFront: 정적 웹 콘텐츠를 효율적으로 제공하며, CloudFront의 캐싱 기능으로 피크 시간대 성능을 향상시킵니다.
   API Gateway + Lambda: 백엔드 API를 서버리스 방식으로 구현하여 확장성과 관리 용이성을 높입니다.
   DynamoDB: NoSQL 데이터베이스로 트래픽 변동에 유연하게 대응하며, 스케일링이 자동화되어 운영 부담을 줄입니다.
-```
+
 22. A solution architect is designing a storage architecture for a new digital media application using Amazon S3. Media files must be resilient even if an Availability Zone is lost. Some files are accessed frequently, while others are accessed infrequently and in unpredictable patterns. The solution architect needs to minimize the cost of storing and retrieving media files.
 Which storage option meets these requirements?
 ① A. S3 Standard
 ② B. S3 Intelligent-Tiering
 ③ C. S3 Standard-Infrequent Access (S3 Standard-IA)
 ④ D. S3 One Zone-Infrequent Access(S3 One Zone-IA)
-
   주어진 요구 사항을 충족하는 최적의 옵션은 B. S3 지능형 계층화(S3 Intelligent-Tiering)입니다.
-
   복원력: S3 Intelligent-Tiering은 기본적으로 다중 가용 영역에 데이터를 저장할 수 있도록 설정되어 있어, 일부 가용 영역의 손실에도 데이터를 보호합니다. 단, 이는 가용 영역 복제를 명시적으로 활성화해야 완전히 보장되지만, 기본적으로 높은 가용성을 제공합니다.
-
   액세스 패턴 다양성: 이 옵션은 자동으로 자주 액세스되는 데이터와 그렇지 않은 데이터를 감지하여 비용 효율적인 스토리지 티어로 자동 이동시킵니다. 자주 액세스되는 파일은 더 빠른 액세스 성능을 유지하면서, 거의 액세스되지 않는 파일은 비용 절감을 위해 저렴한 티어로 자동 이동됩니다.
-
   비용 최적화: 자동화된 계층화 기능 덕분에 자주 사용되는 파일과 그렇지 않은 파일에 대해 각각 최적의 비용 구조를 적용할 수 있습니다. 이는 예측 불가능한 액세스 패턴을 가진 파일들에 대해 특히 유리합니다.
-
   다른 옵션들과 비교했을 때,
-
   S3 표준은 일관된 고성능을 제공하지만, 액세스 패턴에 따른 비용 최적화는 제한적입니다.
   S3 스탠다드-IA는 자주 액세스되지 않는 데이터에 저렴한 비용을 제공하지만, 자동화된 액세스 패턴 인식 기능이 없습니다.
   S3 One Zone-IA는 비용 효율적이지만 단일 가용 영역에 데이터를 저장하므로 가용성 측면에서 약점이 있습니다.
@@ -1471,7 +1462,7 @@ What actions can be taken to meet this requirement?
 ③ C. Create a Service Control Policy (SCP) that prohibits changes to CloudTrail and attach it to your developer account.
 ④ D. Create a service-linked role for CloudTrail with a policy condition that allows changes only to the Amazon Resource Name (ARN) of the master account.
 
-  새 개발자 계정에 적용되는 필수 AWS CloudTrail 구성이 수정되지 않았는지 확인하려면 CloudTrail 변경을 금지하는 서비스 제어 정책(SCP)을 생성하고 이를 개발자 계정에 연결해야 합니다.这样하면 개발자가 자신의 계정에서 CloudTrail 설정을 수정할 수 없게 됩니다. 이것이 SCP의 목적이기 때문입니다. 따라서 서비스 제어 정책을 생성하고 이를 개발자 계정에 연결함으로써 솔루션 아키텍트의 요구 사항을 충족할 수 있습니다.
+  새 개발자 계정에 적용되는 필수 AWS CloudTrail 구성이 수정되지 않았는지 확인하려면 CloudTrail 변경을 금지하는 서비스 제어 정책(SCP)을 생성하고 이를 개발자 계정에 연결해야 합니다. 개발자가 자신의 계정에서 CloudTrail 설정을 수정할 수 없게 됩니다. 이것이 SCP의 목적이기 때문입니다. 따라서 서비스 제어 정책을 생성하고 이를 개발자 계정에 연결함으로써 솔루션 아키텍트의 요구 사항을 충족할 수 있습니다.
 
   정답은 3번입니다. 회사가 AWS Organizations를 통해 여러 개발자 계정을 관리하며, 각 개발자에게 루트 사용자 수준의 액세스 권한을 부여하면서도 CloudTrail 설정이 무단으로 변경되지 않도록 보호하려면, 서비스 제어 정책 (SCP)을 활용하는 것이 가장 효과적입니다.
 
