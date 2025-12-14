@@ -42,7 +42,7 @@ Which storage option meets these requirements?
 ② B. Create an S3 lifecycle configuration to transition objects from S3 Standard to S3 Glacier Deep Archive after one month.
 ③ C. Create an S3 lifecycle configuration to transition objects from S3 Standard to S3 Standard-Infrequent Access (S3 Standard-IA) after one month.
 ④ D. Create an S3 lifecycle configuration to transition objects from S3 Standard to S3 One Zone-Infrequent Access (S3 One Zone-IA) after one month.<br/><br/>
-  Amazon S3에는 다양한 스토리지 클래스가 있으며, 클래스는 비용과 데이터 접근 빈도수에 따라 달라집니다. 会社에서 1ヶ月間 자주 접속되는 파일을 저장하고, 그 이후에는 접근할 수 없지만 무기한 보관해야 하는 경우, 비용을 효율적으로 절약하면서 요구 사항을 충족하는 스토리지 솔루션을 찾는 것입니다. 이러한 경우, 초기에는 자주 접근되는 파일을 위한 S3 Standard 스토리지를 사용한 후, 1개월 후에 접근 빈도가 낮아지는 파일을 위한 저렴한 스토리지 클래스로 전환하는 것이 좋습니다.S3 Glacier Deep Archive는 매우 저렴한 비용으로 장기간에 걸쳐 데이터를 보관할 수 있는 스토리지 클래스로, 1개월 후에 접근할 수 없는 파일을 S3 Standard에서 S3 Glacier Deep Archive로 전환하기 위한 S3 수명 주기 구성을 생성하는 것이 가장 비용 효율적으로 요구 사항을 충족하는 방법입니다.
+  Amazon S3에는 다양한 스토리지 클래스가 있으며, 클래스는 비용과 데이터 접근 빈도수에 따라 달라집니다. 자주 접속되는 파일을 저장하고, 그 이후에는 접근할 수 없지만 무기한 보관해야 하는 경우, 비용을 효율적으로 절약하면서 요구 사항을 충족하는 스토리지 솔루션을 찾는 것입니다. 이러한 경우, 초기에는 자주 접근되는 파일을 위한 S3 Standard 스토리지를 사용한 후, 1개월 후에 접근 빈도가 낮아지는 파일을 위한 저렴한 스토리지 클래스로 전환하는 것이 좋습니다.S3 Glacier Deep Archive는 매우 저렴한 비용으로 장기간에 걸쳐 데이터를 보관할 수 있는 스토리지 클래스로, 1개월 후에 접근할 수 없는 파일을 S3 Standard에서 S3 Glacier Deep Archive로 전환하기 위한 S3 수명 주기 구성을 생성하는 것이 가장 비용 효율적으로 요구 사항을 충족하는 방법입니다.
   회사의 요구 사항은 1개월 동안 빈번한 접근 후 무기한 저렴한 비용으로 보관하는 것이다.
   1번 옵션의 S3 Intelligent-Tiering은 사용량에 따라 자동으로 데이터를 재배치하지만, 장기 보관 비용을 최적화하는 데는 적합하지 않다.
   3번과 4번 옵션의 S3 Standard-IA 및 S3 One Zone-IA는 액세스 빈도가 낮은 데이터에 더 적합하며, 여전히 비교적 높은 비용이 들 수 있다.
@@ -54,7 +54,7 @@ How can the solutions architect generate this information while minimizing opera
 ② B. Use Cost Explorer's granular filtering capabilities to perform in-depth analysis of your EC2 costs based on instance type.
 ③ C. Use the graphs on the AWS Billing and Cost Management dashboard to compare your EC2 costs by instance type over the past two months.
 ④ D. Generate a report using the AWS Cost and Usage Report and send it to an Amazon S3 bucket. Use Amazon QuickSight as a source with Amazon S3 to create interactive graphs based on instance type.<br/><br/>
-  INTRROAR (운영 오버헤드 최소화) _cost Explorer의 세분화된 필터링 기능을 사용하면 인스턴스 유형별 EC2 비용에 대한 심층 분석을 쉽게 수행할 수 있습니다. 이는 가장 효율적인 방법입니다. AWS 예산, AWS Billing and Cost Management 대시보드, AWS 비용 및 사용 보고서를 사용하면 정보를 생성할 수 있지만, 이들보다 Cost Explorer가 더 간단하고 효율적입니다. 따라서 Cost Explorer의 세분화된 필터링 기능을 사용하는 것이 가장 좋습니다.
+  INTRROAR (운영 오버헤드 최소화) Cost Explorer의 세분화된 필터링 기능을 사용하면 인스턴스 유형별 EC2 비용에 대한 심층 분석을 쉽게 수행할 수 있습니다. 이는 가장 효율적인 방법입니다. AWS 예산, AWS Billing and Cost Management 대시보드, AWS 비용 및 사용 보고서를 사용하면 정보를 생성할 수 있지만, 이들보다 Cost Explorer가 더 간단하고 효율적입니다. 따라서 Cost Explorer의 세분화된 필터링 기능을 사용하는 것이 가장 좋습니다.
   Cost Explorer는 고급 필터링과 세분화된 분석 기능을 제공하여 특정 기간과 인스턴스 유형별 비용 변화를 쉽게 파악할 수 있게 합니다. 이 방법은 다음과 같은 이유로 가장 적합합니다:
   즉시성: 실시간 데이터 분석이 가능해, 최근 2개월간의 비용 변동을 빠르게 비교 분석할 수 있습니다.
   깊이 있는 분석: 인스턴스 유형별로 비용을 세분화해 분석할 수 있어, 수직 확장의 정확한 원인을 쉽게 식별할 수 있습니다.
