@@ -19,6 +19,11 @@ nvm on
 nvm uninstall v20.18.0
 ```
 
+## PowerShell에서 실행 안 되는 경우
+```bash
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
 ## 버전 확인 및 캐시 삭제
 ```bash
 nvm -version
